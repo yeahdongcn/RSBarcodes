@@ -81,12 +81,12 @@
     [self.output setMetadataObjectsDelegate:self queue:queue];
     if ([self.session canAddOutput:self.output]) {
         [self.session addOutput:self.output];
-        if (!self.metadataObjectTypes) {
-            NSMutableArray *metadataObjectTypes = [NSMutableArray arrayWithArray:self.output.availableMetadataObjectTypes];
-            [metadataObjectTypes removeObject:AVMetadataObjectTypeFace];
-            self.metadataObjectTypes = [NSArray arrayWithArray:metadataObjectTypes];
+        if (!self.codeObjectTypes) {
+            NSMutableArray *codeObjectTypes = [NSMutableArray arrayWithArray:self.output.availableMetadataObjectTypes];
+            [codeObjectTypes removeObject:AVMetadataObjectTypeFace];
+            self.codeObjectTypes = [NSArray arrayWithArray:codeObjectTypes];
         }
-        self.output.metadataObjectTypes = self.metadataObjectTypes;
+        self.output.metadataObjectTypes = self.codeObjectTypes;
     }
     
     [self.view bringSubviewToFront:self.highlightView];
@@ -157,16 +157,16 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
     for (AVMetadataObject *metadata in metadataObjects) {
-        AVMetadataMachineReadableCodeObject *barCodeObject = (AVMetadataMachineReadableCodeObject *)[self.layer transformedMetadataObjectForMetadataObject:(AVMetadataMachineReadableCodeObject *)metadata];
-        if ([barCodeObject respondsToSelector:@selector(corners)]) {
-            self.highlightView.corners = barCodeObject.corners;
+        AVMetadataMachineReadableCodeObject *codeObject = (AVMetadataMachineReadableCodeObject *)[self.layer transformedMetadataObjectForMetadataObject:(AVMetadataMachineReadableCodeObject *)metadata];
+        if ([codeObject respondsToSelector:@selector(corners)]) {
+            self.highlightView.corners = codeObject.corners;
         }
         /*
         self.highlightView.borderRect = barCodeObject.bounds;
          */
         
 #ifdef DEBUG
-        self.codeView.code = [[RSMultiTypeCodeGenerator codeGen] encode:[barCodeObject stringValue] type:[barCodeObject type]];
+        self.codeView.code = [[RSMultiTypeCodeGenerator codeGen] encode:[codeObject stringValue] codeObjectType:[codeObject type]];
 #endif
     }
     

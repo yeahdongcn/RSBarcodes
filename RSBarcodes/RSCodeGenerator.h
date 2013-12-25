@@ -12,17 +12,17 @@
 
 @protocol RSCodeGenerator <NSObject>
 
-- (UIImage *)encode:(NSString *)contents type:(NSString *)type;
+- (UIImage *)encode:(NSString *)contents codeObjectType:(NSString *)codeObjectType;
 
 @end
 
-static inline NSString* filterName(NSString *type)
+static inline NSString* getfilterName(NSString *codeObjectType)
 {
-    if ([type isEqualToString:AVMetadataObjectTypeQRCode]) {
+    if ([codeObjectType isEqualToString:AVMetadataObjectTypeQRCode]) {
         return @"CIQRCodeGenerator";
-    } else if ([type isEqualToString:AVMetadataObjectTypePDF417Code]) {
+    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypePDF417Code]) {
         return @"CIPDF417BarcodeGenerator";
-    } else if ([type isEqualToString:AVMetadataObjectTypeAztecCode]) {
+    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeAztecCode]) {
         return @"CIAztecCodeGenerator";
     }
     return nil;

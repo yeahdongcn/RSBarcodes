@@ -15,12 +15,12 @@
     return [[RSMultiTypeCodeGenerator alloc] init];
 }
 
-- (UIImage *)encode:(NSString *)contents type:(NSString *)type
+- (UIImage *)encode:(NSString *)contents codeObjectType:(NSString *)codeObjectType
 {
-    if ([type isEqualToString:AVMetadataObjectTypeQRCode]
-        || [type isEqualToString:AVMetadataObjectTypePDF417Code]
-        || [type isEqualToString:AVMetadataObjectTypeAztecCode]) {
-        return genCode(contents, filterName(type));
+    if ([codeObjectType isEqualToString:AVMetadataObjectTypeQRCode]
+        || [codeObjectType isEqualToString:AVMetadataObjectTypePDF417Code]
+        || [codeObjectType isEqualToString:AVMetadataObjectTypeAztecCode]) {
+        return genCode(contents, getfilterName(codeObjectType));
     }
     return nil;
 }

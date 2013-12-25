@@ -45,9 +45,9 @@
     return self;
 }
 
-- (void)setCode:(UIImage *)mark
+- (void)setCode:(UIImage *)code
 {
-    _code = mark;
+    _code = code;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsDisplay];
@@ -64,7 +64,7 @@
     
     CGContextSaveGState(context);
 
-    CGContextDrawImage(context, rect, [self.code CGImage]);
+    CGContextDrawImage(context, self.bounds, [self.code CGImage]);
     
     CGContextRestoreGState(context);
 }
