@@ -13,8 +13,8 @@
 #import <AVFoundation/AVFoundation.h>
 
 #ifdef DEBUG
-#import "RSMarkView.h"
-#import "RSMarkGen.h"
+#import "RSCodeView.h"
+#import "RSCodeGen.h"
 #endif
 
 @interface RSScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
@@ -28,7 +28,7 @@
 @property (nonatomic, weak) IBOutlet RSCornersView       *highlightView;
 
 #ifdef DEBUG
-@property (nonatomic, weak) IBOutlet RSMarkView          *markView;
+@property (nonatomic, weak) IBOutlet RSCodeView          *codeView;
 #endif
 
 @end
@@ -91,8 +91,7 @@
     
     [self.view bringSubviewToFront:self.highlightView];
 #ifdef DEBUG
-    self.markView.layer.borderWidth = 1;
-    [self.view bringSubviewToFront:self.markView];
+    [self.view bringSubviewToFront:self.codeView];
 #endif
 }
 
@@ -167,7 +166,7 @@
          */
         
 #ifdef DEBUG
-        self.markView.mark = [[RSMultiTypeMarkGenerator markGen] encode:[barCodeObject stringValue] type:[barCodeObject type]];
+        self.codeView.code = [[RSMultiTypeCodeGenerator codeGen] encode:[barCodeObject stringValue] type:[barCodeObject type]];
 #endif
     }
     
@@ -178,7 +177,7 @@
             self.highlightView.borderRect = CGRectZero;
              */
 #ifdef DEBUG
-            self.markView.mark = nil;
+            self.codeView.code = nil;
 #endif
         });
     }

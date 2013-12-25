@@ -1,5 +1,5 @@
 //
-//  RSMarkGen.h
+//  RSCodeGen.h
 //  RSBarcodesSample
 //
 //  Created by R0CKSTAR on 12/25/13.
@@ -8,4 +8,4 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RSMultiTypeMarkGenerator.h"
+#import "RSMultiTypeCodeGenerator.h"

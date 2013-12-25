@@ -1,14 +1,14 @@
 //
-//  RSMarkView.m
+//  RSCodeView.m
 //  RSBarcodes
 //
 //  Created by R0CKSTAR on 12/25/13.
 //  Copyright (c) 2013 P.D.Q. All rights reserved.
 //
 
-#import "RSMarkView.h"
+#import "RSCodeView.h"
 
-@implementation RSMarkView
+@implementation RSCodeView
 
 - (void)__init
 {
@@ -45,9 +45,9 @@
     return self;
 }
 
-- (void)setMark:(UIImage *)mark
+- (void)setCode:(UIImage *)mark
 {
-    _mark = mark;
+    _code = mark;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsDisplay];
@@ -56,7 +56,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if (!_mark) {
+    if (!_code) {
         return;
     }
     
@@ -64,7 +64,7 @@
     
     CGContextSaveGState(context);
 
-    CGContextDrawImage(context, rect, [self.mark CGImage]);
+    CGContextDrawImage(context, rect, [self.code CGImage]);
     
     CGContextRestoreGState(context);
 }

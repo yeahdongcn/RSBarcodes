@@ -1,5 +1,5 @@
 //
-//  RSMultiTypeMarkGenerator.h
+//  RSMultiTypeCodeGenerator.h
 //  RSBarcodes
 //
 //  Created by R0CKSTAR on 12/25/13.
@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RSMarkGenerator.h"
+#import "RSCodeGenerator.h"
 
-@interface RSMultiTypeMarkGenerator : NSObject <RSMarkGenerator>
+@interface RSMultiTypeCodeGenerator : NSObject <RSCodeGenerator>
 
-+ (instancetype)markGen;
++ (instancetype)codeGen;
 
 @end

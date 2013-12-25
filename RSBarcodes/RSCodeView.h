@@ -1,5 +1,5 @@
 //
-//  RSMarkView.h
+//  RSCodeView.h
 //  RSBarcodes
 //
 //  Created by R0CKSTAR on 12/25/13.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RSMarkView : UIView
+@interface RSCodeView : UIView
 
-@property (nonatomic, strong) UIImage *mark;
+@property (nonatomic, strong) UIImage *code;
 
 @end
