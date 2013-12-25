@@ -12,7 +12,12 @@
 
 + (instancetype)codeGen
 {
-    return [[RSMultiTypeCodeGenerator alloc] init];
+    static RSMultiTypeCodeGenerator *codeGen = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        codeGen = [[self alloc] init];
+    });
+    return codeGen;
 }
 
 - (UIImage *)encode:(NSString *)contents codeObjectType:(NSString *)codeObjectType

@@ -10,6 +10,8 @@
 
 @interface RSCodeView : UIView
 
-@property (nonatomic, strong) UIImage *code;
+@property (nonatomic, strong) UIImage  *code;
+
+@property (nonatomic, strong) NSString *contents;
 
 @end

@@ -166,7 +166,11 @@
          */
         
 #ifdef DEBUG
-        self.codeView.code = [[RSMultiTypeCodeGenerator codeGen] encode:[codeObject stringValue] codeObjectType:[codeObject type]];
+        NSString *contents = [codeObject stringValue];
+        if (![self.codeView.contents isEqualToString:contents]) {
+            self.codeView.contents = contents;
+            self.codeView.code = [CodeGen encode:contents codeObjectType:[codeObject type]];
+        }
 #endif
     }
     
@@ -177,6 +181,7 @@
             self.highlightView.borderRect = CGRectZero;
              */
 #ifdef DEBUG
+            self.codeView.contents = nil;
             self.codeView.code = nil;
 #endif
         });
