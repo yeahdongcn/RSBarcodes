@@ -24,8 +24,10 @@
 		D00491C1186978F1005ED994 /* RSBarcodesSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491C0186978F1005ED994 /* RSBarcodesSampleTests.m */; };
 		D00491CF18697908005ED994 /* RSCornersView.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491CC18697908005ED994 /* RSCornersView.m */; };
 		D00491D018697908005ED994 /* RSScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491CE18697908005ED994 /* RSScannerViewController.m */; };
-		D00491F1186A889A005ED994 /* RSMultiTypeCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491F0186A889A005ED994 /* RSMultiTypeCodeGenerator.m */; };
+		D00491F1186A889A005ED994 /* RSUnifiedCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491F0186A889A005ED994 /* RSUnifiedCodeGenerator.m */; };
 		D00491FA186A9A59005ED994 /* RSCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491F9186A9A59005ED994 /* RSCodeView.m */; };
+		D076CC9D186AD9FA00CC3332 /* RSCode39Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CC9C186AD9FA00CC3332 /* RSCode39Generator.m */; };
+		D076CC9F186ADA1F00CC3332 /* RSCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CC9E186ADA1F00CC3332 /* RSCodeGenerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,11 +66,14 @@
 		D00491CD18697908005ED994 /* RSScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSScannerViewController.h; sourceTree = "<group>"; };
 		D00491CE18697908005ED994 /* RSScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSScannerViewController.m; sourceTree = "<group>"; };
 		D00491EE186A87F8005ED994 /* RSCodeGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSCodeGenerator.h; sourceTree = "<group>"; };
-		D00491EF186A889A005ED994 /* RSMultiTypeCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSMultiTypeCodeGenerator.h; sourceTree = "<group>"; };
-		D00491F0186A889A005ED994 /* RSMultiTypeCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSMultiTypeCodeGenerator.m; sourceTree = "<group>"; };
+		D00491EF186A889A005ED994 /* RSUnifiedCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSUnifiedCodeGenerator.h; sourceTree = "<group>"; };
+		D00491F0186A889A005ED994 /* RSUnifiedCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSUnifiedCodeGenerator.m; sourceTree = "<group>"; };
 		D00491F8186A9A59005ED994 /* RSCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSCodeView.h; sourceTree = "<group>"; };
 		D00491F9186A9A59005ED994 /* RSCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSCodeView.m; sourceTree = "<group>"; };
 		D00491FB186A9E5C005ED994 /* RSCodeGen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSCodeGen.h; sourceTree = "<group>"; };
+		D076CC9B186AD9FA00CC3332 /* RSCode39Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSCode39Generator.h; sourceTree = "<group>"; };
+		D076CC9C186AD9FA00CC3332 /* RSCode39Generator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSCode39Generator.m; sourceTree = "<group>"; };
+		D076CC9E186ADA1F00CC3332 /* RSCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSCodeGenerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,8 +186,11 @@
 				D00491CE18697908005ED994 /* RSScannerViewController.m */,
 				D00491FB186A9E5C005ED994 /* RSCodeGen.h */,
 				D00491EE186A87F8005ED994 /* RSCodeGenerator.h */,
-				D00491EF186A889A005ED994 /* RSMultiTypeCodeGenerator.h */,
-				D00491F0186A889A005ED994 /* RSMultiTypeCodeGenerator.m */,
+				D076CC9E186ADA1F00CC3332 /* RSCodeGenerator.m */,
+				D00491EF186A889A005ED994 /* RSUnifiedCodeGenerator.h */,
+				D00491F0186A889A005ED994 /* RSUnifiedCodeGenerator.m */,
+				D076CC9B186AD9FA00CC3332 /* RSCode39Generator.h */,
+				D076CC9C186AD9FA00CC3332 /* RSCode39Generator.m */,
 			);
 			path = RSBarcodes;
 			sourceTree = SOURCE_ROOT;
@@ -286,11 +294,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D00491D018697908005ED994 /* RSScannerViewController.m in Sources */,
+				D076CC9D186AD9FA00CC3332 /* RSCode39Generator.m in Sources */,
 				D00491FA186A9A59005ED994 /* RSCodeView.m in Sources */,
 				D00491AC186978F1005ED994 /* ViewController.m in Sources */,
 				D00491A3186978F1005ED994 /* AppDelegate.m in Sources */,
 				D00491CF18697908005ED994 /* RSCornersView.m in Sources */,
-				D00491F1186A889A005ED994 /* RSMultiTypeCodeGenerator.m in Sources */,
+				D00491F1186A889A005ED994 /* RSUnifiedCodeGenerator.m in Sources */,
+				D076CC9F186ADA1F00CC3332 /* RSCodeGenerator.m in Sources */,
 				D004919F186978F1005ED994 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

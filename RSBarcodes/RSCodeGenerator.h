@@ -16,6 +16,14 @@
 
 @end
 
+@interface RSAbstractCodeGenerator : NSObject <RSCodeGenerator>
+
+- (NSString *)initiator;
+
+- (NSString *)terminator;
+
+@end
+
 static inline NSString* getfilterName(NSString *codeObjectType)
 {
     if ([codeObjectType isEqualToString:AVMetadataObjectTypeQRCode]) {

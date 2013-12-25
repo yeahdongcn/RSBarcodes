@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RSMultiTypeCodeGenerator.h"
+#import "RSUnifiedCodeGenerator.h"
 
-#define CodeGen [RSMultiTypeCodeGenerator codeGen]
+#define CodeGen [RSUnifiedCodeGenerator codeGen]

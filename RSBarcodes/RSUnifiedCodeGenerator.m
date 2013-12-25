@@ -1,18 +1,20 @@
 //
-//  RSMultiTypeCodeGenerator.m
+//  RSUnifiedCodeGenerator.m
 //  RSBarcodes
 //
 //  Created by R0CKSTAR on 12/25/13.
 //  Copyright (c) 2013 P.D.Q. All rights reserved.
 //
 
-#import "RSMultiTypeCodeGenerator.h"
+#import "RSUnifiedCodeGenerator.h"
 
-@implementation RSMultiTypeCodeGenerator
+#import "RSCode39Generator.h"
+
+@implementation RSUnifiedCodeGenerator
 
 + (instancetype)codeGen
 {
-    static RSMultiTypeCodeGenerator *codeGen = nil;
+    static RSUnifiedCodeGenerator *codeGen = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         codeGen = [[self alloc] init];
@@ -27,7 +29,17 @@
         || [codeObjectType isEqualToString:AVMetadataObjectTypeAztecCode]) {
         return genCode(contents, getfilterName(codeObjectType));
     }
-    return nil;
+    
+    id<RSCodeGenerator> codeGen = nil;
+    if ([codeObjectType isEqualToString:AVMetadataObjectTypeCode39Code]) {
+        codeGen = [[RSCode39Generator alloc] init];
+    }
+    
+    if (codeGen) {
+        return [codeGen encode:contents codeObjectType:codeObjectType];
+    } else {
+        return nil;
+    }
 }
 
 @end
