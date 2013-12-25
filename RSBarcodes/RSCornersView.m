@@ -19,6 +19,8 @@
 - (void)__init
 {
     self.backgroundColor = [UIColor clearColor];
+    self.strokeColor = [UIColor greenColor];
+    self.strokeWidth = 1.0;
 }
 
 - (void)__drawCorners:(NSArray *)corners
@@ -36,7 +38,9 @@
     CGContextSaveGState(context);
     
     [[UIColor clearColor] setFill];
-    [[UIColor greenColor] setStroke];
+    [self.strokeColor setStroke];
+    
+    CGContextSetLineWidth(context, self.strokeWidth);
     
     NSValue *startPointValue = corners[0];
     CGPoint  startPoint      = [startPointValue CGPointValue];

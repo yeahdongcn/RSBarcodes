@@ -10,4 +10,6 @@
 
 @interface RSScannerViewController : UIViewController
 
+@property (nonatomic, copy) NSArray *metadataObjectTypes;
+
 @end

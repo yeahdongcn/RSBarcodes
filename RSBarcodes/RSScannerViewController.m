@@ -10,7 +10,7 @@
 
 #import "RSCornersView.h"
 
-@import AVFoundation;
+#import <AVFoundation/AVFoundation.h>
 
 @interface RSScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 
@@ -72,9 +72,15 @@
     [self.output setMetadataObjectsDelegate:self queue:queue];
     if ([self.session canAddOutput:self.output]) {
         [self.session addOutput:self.output];
-        self.output.metadataObjectTypes = self.output.availableMetadataObjectTypes;
+        if (!self.metadataObjectTypes) {
+            NSMutableArray *metadataObjectTypes = [NSMutableArray arrayWithArray:self.output.availableMetadataObjectTypes];
+            [metadataObjectTypes removeObject:AVMetadataObjectTypeFace];
+            self.metadataObjectTypes = [NSArray arrayWithArray:metadataObjectTypes];
+        }
+        self.output.metadataObjectTypes = self.metadataObjectTypes;
     }
     
+    self.highlightView.strokeWidth = 2.0;
     [self.view bringSubviewToFront:self.highlightView];
 }
 
@@ -144,16 +150,17 @@
         if ([barCodeObject respondsToSelector:@selector(corners)]) {
             self.highlightView.corners = barCodeObject.corners;
         }
-        
-        if ([barCodeObject respondsToSelector:@selector(stringValue)]) {
-            NSLog(@"%@", [metadata type]);
-            NSLog(@"%@", [barCodeObject stringValue]);
-        }
+        /*
+        self.highlightView.borderRect = barCodeObject.bounds;
+         */
     }
     
     if (metadataObjects.count <= 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.highlightView.corners = nil;
+            /*
+            self.highlightView.borderRect = CGRectZero;
+             */
         });
     }
 }

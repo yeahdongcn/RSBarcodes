@@ -494,6 +494,7 @@
 				D00491C6186978F1005ED994 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D00491C7186978F1005ED994 /* Build configuration list for PBXNativeTarget "RSBarcodesSampleTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +503,7 @@
 				D00491C9186978F1005ED994 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

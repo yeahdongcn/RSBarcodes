@@ -14,4 +14,8 @@
 
 @property (nonatomic) CGRect borderRect;
 
+@property (nonatomic, copy) UIColor *strokeColor; // Default is green.
+
+@property (nonatomic) float strokeWidth; // Default is 1.0.
+
 @end
