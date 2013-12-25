@@ -16,6 +16,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8K-a5-07o" customClass="RSCodeView">
+                                <rect key="frame" x="648" y="20" width="120" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="glq-JK-Jl5"/>
+                                    <constraint firstAttribute="width" constant="120" id="pUm-Rl-1Ud"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqc-0k-vvi" customClass="RSCornersView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,11 +35,14 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Aqc-0k-vvi" secondAttribute="trailing" id="1io-3T-qlW"/>
                             <constraint firstItem="Aqc-0k-vvi" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Qa6-WO-yAd"/>
+                            <constraint firstItem="H8K-a5-07o" firstAttribute="top" secondItem="Rgj-gG-Nzt" secondAttribute="bottom" id="W20-OD-rUB"/>
                             <constraint firstItem="Aqc-0k-vvi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aB5-Zm-eEw"/>
+                            <constraint firstAttribute="trailing" secondItem="H8K-a5-07o" secondAttribute="trailing" id="kCT-N3-RbH"/>
                             <constraint firstAttribute="bottom" secondItem="Aqc-0k-vvi" secondAttribute="bottom" id="mDy-rq-TLT"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="codeView" destination="H8K-a5-07o" id="mm8-ZU-Q6G"/>
                         <outlet property="highlightView" destination="Aqc-0k-vvi" id="eUt-LE-yKX"/>
                     </connections>
                 </viewController>

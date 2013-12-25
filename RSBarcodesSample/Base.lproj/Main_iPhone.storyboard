@@ -42,8 +42,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="codeView" destination="06M-Vl-NSH" id="E0B-IK-JuR"/>
                         <outlet property="highlightView" destination="7q4-9a-Zg6" id="NmZ-fK-gGI"/>
-                        <outlet property="markView" destination="06M-Vl-NSH" id="fOt-ns-Sfa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
