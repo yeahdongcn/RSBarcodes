@@ -1,0 +1,64 @@
+//
+//  RSCodeGenerator.h
+//  RSBarcodesSample
+//
+//  Created by R0CKSTAR on 12/25/13.
+//  Copyright (c) 2013 P.D.Q. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+#import <AVFoundation/AVFoundation.h>
+
+@protocol RSCodeGenerator <NSObject>
+
+- (UIImage *)encode:(NSString *)contents type:(NSString *)type;
+
+@end
+
+static inline NSString* filterName(NSString *type)
+{
+    if ([type isEqualToString:AVMetadataObjectTypeQRCode]) {
+        return @"CIQRCodeGenerator";
+    } else if ([type isEqualToString:AVMetadataObjectTypePDF417Code]) {
+        return @"CIPDF417BarcodeGenerator";
+    } else if ([type isEqualToString:AVMetadataObjectTypeAztecCode]) {
+        return @"CIAztecCodeGenerator";
+    }
+    return nil;
+}
+
+static inline UIImage* genCode(NSString *contents, NSString *filterName)
+{
+    CIFilter *filter = [CIFilter filterWithName:filterName];
+    [filter setDefaults];
+    NSData *data = [contents dataUsingEncoding:NSUTF8StringEncoding];
+    [filter setValue:data forKey:@"inputMessage"];
+    
+    CIImage *outputImage = [filter outputImage];
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:outputImage
+                                       fromRect:[outputImage extent]];
+    UIImage *image = [UIImage imageWithCGImage:cgImage
+                                         scale:1.0
+                                   orientation:UIImageOrientationUp];
+    CGImageRelease(cgImage);
+    return image;
+}
+
+static inline UIImage *resizeImage(UIImage *source,
+                                   float scale,
+                                   CGInterpolationQuality quality)
+{
+    CGFloat width = source.size.width * scale;
+    CGFloat height = source.size.height * scale;
+    
+    UIGraphicsBeginImageContext(CGSizeMake(width, height));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetInterpolationQuality(context, quality);
+    [source drawInRect:CGRectMake(0, 0, width, height)];
+    UIImage *target = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return target;
+}

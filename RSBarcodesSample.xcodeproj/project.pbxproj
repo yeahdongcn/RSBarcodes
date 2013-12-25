@@ -24,6 +24,7 @@
 		D00491C1186978F1005ED994 /* RSBarcodesSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491C0186978F1005ED994 /* RSBarcodesSampleTests.m */; };
 		D00491CF18697908005ED994 /* RSCornersView.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491CC18697908005ED994 /* RSCornersView.m */; };
 		D00491D018697908005ED994 /* RSScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491CE18697908005ED994 /* RSScannerViewController.m */; };
+		D00491F1186A889A005ED994 /* RSMultiTypeCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491F0186A889A005ED994 /* RSMultiTypeCodeGenerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,9 @@
 		D00491CC18697908005ED994 /* RSCornersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSCornersView.m; sourceTree = "<group>"; };
 		D00491CD18697908005ED994 /* RSScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSScannerViewController.h; sourceTree = "<group>"; };
 		D00491CE18697908005ED994 /* RSScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSScannerViewController.m; sourceTree = "<group>"; };
+		D00491EE186A87F8005ED994 /* RSCodeGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSCodeGenerator.h; sourceTree = "<group>"; };
+		D00491EF186A889A005ED994 /* RSMultiTypeCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSMultiTypeCodeGenerator.h; sourceTree = "<group>"; };
+		D00491F0186A889A005ED994 /* RSMultiTypeCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSMultiTypeCodeGenerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,9 @@
 				D00491CC18697908005ED994 /* RSCornersView.m */,
 				D00491CD18697908005ED994 /* RSScannerViewController.h */,
 				D00491CE18697908005ED994 /* RSScannerViewController.m */,
+				D00491EE186A87F8005ED994 /* RSCodeGenerator.h */,
+				D00491EF186A889A005ED994 /* RSMultiTypeCodeGenerator.h */,
+				D00491F0186A889A005ED994 /* RSMultiTypeCodeGenerator.m */,
 			);
 			path = RSBarcodes;
 			sourceTree = SOURCE_ROOT;
@@ -275,6 +282,7 @@
 				D00491AC186978F1005ED994 /* ViewController.m in Sources */,
 				D00491A3186978F1005ED994 /* AppDelegate.m in Sources */,
 				D00491CF18697908005ED994 /* RSCornersView.m in Sources */,
+				D00491F1186A889A005ED994 /* RSMultiTypeCodeGenerator.m in Sources */,
 				D004919F186978F1005ED994 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
