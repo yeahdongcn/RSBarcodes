@@ -128,8 +128,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    [super drawRect:rect];
-    
     [self __drawCorners:self.corners];
     
     [self __drawCorners:self.borderCorners];

@@ -12,6 +12,11 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+#ifdef DEBUG
+#import "RSMarkView.h"
+#import "RSMultiTypeMarkGenerator.h"
+#endif
+
 @interface RSScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 
 @property (nonatomic, strong) AVCaptureSession           *session;
@@ -21,6 +26,10 @@
 @property (nonatomic, strong) AVCaptureMetadataOutput    *output;
 
 @property (nonatomic, weak) IBOutlet RSCornersView       *highlightView;
+
+#ifdef DEBUG
+@property (nonatomic, weak) IBOutlet RSMarkView          *markView;
+#endif
 
 @end
 
@@ -80,8 +89,11 @@
         self.output.metadataObjectTypes = self.metadataObjectTypes;
     }
     
-    self.highlightView.strokeWidth = 2.0;
     [self.view bringSubviewToFront:self.highlightView];
+#ifdef DEBUG
+    self.markView.layer.borderWidth = 1;
+    [self.view bringSubviewToFront:self.markView];
+#endif
 }
 
 - (void)__startRunning
@@ -153,6 +165,10 @@
         /*
         self.highlightView.borderRect = barCodeObject.bounds;
          */
+        
+#ifdef DEBUG
+        self.markView.mark = [[RSMultiTypeMarkGenerator markGenerator] encode:[barCodeObject stringValue] type:[barCodeObject type]];
+#endif
     }
     
     if (metadataObjects.count <= 0) {
@@ -161,6 +177,9 @@
             /*
             self.highlightView.borderRect = CGRectZero;
              */
+#ifdef DEBUG
+            self.markView.mark = nil;
+#endif
         });
     }
 }

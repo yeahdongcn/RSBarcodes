@@ -1,6 +1,6 @@
 //
-//  RSCodeGenerator.h
-//  RSBarcodesSample
+//  RSMarkGenerator.h
+//  RSBarcodes
 //
 //  Created by R0CKSTAR on 12/25/13.
 //  Copyright (c) 2013 P.D.Q. All rights reserved.
@@ -10,7 +10,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@protocol RSCodeGenerator <NSObject>
+@protocol RSMarkGenerator <NSObject>
 
 - (UIImage *)encode:(NSString *)contents type:(NSString *)type;
 
@@ -28,7 +28,7 @@ static inline NSString* filterName(NSString *type)
     return nil;
 }
 
-static inline UIImage* genCode(NSString *contents, NSString *filterName)
+static inline UIImage* genMark(NSString *contents, NSString *filterName)
 {
     CIFilter *filter = [CIFilter filterWithName:filterName];
     [filter setDefaults];

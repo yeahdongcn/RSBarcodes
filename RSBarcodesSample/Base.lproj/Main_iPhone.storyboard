@@ -16,6 +16,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06M-Vl-NSH" customClass="RSMarkView">
+                                <rect key="frame" x="200" y="20" width="120" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="P4p-aF-0NM"/>
+                                    <constraint firstAttribute="width" constant="120" id="qyl-mM-YXX"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7q4-9a-Zg6" customClass="RSCornersView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,6 +33,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="06M-Vl-NSH" firstAttribute="top" secondItem="uDM-TM-WAF" secondAttribute="bottom" id="3lt-DM-nFU"/>
+                            <constraint firstAttribute="trailing" secondItem="06M-Vl-NSH" secondAttribute="trailing" id="kC5-vF-2Uq"/>
                             <constraint firstItem="7q4-9a-Zg6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="oXg-wZ-kNF"/>
                             <constraint firstAttribute="trailing" secondItem="7q4-9a-Zg6" secondAttribute="trailing" id="uFa-c3-Qg3"/>
                             <constraint firstAttribute="bottom" secondItem="7q4-9a-Zg6" secondAttribute="bottom" id="vRJ-I9-FpL"/>
@@ -32,6 +43,7 @@
                     </view>
                     <connections>
                         <outlet property="highlightView" destination="7q4-9a-Zg6" id="NmZ-fK-gGI"/>
+                        <outlet property="markView" destination="06M-Vl-NSH" id="fOt-ns-Sfa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
