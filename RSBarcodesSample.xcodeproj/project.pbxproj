@@ -68,6 +68,7 @@
 		D00491F0186A889A005ED994 /* RSMultiTypeMarkGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSMultiTypeMarkGenerator.m; sourceTree = "<group>"; };
 		D00491F8186A9A59005ED994 /* RSMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSMarkView.h; sourceTree = "<group>"; };
 		D00491F9186A9A59005ED994 /* RSMarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSMarkView.m; sourceTree = "<group>"; };
+		D00491FB186A9E5C005ED994 /* RSMarkGen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSMarkGen.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +179,7 @@
 				D00491F9186A9A59005ED994 /* RSMarkView.m */,
 				D00491CD18697908005ED994 /* RSScannerViewController.h */,
 				D00491CE18697908005ED994 /* RSScannerViewController.m */,
+				D00491FB186A9E5C005ED994 /* RSMarkGen.h */,
 				D00491EE186A87F8005ED994 /* RSMarkGenerator.h */,
 				D00491EF186A889A005ED994 /* RSMultiTypeMarkGenerator.h */,
 				D00491F0186A889A005ED994 /* RSMultiTypeMarkGenerator.m */,

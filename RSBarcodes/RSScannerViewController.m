@@ -14,7 +14,7 @@
 
 #ifdef DEBUG
 #import "RSMarkView.h"
-#import "RSMultiTypeMarkGenerator.h"
+#import "RSMarkGen.h"
 #endif
 
 @interface RSScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
@@ -167,7 +167,7 @@
          */
         
 #ifdef DEBUG
-        self.markView.mark = [[RSMultiTypeMarkGenerator markGenerator] encode:[barCodeObject stringValue] type:[barCodeObject type]];
+        self.markView.mark = [[RSMultiTypeMarkGenerator markGen] encode:[barCodeObject stringValue] type:[barCodeObject type]];
 #endif
     }
     

@@ -12,6 +12,6 @@
 
 @interface RSMultiTypeMarkGenerator : NSObject <RSMarkGenerator>
 
-+ (instancetype)markGenerator;
++ (instancetype)markGen;
 
 @end

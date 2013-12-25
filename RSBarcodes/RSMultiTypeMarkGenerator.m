@@ -10,7 +10,7 @@
 
 @implementation RSMultiTypeMarkGenerator
 
-+ (instancetype)markGenerator
++ (instancetype)markGen
 {
     return [[RSMultiTypeMarkGenerator alloc] init];
 }
