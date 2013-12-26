@@ -8,9 +8,7 @@
 
 #import "RSCode39Generator.h"
 
-@implementation RSCode39Generator
-
-static NSString * const CODE39_ALPHABET_STRING = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *$/+%";
+NSString * const CODE39_ALPHABET_STRING = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*";
 
 static NSString * const CODE39_CHARACTER_ENCODINGS[44] = {
     @"1010011011010",
@@ -52,14 +50,16 @@ static NSString * const CODE39_CHARACTER_ENCODINGS[44] = {
     @"1001010110110",
     @"1100101011010",
     @"1001101011010",
-    @"1001011011010",
     @"1001001001010",
     @"1001001010010",
     @"1001010010010",
     @"1010010010010",
+    @"1001011011010"
 };
 
-- (NSString *)encodeCharacter:(NSString *)character
+@implementation RSCode39Generator
+
+- (NSString *)__encodeCharacter:(NSString *)character
 {
     return CODE39_CHARACTER_ENCODINGS[[CODE39_ALPHABET_STRING rangeOfString:character].location];
 }
@@ -79,12 +79,12 @@ static NSString * const CODE39_CHARACTER_ENCODINGS[44] = {
 
 - (NSString *)initiator
 {
-    return [self encodeCharacter:@"*"];
+    return [self __encodeCharacter:@"*"];
 }
 
 - (NSString *)terminator
 {
-    return [self encodeCharacter:@"*"];
+    return [self __encodeCharacter:@"*"];
 }
 
 - (NSString *)barcode:(NSString *)contents
@@ -93,7 +93,7 @@ static NSString * const CODE39_CHARACTER_ENCODINGS[44] = {
     if ([self isContentsValid:uppercaseContents]) {
         NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
         for (int i = 0; i < uppercaseContents.length; i++) {
-            [barcode appendString:[self encodeCharacter:[uppercaseContents substringWithRange:NSMakeRange(i, 1)]]];
+            [barcode appendString:[self __encodeCharacter:[uppercaseContents substringWithRange:NSMakeRange(i, 1)]]];
         }
         return [NSString stringWithString:barcode];
     }

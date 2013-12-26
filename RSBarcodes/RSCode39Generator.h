@@ -10,6 +10,12 @@
 
 #import "RSCodeGenerator.h"
 
+extern NSString * const CODE39_ALPHABET_STRING;
+
+/**
+ *  http://www.barcodesymbols.com/code39.htm
+ *  http://www.barcodeisland.com/code39.phtml
+ */
 @interface RSCode39Generator : RSAbstractCodeGenerator
 
 @end

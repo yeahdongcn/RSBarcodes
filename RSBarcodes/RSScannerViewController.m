@@ -120,6 +120,13 @@
 	// Do any additional setup after loading the view.
     
     [self __setup];
+    
+#ifdef DEBUG
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[CodeGen encode:@"CODE 39" codeObjectType:AVMetadataObjectTypeCode39Mod43Code]];
+    [imageView sizeToFit];
+    imageView.center = self.view.center;
+    [self.view addSubview:imageView];
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
