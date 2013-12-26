@@ -12,6 +12,8 @@
 
 #import "RSCode39Mod43Generator.h"
 
+#import "RSExtendedCode39Generator.h"
+
 @implementation RSUnifiedCodeGenerator
 
 + (instancetype)codeGen
@@ -37,6 +39,8 @@
         codeGen = [[RSCode39Generator alloc] init];
     } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeCode39Mod43Code]) {
         codeGen = [[RSCode39Mod43Generator alloc] init];
+    } else if ([codeObjectType isEqualToString:RSMetadataObjectTypeExtendedCode39Code]) {
+        codeGen = [[RSExtendedCode39Generator alloc] init];
     }
     
     if (codeGen) {

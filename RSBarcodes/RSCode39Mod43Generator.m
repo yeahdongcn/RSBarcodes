@@ -10,7 +10,7 @@
 
 @implementation RSCode39Mod43Generator
 
-- (NSString *)checksum:(NSString *)contents
+- (NSString *)__checksum:(NSString *)contents
 {
     /*
      Step 1: From the table below, find the values of each character.
@@ -33,7 +33,7 @@
 
 - (NSString *)barcode:(NSString *)contents
 {
-    return [super barcode:[NSString stringWithFormat:@"%@%@", contents, [self checksum:[contents uppercaseString]]]];
+    return [super barcode:[NSString stringWithFormat:@"%@%@", contents, [self __checksum:[contents uppercaseString]]]];
 }
 
 @end
