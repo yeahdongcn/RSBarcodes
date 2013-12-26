@@ -18,9 +18,17 @@
 
 @interface RSAbstractCodeGenerator : NSObject <RSCodeGenerator>
 
+- (BOOL)isContentsValid:(NSString *)contents;
+
 - (NSString *)initiator;
 
 - (NSString *)terminator;
+
+- (NSString *)barcode:(NSString *)contents;
+
+- (NSString *)completeBarcode:(NSString *)barcode;
+
+- (UIImage *)drawCompleteBarcode:(NSString *)code;
 
 @end
 

@@ -10,6 +10,11 @@
 
 @implementation RSAbstractCodeGenerator
 
+- (BOOL)isContentsValid:(NSString *)contents
+{
+    return NO;
+}
+
 - (NSString *)initiator
 {
     return @"";
@@ -20,8 +25,53 @@
     return @"";
 }
 
+- (NSString *)barcode:(NSString *)contents
+{
+    return @"";
+}
+
+- (NSString *)completeBarcode:(NSString *)barcode
+{
+    if (![barcode isEqualToString:@""]) {
+        return [NSString stringWithFormat:@"%@%@%@", [self initiator], barcode, [self terminator]];
+    }
+    return nil;
+}
+
+- (UIImage *)drawCompleteBarcode:(NSString *)code
+{
+    CGSize size = CGSizeMake(code.length + 10, roundf(code.length / 4.0));
+    UIGraphicsBeginImageContextWithOptions(size, YES, 0.0f);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    [[UIColor whiteColor] setFill];
+    [[UIColor blackColor] setStroke];
+    
+    CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
+    CGContextSetLineWidth(context, 1.0);
+    
+    for (int i = 0; i < code.length; i++) {
+        NSString *character = [code substringWithRange:NSMakeRange(i, 1)];
+        if ([character isEqualToString:@"1"]) {
+            CGContextMoveToPoint(context, i + 5, 5);
+            CGContextAddLineToPoint(context, i + 5, size.height - 5);
+        }
+    }
+    CGContextDrawPath(context, kCGPathFillStroke);
+    
+    UIImage *barcode = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return barcode;
+}
+
 - (UIImage *)encode:(NSString *)contents codeObjectType:(NSString *)codeObjectType
 {
+    NSString *completeBarcode = [self completeBarcode:[self barcode:contents]];
+    if (completeBarcode) {
+        return [self drawCompleteBarcode:completeBarcode];
+    }
     return nil;
 }
 
