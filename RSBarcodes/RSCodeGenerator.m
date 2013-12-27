@@ -32,10 +32,7 @@
 
 - (NSString *)completeBarcode:(NSString *)barcode
 {
-    if (![barcode isEqualToString:@""]) {
-        return [NSString stringWithFormat:@"%@%@%@", [self initiator], barcode, [self terminator]];
-    }
-    return nil;
+    return [NSString stringWithFormat:@"%@%@%@", [self initiator], barcode, [self terminator]];
 }
 
 - (UIImage *)drawCompleteBarcode:(NSString *)code
@@ -68,9 +65,8 @@
 
 - (UIImage *)encode:(NSString *)contents codeObjectType:(NSString *)codeObjectType
 {
-    NSString *completeBarcode = [self completeBarcode:[self barcode:contents]];
-    if (completeBarcode) {
-        return [self drawCompleteBarcode:completeBarcode];
+    if ([self isContentsValid:contents]) {
+        return [self drawCompleteBarcode:[self completeBarcode:[self barcode:contents]]];
     }
     return nil;
 }

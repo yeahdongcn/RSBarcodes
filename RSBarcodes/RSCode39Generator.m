@@ -67,8 +67,9 @@ NSString * const CODE39_CHARACTER_ENCODINGS[44] = {
 - (BOOL)isContentsValid:(NSString *)contents
 {
     if (contents.length > 0) {
-        for (int i = 0; i < contents.length; i++) {
-            if ([CODE39_ALPHABET_STRING rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]].location == NSNotFound) {
+        NSString *uppercaseContents = [contents uppercaseString];
+        for (int i = 0; i < uppercaseContents.length; i++) {
+            if ([CODE39_ALPHABET_STRING rangeOfString:[uppercaseContents substringWithRange:NSMakeRange(i, 1)]].location == NSNotFound) {
                 return NO;
             }
         }
@@ -90,14 +91,11 @@ NSString * const CODE39_CHARACTER_ENCODINGS[44] = {
 - (NSString *)barcode:(NSString *)contents
 {
     NSString *uppercaseContents = [contents uppercaseString];
-    if ([self isContentsValid:uppercaseContents]) {
-        NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
-        for (int i = 0; i < uppercaseContents.length; i++) {
-            [barcode appendString:[self __encodeCharacter:[uppercaseContents substringWithRange:NSMakeRange(i, 1)]]];
-        }
-        return [NSString stringWithString:barcode];
+    NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
+    for (int i = 0; i < uppercaseContents.length; i++) {
+        [barcode appendString:[self __encodeCharacter:[uppercaseContents substringWithRange:NSMakeRange(i, 1)]]];
     }
-    return @"";
+    return [NSString stringWithString:barcode];
 }
 
 @end
