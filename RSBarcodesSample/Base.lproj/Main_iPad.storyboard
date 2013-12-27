@@ -17,11 +17,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8K-a5-07o" customClass="RSCodeView">
-                                <rect key="frame" x="10" y="914" width="748" height="100"/>
+                                <rect key="frame" x="10" y="934" width="748" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Oas-pC-8Mr"/>
+                                    <constraint firstAttribute="height" constant="80" id="Oas-pC-8Mr"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqc-0k-vvi" customClass="RSCornersView">
