@@ -49,11 +49,21 @@ static NSString *const UPCE_SEQUENCES[10] = {
     @"011010"
 };
 
+- (int)__checksum:(NSString *)contents
+{
+    for (int i = 0; i < contents.length; i++) {
+        
+    }
+    
+    return [[contents substringWithRange:NSMakeRange(contents.length - 1, 1)] intValue];
+}
+
 - (BOOL)isContentsValid:(NSString *)contents
 {
     if ([super isContentsValid:contents]) {
         if (contents.length == 8
-            && [[contents substringWithRange:NSMakeRange(0, 1)] intValue] == 0) {
+            && [[contents substringWithRange:NSMakeRange(0, 1)] intValue] == 0
+            && [[contents substringWithRange:NSMakeRange(contents.length - 1, 1)] intValue] == [self __checksum:contents]) {
             return YES;
         }
     }
