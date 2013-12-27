@@ -26,11 +26,23 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        __weak typeof(self)weakSelf = self;
-        self.handler = ^(NSArray *metadataObjects) {
-            if (metadataObjects.count > 0) {
+        __weak typeof(self) weakSelf = self;
+        self.handler = ^(NSArray *codeObjects) {
+            if (codeObjects.count > 0) {
+                NSMutableString *text = [[NSMutableString alloc] init];
+                [codeObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    [text appendString:[obj stringValue]];
+                    if (idx != (codeObjects.count - 1)) {
+                        [text appendString:@"\n"];
+                    }
+                }];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.codeLabel.text = [metadataObjects[0] stringValue];
+                    weakSelf.codeLabel.numberOfLines = [codeObjects count];
+                    weakSelf.codeLabel.text = text;
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.codeLabel.text = @"";
                 });
             }
         };
@@ -42,7 +54,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-
+    
     self.codeView.code = [CodeGen encode:@"Code 39" codeObjectType:AVMetadataObjectTypeCode39Code];
     [self.view bringSubviewToFront:self.codeView];
     
