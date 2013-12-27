@@ -106,6 +106,7 @@
 	// Do any additional setup after loading the view.
     
     [self __setup];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
