@@ -14,7 +14,12 @@
 
 #import "RSExtendedCode39Generator.h"
 
+
+#import "RSEAN13Generator.h"
+
+#import "RSEAN8Generator.h"
 #import "RSUPCEGenerator.h"
+
 
 @implementation RSUnifiedCodeGenerator
 
@@ -43,6 +48,12 @@
         codeGen = [[RSCode39Mod43Generator alloc] init];
     } else if ([codeObjectType isEqualToString:RSMetadataObjectTypeExtendedCode39Code]) {
         codeGen = [[RSExtendedCode39Generator alloc] init];
+    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeEAN13Code])
+    {
+        codeGen = [[RSEAN13Generator alloc] init];
+    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeEAN8Code])
+    {
+        codeGen = [[RSEAN8Generator alloc] init];
     } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeUPCECode]) {
         codeGen = [[RSUPCEGenerator alloc] init];
     }
