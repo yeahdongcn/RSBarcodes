@@ -122,7 +122,7 @@
     [self __setup];
     
 #ifdef DEBUG
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[CodeGen encode:@"CODE 39" codeObjectType:AVMetadataObjectTypeCode39Mod43Code]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[CodeGen encode:@"code 39" codeObjectType:RSMetadataObjectTypeExtendedCode39Code]];
     [imageView sizeToFit];
     imageView.center = self.view.center;
     [self.view addSubview:imageView];
