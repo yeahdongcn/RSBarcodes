@@ -142,10 +142,19 @@
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
-    for (AVMetadataObject *metadata in metadataObjects) {
-        AVMetadataMachineReadableCodeObject *codeObject = (AVMetadataMachineReadableCodeObject *)[self.layer transformedMetadataObjectForMetadataObject:(AVMetadataMachineReadableCodeObject *)metadata];
-        if ([codeObject respondsToSelector:@selector(corners)]) {
-            self.highlightView.corners = codeObject.corners;
+    NSMutableArray *codeObjects = nil;
+    for (AVMetadataObject *metadataObject in metadataObjects) {
+        AVMetadataObject *transformedMetadataObject = [self.layer transformedMetadataObjectForMetadataObject:metadataObject];
+        if ([transformedMetadataObject isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
+            AVMetadataMachineReadableCodeObject *codeObject = (AVMetadataMachineReadableCodeObject *)transformedMetadataObject;
+            if ([codeObject respondsToSelector:@selector(corners)]) {
+                self.highlightView.corners = codeObject.corners;
+            }
+            
+            if (!codeObjects) {
+                codeObjects = [[NSMutableArray alloc] init];
+            }
+            [codeObjects addObject:codeObject];
         }
     }
     
@@ -153,6 +162,10 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.highlightView.corners = nil;
         });
+    }
+    
+    if (self.handler) {
+        self.handler([NSArray arrayWithArray:codeObjects]);
     }
 }
 
