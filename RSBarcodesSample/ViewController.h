@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+#import "RSScannerViewController.h"
+
+@interface ViewController : RSScannerViewController
 
 @end

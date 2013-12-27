@@ -12,11 +12,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-#ifdef DEBUG
-#import "RSCodeView.h"
-#import "RSCodeGen.h"
-#endif
-
 @interface RSScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 
 @property (nonatomic, strong) AVCaptureSession           *session;
@@ -24,12 +19,6 @@
 @property (nonatomic, strong) AVCaptureDeviceInput       *input;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *layer;
 @property (nonatomic, strong) AVCaptureMetadataOutput    *output;
-
-@property (nonatomic, weak) IBOutlet RSCornersView       *highlightView;
-
-#ifdef DEBUG
-@property (nonatomic, weak) IBOutlet RSCodeView          *codeView;
-#endif
 
 @end
 
@@ -90,9 +79,6 @@
     }
     
     [self.view bringSubviewToFront:self.highlightView];
-#ifdef DEBUG
-    [self.view bringSubviewToFront:self.codeView];
-#endif
 }
 
 - (void)__startRunning
@@ -120,13 +106,6 @@
 	// Do any additional setup after loading the view.
     
     [self __setup];
-    
-#ifdef DEBUG
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[CodeGen encode:@"code 39" codeObjectType:RSMetadataObjectTypeExtendedCode39Code]];
-    [imageView sizeToFit];
-    imageView.center = self.view.center;
-    [self.view addSubview:imageView];
-#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -168,29 +147,11 @@
         if ([codeObject respondsToSelector:@selector(corners)]) {
             self.highlightView.corners = codeObject.corners;
         }
-        /*
-        self.highlightView.borderRect = barCodeObject.bounds;
-         */
-        
-#ifdef DEBUG
-        NSString *contents = [codeObject stringValue];
-        if (![self.codeView.contents isEqualToString:contents]) {
-            self.codeView.contents = contents;
-            self.codeView.code = [CodeGen encode:contents codeObjectType:[codeObject type]];
-        }
-#endif
     }
     
     if (metadataObjects.count <= 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.highlightView.corners = nil;
-            /*
-            self.highlightView.borderRect = CGRectZero;
-             */
-#ifdef DEBUG
-            self.codeView.contents = nil;
-            self.codeView.code = nil;
-#endif
         });
     }
 }

@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class RSCornersView;
+
 @interface RSScannerViewController : UIViewController
 
 @property (nonatomic, copy) NSArray *codeObjectTypes;
+
+@property (nonatomic, weak) IBOutlet RSCornersView *highlightView;
 
 @end

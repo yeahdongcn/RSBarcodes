@@ -8,7 +8,13 @@
 
 #import "ViewController.h"
 
+#import "RSCodeView.h"
+
+#import "RSCodeGen.h"
+
 @interface ViewController ()
+
+@property (nonatomic, weak) IBOutlet RSCodeView *codeView;
 
 @end
 
@@ -18,6 +24,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+
+    self.codeView.code = [CodeGen encode:@"Code 39" codeObjectType:RSMetadataObjectTypeExtendedCode39Code];
+    [self.view bringSubviewToFront:self.codeView];
 }
 
 - (void)didReceiveMemoryWarning
