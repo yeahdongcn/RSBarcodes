@@ -10,8 +10,18 @@
 
 @implementation RSAbstractCodeGenerator
 
+NSString * const DIGITS_STRING = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*";
+
 - (BOOL)isContentsValid:(NSString *)contents
 {
+    if (contents.length > 0) {
+        for (int i = 0; i < contents.length; i++) {
+            if ([DIGITS_STRING rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]].location == NSNotFound) {
+                return NO;
+            }
+        }
+        return YES;
+    }
     return NO;
 }
 
