@@ -16,6 +16,8 @@
 
 @end
 
+extern NSString * const DIGITS_STRING;
+
 @interface RSAbstractCodeGenerator : NSObject <RSCodeGenerator>
 
 - (BOOL)isContentsValid:(NSString *)contents;

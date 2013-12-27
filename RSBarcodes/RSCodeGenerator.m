@@ -10,7 +10,7 @@
 
 @implementation RSAbstractCodeGenerator
 
-NSString * const DIGITS_STRING = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*";
+NSString * const DIGITS_STRING = @"0123456789";
 
 - (BOOL)isContentsValid:(NSString *)contents
 {
