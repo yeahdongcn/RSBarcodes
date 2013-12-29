@@ -16,6 +16,14 @@
 
 @end
 
+@protocol RSCheckDigitGenerator <NSObject>
+
+@optional
+
+- (NSString *)checkDigit:(NSString *)contents;
+
+@end
+
 extern NSString * const DIGITS_STRING;
 
 @interface RSAbstractCodeGenerator : NSObject <RSCodeGenerator>

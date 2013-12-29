@@ -12,6 +12,6 @@
  *  http://www.barcodesymbols.com/code39.htm
  *  http://www.barcodeisland.com/code39.phtml
  */
-@interface RSCode39Mod43Generator : RSCode39Generator
+@interface RSCode39Mod43Generator : RSCode39Generator <RSCheckDigitGenerator>
 
 @end

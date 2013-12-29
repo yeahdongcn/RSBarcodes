@@ -8,6 +8,6 @@
 
 #import "RSCodeGenerator.h"
 
-@interface RSUPCEGenerator : RSAbstractCodeGenerator
+@interface RSUPCEGenerator : RSAbstractCodeGenerator <RSCheckDigitGenerator>
 
 @end
