@@ -12,7 +12,9 @@
 
 @protocol RSCodeGenerator <NSObject>
 
-- (UIImage *)encode:(NSString *)contents codeObjectType:(NSString *)codeObjectType;
+- (UIImage *)genCodeWithMachineReadableCodeObject:(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject;
+
+- (UIImage *)genCodeWithContents:(NSString *)contents machineReadableCodeObjectType:(NSString *)type;
 
 @end
 

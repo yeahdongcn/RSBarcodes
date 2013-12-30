@@ -73,12 +73,18 @@ NSString * const DIGITS_STRING = @"0123456789";
     return barcode;
 }
 
-- (UIImage *)encode:(NSString *)contents codeObjectType:(NSString *)codeObjectType
+- (UIImage *)genCodeWithContents:(NSString *)contents machineReadableCodeObjectType:(NSString *)type
 {
     if ([self isContentsValid:contents]) {
         return [self drawCompleteBarcode:[self completeBarcode:[self barcode:contents]]];
     }
     return nil;
+}
+
+- (UIImage *)genCodeWithMachineReadableCodeObject:(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject
+{
+    return [self genCodeWithContents:[machineReadableCodeObject stringValue]
+       machineReadableCodeObjectType:[machineReadableCodeObject type]];
 }
 
 @end

@@ -14,7 +14,7 @@ NSString * const RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.barcodes.cod
 
 - (NSString *)__encodeContents:(NSString *)contents
 {
-    NSMutableString *encoded = [[NSMutableString alloc] initWithString:@""];
+    NSMutableString *newContents = [[NSMutableString alloc] initWithString:@""];
     for (int i = 0; i < contents.length; i++) {
         NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
         char ch = [character UTF8String][0];
@@ -45,158 +45,158 @@ NSString * const RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.barcodes.cod
             case 'x':
             case 'y':
             case 'z':
-                [encoded appendFormat:@"%@%@", @"+", [character uppercaseString]];
+                [newContents appendFormat:@"%@%@", @"+", [character uppercaseString]];
                 break;
                 
             case '!':
-                [encoded appendFormat:@"%@%@", @"/", @"A"];
+                [newContents appendFormat:@"%@%@", @"/", @"A"];
                 break;
             case '"':
-                [encoded appendFormat:@"%@%@", @"/", @"B"];
+                [newContents appendFormat:@"%@%@", @"/", @"B"];
                 break;
             case '#':
-                [encoded appendFormat:@"%@%@", @"/", @"C"];
+                [newContents appendFormat:@"%@%@", @"/", @"C"];
                 break;
             case '$':
-                [encoded appendFormat:@"%@%@", @"/", @"D"];
+                [newContents appendFormat:@"%@%@", @"/", @"D"];
                 break;
             case '%':
-                [encoded appendFormat:@"%@%@", @"/", @"E"];
+                [newContents appendFormat:@"%@%@", @"/", @"E"];
                 break;
             case '&':
-                [encoded appendFormat:@"%@%@", @"/", @"F"];
+                [newContents appendFormat:@"%@%@", @"/", @"F"];
                 break;
             case '\'':
-                [encoded appendFormat:@"%@%@", @"/", @"G"];
+                [newContents appendFormat:@"%@%@", @"/", @"G"];
                 break;
             case '(':
-                [encoded appendFormat:@"%@%@", @"/", @"H"];
+                [newContents appendFormat:@"%@%@", @"/", @"H"];
                 break;
             case ')':
-                [encoded appendFormat:@"%@%@", @"/", @"I"];
+                [newContents appendFormat:@"%@%@", @"/", @"I"];
                 break;
             case '*':
-                [encoded appendFormat:@"%@%@", @"/", @"J"];
+                [newContents appendFormat:@"%@%@", @"/", @"J"];
                 break;
             case '+':
-                [encoded appendFormat:@"%@%@", @"/", @"K"];
+                [newContents appendFormat:@"%@%@", @"/", @"K"];
                 break;
             case ',':
-                [encoded appendFormat:@"%@%@", @"/", @"L"];
+                [newContents appendFormat:@"%@%@", @"/", @"L"];
                 break;
-                //                -                 /M   better to use -
-                //                .                 /N   better to use .
+                // -   ->   /M   better to use -
+                // .   ->   /N   better to use .
             case '/':
-                [encoded appendFormat:@"%@%@", @"/", @"O"];
+                [newContents appendFormat:@"%@%@", @"/", @"O"];
                 break;
-                //                0                 /P   better to use 0
-                //                1                 /Q   better to use 1
-                //                2                 /R   better to use 2
-                //                3                 /S   better to use 3
-                //                4                 /T   better to use 4
-                //                5                 /U   better to use 5
-                //                6                 /V   better to use 6
-                //                7                 /W   better to use 7
-                //                8                 /X   better to use 8
-                //                9                 /Y   better to use 9
+                // 0   ->   /P   better to use 0
+                // 1   ->   /Q   better to use 1
+                // 2   ->   /R   better to use 2
+                // 3   ->   /S   better to use 3
+                // 4   ->   /T   better to use 4
+                // 5   ->   /U   better to use 5
+                // 6   ->   /V   better to use 6
+                // 7   ->   /W   better to use 7
+                // 8   ->   /X   better to use 8
+                // 9   ->   /Y   better to use 9
             case ':':
-                [encoded appendFormat:@"%@%@", @"/", @"Z"];
+                [newContents appendFormat:@"%@%@", @"/", @"Z"];
                 break;
                 
-                //                ESC               %A
-                //                FS                %B
-                //                GS                %C
-                //                RS                %D
-                //                US                %E
+                // ESC ->   %A
+                // FS  ->   %B
+                // GS  ->   %C
+                // RS  ->   %D
+                // US  ->   %E
             case ';':
-                [encoded appendFormat:@"%@%@", @"%", @"F"];
+                [newContents appendFormat:@"%@%@", @"%", @"F"];
                 break;
             case '<':
-                [encoded appendFormat:@"%@%@", @"%", @"G"];
+                [newContents appendFormat:@"%@%@", @"%", @"G"];
                 break;
             case '=':
-                [encoded appendFormat:@"%@%@", @"%", @"H"];
+                [newContents appendFormat:@"%@%@", @"%", @"H"];
                 break;
             case '>':
-                [encoded appendFormat:@"%@%@", @"%", @"I"];
+                [newContents appendFormat:@"%@%@", @"%", @"I"];
                 break;
             case '?':
-                [encoded appendFormat:@"%@%@", @"%", @"J"];
+                [newContents appendFormat:@"%@%@", @"%", @"J"];
                 break;
             case '[':
-                [encoded appendFormat:@"%@%@", @"%", @"K"];
+                [newContents appendFormat:@"%@%@", @"%", @"K"];
                 break;
             case '\\':
-                [encoded appendFormat:@"%@%@", @"%", @"L"];
+                [newContents appendFormat:@"%@%@", @"%", @"L"];
                 break;
             case ']':
-                [encoded appendFormat:@"%@%@", @"%", @"M"];
+                [newContents appendFormat:@"%@%@", @"%", @"M"];
                 break;
             case '^':
-                [encoded appendFormat:@"%@%@", @"%", @"N"];
+                [newContents appendFormat:@"%@%@", @"%", @"N"];
                 break;
             case '_':
-                [encoded appendFormat:@"%@%@", @"%", @"O"];
+                [newContents appendFormat:@"%@%@", @"%", @"O"];
                 break;
             case '{':
-                [encoded appendFormat:@"%@%@", @"%", @"P"];
+                [newContents appendFormat:@"%@%@", @"%", @"P"];
                 break;
             case '|':
-                [encoded appendFormat:@"%@%@", @"%", @"Q"];
+                [newContents appendFormat:@"%@%@", @"%", @"Q"];
                 break;
             case '}':
-                [encoded appendFormat:@"%@%@", @"%", @"R"];
+                [newContents appendFormat:@"%@%@", @"%", @"R"];
                 break;
             case '~':
-                [encoded appendFormat:@"%@%@", @"%", @"S"];
+                [newContents appendFormat:@"%@%@", @"%", @"S"];
                 break;
-                //                DEL               %T
-                //                NUL               %U
+                // DEL   ->   %T
+                // NUL   ->   %U
             case '@':
-                [encoded appendFormat:@"%@%@", @"%", @"V"];
+                [newContents appendFormat:@"%@%@", @"%", @"V"];
                 break;
             case '`':
-                [encoded appendFormat:@"%@%@", @"%", @"W"];
+                [newContents appendFormat:@"%@%@", @"%", @"W"];
                 break;
                 
-                //                SOH               $A
-                //                STX               $B
-                //                ETX               $C
-                //                EOT               $D
-                //                ENQ               $E
-                //                ACK               $F
-                //                BEL               $G
-                //                BS                $H
+                // SOH   ->   $A
+                // STX   ->   $B
+                // ETX   ->   $C
+                // EOT   ->   $D
+                // ENQ   ->   $E
+                // ACK   ->   $F
+                // BEL   ->   $G
+                // BS    ->   $H
             case '\t':
-                [encoded appendFormat:@"%@%@", @"$", @"I"];
+                [newContents appendFormat:@"%@%@", @"$", @"I"];
                 break;
-                //                LF                $J
-                //                VT                $K
-                //                FF                $L
+                // LF    ->   $J
+                // VT    ->   $K
+                // FF    ->   $L
             case '\n':
-                [encoded appendFormat:@"%@%@", @"$", @"M"];
+                [newContents appendFormat:@"%@%@", @"$", @"M"];
                 break;
-                //                SO                $N
-                //                SI                $O
-                //                DLE               $P
-                //                DC1               $Q
-                //                DC2               $R
-                //                DC3               $S
-                //                DC4               $T
-                //                NAK               $U
-                //                SYN               $V
-                //                ETB               $W
-                //                CAN               $X
-                //                EM                $Y
-                //                SUB               $Z
+                // SO    ->   $N
+                // SI    ->   $O
+                // DLE   ->   $P
+                // DC1   ->   $Q
+                // DC2   ->   $R
+                // DC3   ->   $S
+                // DC4   ->   $T
+                // NAK   ->   $U
+                // SYN   ->   $V
+                // ETB   ->   $W
+                // CAN   ->   $X
+                // EM    ->   $Y
+                // SUB   ->   $Z
                 
             default:
-                [encoded appendString:character];
+                [newContents appendString:character];
                 break;
         }
     }
     
-    return [NSString stringWithString:encoded];
+    return [NSString stringWithString:newContents];
 }
 
 - (BOOL)isContentsValid:(NSString *)contents

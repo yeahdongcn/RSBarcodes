@@ -36,38 +36,44 @@
     return codeGen;
 }
 
-- (UIImage *)encode:(NSString *)contents codeObjectType:(NSString *)codeObjectType
+- (UIImage *)genCodeWithContents:(NSString *)contents machineReadableCodeObjectType:(NSString *)type
 {
-    if ([codeObjectType isEqualToString:AVMetadataObjectTypeQRCode]
-        || [codeObjectType isEqualToString:AVMetadataObjectTypePDF417Code]
-        || [codeObjectType isEqualToString:AVMetadataObjectTypeAztecCode]) {
-        return genCode(contents, getfilterName(codeObjectType));
+    if ([type isEqualToString:AVMetadataObjectTypeQRCode]
+        || [type isEqualToString:AVMetadataObjectTypePDF417Code]
+        || [type isEqualToString:AVMetadataObjectTypeAztecCode]) {
+        return genCode(contents, getfilterName(type));
     }
     
     id<RSCodeGenerator> codeGen = nil;
-    if ([codeObjectType isEqualToString:AVMetadataObjectTypeCode39Code]) {
+    if ([type isEqualToString:AVMetadataObjectTypeCode39Code]) {
         codeGen = [[RSCode39Generator alloc] init];
-    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeCode39Mod43Code]) {
+    } else if ([type isEqualToString:AVMetadataObjectTypeCode39Mod43Code]) {
         codeGen = [[RSCode39Mod43Generator alloc] init];
-    } else if ([codeObjectType isEqualToString:RSMetadataObjectTypeExtendedCode39Code]) {
+    } else if ([type isEqualToString:RSMetadataObjectTypeExtendedCode39Code]) {
         codeGen = [[RSExtendedCode39Generator alloc] init];
-    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeEAN13Code]) {
+    } else if ([type isEqualToString:AVMetadataObjectTypeEAN13Code]) {
         codeGen = [[RSEAN13Generator alloc] init];
-    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeEAN8Code]) {
+    } else if ([type isEqualToString:AVMetadataObjectTypeEAN8Code]) {
         codeGen = [[RSEAN8Generator alloc] init];
-    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeUPCECode]) {
+    } else if ([type isEqualToString:AVMetadataObjectTypeUPCECode]) {
         codeGen = [[RSUPCEGenerator alloc] init];
-    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeCode93Code]) {
+    } else if ([type isEqualToString:AVMetadataObjectTypeCode93Code]) {
         codeGen = [[RSCode93Generator alloc] init];
-    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeCode128Code]) {
+    } else if ([type isEqualToString:AVMetadataObjectTypeCode128Code]) {
         codeGen = [[RSCode128Generator alloc] init];
     }
     
     if (codeGen) {
-        return [codeGen encode:contents codeObjectType:codeObjectType];
+        return [codeGen genCodeWithContents:contents machineReadableCodeObjectType:type];
     } else {
         return nil;
     }
+}
+
+- (UIImage *)genCodeWithMachineReadableCodeObject:(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject
+{
+    return [self genCodeWithContents:[machineReadableCodeObject stringValue]
+       machineReadableCodeObjectType:[machineReadableCodeObject type]];
 }
 
 @end
