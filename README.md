@@ -14,6 +14,8 @@ RSBarcodes
     "org.iso.QRCode", -- Done
     "org.iso.Aztec" -- Done
     )
+    
+    RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.rsbarcodes.code39.ext"; -- Done
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yeahdongcn/rsbarcodes/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
