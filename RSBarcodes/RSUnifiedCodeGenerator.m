@@ -20,6 +20,10 @@
 
 #import "RSUPCEGenerator.h"
 
+#import "RSCode93Generator.h"
+
+#import "RSCode128Generator.h"
+
 @implementation RSUnifiedCodeGenerator
 
 + (instancetype)codeGen
@@ -53,6 +57,10 @@
         codeGen = [[RSEAN8Generator alloc] init];
     } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeUPCECode]) {
         codeGen = [[RSUPCEGenerator alloc] init];
+    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeCode93Code]) {
+        codeGen = [[RSCode93Generator alloc] init];
+    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeCode128Code]) {
+        codeGen = [[RSCode128Generator alloc] init];
     }
     
     if (codeGen) {

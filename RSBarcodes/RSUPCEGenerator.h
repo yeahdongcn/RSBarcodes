@@ -8,6 +8,12 @@
 
 #import "RSCodeGenerator.h"
 
+/**
+ *  http://www.sly.com.tw/skill/know/new_page_6.htm
+ *  http://mdn.morovia.com/kb/UPCE-Specification-10634.html
+ *  http://mdn.morovia.com/kb/UPCA-Specification-10632.html
+ *  http://www.barcodeisland.com/upce.phtml
+ */
 @interface RSUPCEGenerator : RSAbstractCodeGenerator <RSCheckDigitGenerator>
 
 @end

@@ -35,6 +35,8 @@
 		D076CCA8186D1ECC00CC3332 /* RSUPCEGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CCA7186D1ECC00CC3332 /* RSUPCEGenerator.m */; };
 		D076CCAA187103B100CC3332 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D076CCA9187103B100CC3332 /* CoreImage.framework */; };
 		D076CCAC1871126600CC3332 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D076CCAB1871126600CC3332 /* AVFoundation.framework */; };
+		D076CCAF1871179400CC3332 /* RSCode93Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CCAE1871179400CC3332 /* RSCode93Generator.m */; };
+		D076CCB2187117AB00CC3332 /* RSCode128Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CCB1187117AB00CC3332 /* RSCode128Generator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,10 @@
 		D076CCA7186D1ECC00CC3332 /* RSUPCEGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSUPCEGenerator.m; sourceTree = "<group>"; };
 		D076CCA9187103B100CC3332 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D076CCAB1871126600CC3332 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D076CCAD1871179400CC3332 /* RSCode93Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSCode93Generator.h; sourceTree = "<group>"; };
+		D076CCAE1871179400CC3332 /* RSCode93Generator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSCode93Generator.m; sourceTree = "<group>"; };
+		D076CCB0187117AB00CC3332 /* RSCode128Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSCode128Generator.h; sourceTree = "<group>"; };
+		D076CCB1187117AB00CC3332 /* RSCode128Generator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSCode128Generator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +230,10 @@
 				3300A1E4186D5FA8004F73EB /* RSEAN13Generator.m */,
 				D076CCA6186D1ECC00CC3332 /* RSUPCEGenerator.h */,
 				D076CCA7186D1ECC00CC3332 /* RSUPCEGenerator.m */,
+				D076CCAD1871179400CC3332 /* RSCode93Generator.h */,
+				D076CCAE1871179400CC3332 /* RSCode93Generator.m */,
+				D076CCB0187117AB00CC3332 /* RSCode128Generator.h */,
+				D076CCB1187117AB00CC3332 /* RSCode128Generator.m */,
 			);
 			path = RSBarcodes;
 			sourceTree = SOURCE_ROOT;
@@ -327,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D00491D018697908005ED994 /* RSScannerViewController.m in Sources */,
+				D076CCB2187117AB00CC3332 /* RSCode128Generator.m in Sources */,
 				3300A1E6186D5FA8004F73EB /* RSEAN13Generator.m in Sources */,
 				D076CC9D186AD9FA00CC3332 /* RSCode39Generator.m in Sources */,
 				3300A1E5186D5FA8004F73EB /* RSEAN8Generator.m in Sources */,
@@ -340,6 +351,7 @@
 				D00491F1186A889A005ED994 /* RSUnifiedCodeGenerator.m in Sources */,
 				D076CC9F186ADA1F00CC3332 /* RSCodeGenerator.m in Sources */,
 				D004919F186978F1005ED994 /* main.m in Sources */,
+				D076CCAF1871179400CC3332 /* RSCode93Generator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
