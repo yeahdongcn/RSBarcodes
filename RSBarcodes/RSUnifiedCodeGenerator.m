@@ -36,6 +36,8 @@
     return codeGen;
 }
 
+#pragma mark - RSCodeGenerator
+
 - (UIImage *)genCodeWithContents:(NSString *)contents machineReadableCodeObjectType:(NSString *)type
 {
     if ([type isEqualToString:AVMetadataObjectTypeQRCode]

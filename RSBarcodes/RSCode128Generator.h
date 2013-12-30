@@ -11,6 +11,6 @@
 /**
  *  http://www.barcodeisland.com/code128.phtml
  */
-@interface RSCode128Generator : RSAbstractCodeGenerator
+@interface RSCode128Generator : RSAbstractCodeGenerator <RSCheckDigitGenerator>
 
 @end

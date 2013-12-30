@@ -73,6 +73,8 @@ NSString * const DIGITS_STRING = @"0123456789";
     return barcode;
 }
 
+#pragma mark - RSCodeGenerator
+
 - (UIImage *)genCodeWithContents:(NSString *)contents machineReadableCodeObjectType:(NSString *)type
 {
     if ([self isContentsValid:contents]) {

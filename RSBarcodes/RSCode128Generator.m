@@ -10,4 +10,11 @@
 
 @implementation RSCode128Generator
 
+#pragma mark - RSCheckDigitGenerator
+
+- (NSString *)checkDigit:(NSString *)contents
+{
+    return nil;
+}
+
 @end

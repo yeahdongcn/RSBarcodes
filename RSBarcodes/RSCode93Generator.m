@@ -85,6 +85,7 @@ static NSString * const CODE93_CHARACTER_ENCODINGS[44] = {
 
 - (NSString *)terminator
 {
+    // With the termination bar: 1
     return [NSString stringWithFormat:@"%@%@", [self __encodeCharacter:@"*"], @"1"];
 }
 
