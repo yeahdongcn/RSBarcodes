@@ -33,6 +33,8 @@
 		D076CCA2186C0B3600CC3332 /* RSCode39Mod43Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CCA1186C0B3600CC3332 /* RSCode39Mod43Generator.m */; };
 		D076CCA5186C1B6400CC3332 /* RSExtendedCode39Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CCA4186C1B6400CC3332 /* RSExtendedCode39Generator.m */; };
 		D076CCA8186D1ECC00CC3332 /* RSUPCEGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CCA7186D1ECC00CC3332 /* RSUPCEGenerator.m */; };
+		D076CCAA187103B100CC3332 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D076CCA9187103B100CC3332 /* CoreImage.framework */; };
+		D076CCAC1871126600CC3332 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D076CCAB1871126600CC3332 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		D076CCA4186C1B6400CC3332 /* RSExtendedCode39Generator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSExtendedCode39Generator.m; sourceTree = "<group>"; };
 		D076CCA6186D1ECC00CC3332 /* RSUPCEGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSUPCEGenerator.h; sourceTree = "<group>"; };
 		D076CCA7186D1ECC00CC3332 /* RSUPCEGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSUPCEGenerator.m; sourceTree = "<group>"; };
+		D076CCA9187103B100CC3332 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		D076CCAB1871126600CC3332 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D076CCAC1871126600CC3332 /* AVFoundation.framework in Frameworks */,
+				D076CCAA187103B100CC3332 /* CoreImage.framework in Frameworks */,
 				D0049195186978F1005ED994 /* CoreGraphics.framework in Frameworks */,
 				D0049197186978F1005ED994 /* UIKit.framework in Frameworks */,
 				D0049193186978F1005ED994 /* Foundation.framework in Frameworks */,
@@ -137,6 +143,8 @@
 		D0049191186978F1005ED994 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D076CCAB1871126600CC3332 /* AVFoundation.framework */,
+				D076CCA9187103B100CC3332 /* CoreImage.framework */,
 				D0049192186978F1005ED994 /* Foundation.framework */,
 				D0049194186978F1005ED994 /* CoreGraphics.framework */,
 				D0049196186978F1005ED994 /* UIKit.framework */,

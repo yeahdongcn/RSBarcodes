@@ -49,8 +49,45 @@ static NSString *const UPCE_SEQUENCES[10] = {
     @"011010"
 };
 
+- (NSString *)convert2UPC_A:(NSString *)upc_e
+{
+    NSString *code = [upc_e substringWithRange:NSMakeRange(1, upc_e.length - 2)];
+    int lastDigit = [[code substringWithRange:NSMakeRange(code.length - 1, 1)] intValue];
+    NSString *insertDigits = @"0000";
+    NSMutableString *upc_a = [[NSMutableString alloc] init];
+    switch (lastDigit) {
+        case 0:
+        case 1:
+        case 2:
+            [upc_a appendString:[code substringWithRange:NSMakeRange(0, 2)]];
+            [upc_a appendString:[NSString stringWithFormat:@"%d", lastDigit]];
+            [upc_a appendString:insertDigits];
+            [upc_a appendString:[code substringWithRange:NSMakeRange(2, 3)]];
+            break;
+        case 3:
+            insertDigits = @"00000";
+            [upc_a appendString:[code substringWithRange:NSMakeRange(0, 3)]];
+            [upc_a appendString:insertDigits];
+            [upc_a appendString:[code substringWithRange:NSMakeRange(3, 2)]];
+            break;
+        case 4:
+            insertDigits = @"00000";
+            [upc_a appendString:[code substringWithRange:NSMakeRange(0, 4)]];
+            [upc_a appendString:insertDigits];
+            [upc_a appendString:[code substringWithRange:NSMakeRange(4, 1)]];
+            break;
+        default:
+            [upc_a appendString:[code substringWithRange:NSMakeRange(0, 5)]];
+            [upc_a appendString:insertDigits];
+            [upc_a appendString:[NSString stringWithFormat:@"%d", lastDigit]];
+            break;
+    }
+    return [NSString stringWithFormat:@"%@%@", @"00", upc_a];
+}
+
 - (BOOL)isContentsValid:(NSString *)contents
 {
+    
     if ([super isContentsValid:contents] && [self respondsToSelector:@selector(checkDigit:)]) {
         if (contents.length == 8
             && [[contents substringWithRange:NSMakeRange(0, 1)] intValue] == 0
@@ -91,11 +128,25 @@ static NSString *const UPCE_SEQUENCES[10] = {
 
 - (NSString *)checkDigit:(NSString *)contents
 {
-    for (int i = 0; i < contents.length; i++) {
-        
+//    UPC-A check digit is calculated using standard Mod10 method. Here outlines the steps to calculate UPC-A check digit:
+//    
+//    From the right to left, start with odd position, assign the odd/even position to each digit.
+//    Sum all digits in odd position and multiply the result by 3.
+//    Sum all digits in even position.
+//    Sum the results of step 3 and step 4.
+//    divide the result of step 4 by 10. The check digit is the number which adds the remainder to 10.
+    NSString *upc_a = [self convert2UPC_A:contents];
+    int odds = 0;
+    int evens = 0;
+    for (int i = 0; i < upc_a.length; i++) {
+        int digit = [[upc_a substringWithRange:NSMakeRange(i, 1)] intValue];
+        if (i % 2 == 0) {
+            evens += digit;
+        } else {
+            odds += digit;
+        }
     }
-    
-    return [contents substringWithRange:NSMakeRange(contents.length - 1, 1)];
+    return [NSString stringWithFormat:@"%d", 10 - (evens + odds * 3) % 10];
 }
 
 @end
