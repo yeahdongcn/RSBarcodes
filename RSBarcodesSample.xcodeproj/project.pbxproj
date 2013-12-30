@@ -207,12 +207,28 @@
 		D00491CA18697908005ED994 /* RSBarcodes */ = {
 			isa = PBXGroup;
 			children = (
+				D076CCB3187118F900CC3332 /* Scanner */,
+				D076CCB41871191F00CC3332 /* Generator */,
+			);
+			path = RSBarcodes;
+			sourceTree = SOURCE_ROOT;
+		};
+		D076CCB3187118F900CC3332 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
 				D00491CB18697908005ED994 /* RSCornersView.h */,
 				D00491CC18697908005ED994 /* RSCornersView.m */,
-				D00491F8186A9A59005ED994 /* RSCodeView.h */,
-				D00491F9186A9A59005ED994 /* RSCodeView.m */,
 				D00491CD18697908005ED994 /* RSScannerViewController.h */,
 				D00491CE18697908005ED994 /* RSScannerViewController.m */,
+			);
+			name = Scanner;
+			sourceTree = "<group>";
+		};
+		D076CCB41871191F00CC3332 /* Generator */ = {
+			isa = PBXGroup;
+			children = (
+				D00491F8186A9A59005ED994 /* RSCodeView.h */,
+				D00491F9186A9A59005ED994 /* RSCodeView.m */,
 				D00491FB186A9E5C005ED994 /* RSCodeGen.h */,
 				D00491EE186A87F8005ED994 /* RSCodeGenerator.h */,
 				D076CC9E186ADA1F00CC3332 /* RSCodeGenerator.m */,
@@ -235,8 +251,8 @@
 				D076CCB0187117AB00CC3332 /* RSCode128Generator.h */,
 				D076CCB1187117AB00CC3332 /* RSCode128Generator.m */,
 			);
-			path = RSBarcodes;
-			sourceTree = SOURCE_ROOT;
+			name = Generator;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
