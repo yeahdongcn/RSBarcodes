@@ -47,18 +47,25 @@
     id<RSCodeGenerator> codeGen = nil;
     if ([type isEqualToString:AVMetadataObjectTypeCode39Code]) {
         codeGen = [[RSCode39Generator alloc] init];
+        
     } else if ([type isEqualToString:AVMetadataObjectTypeCode39Mod43Code]) {
         codeGen = [[RSCode39Mod43Generator alloc] init];
+        
     } else if ([type isEqualToString:RSMetadataObjectTypeExtendedCode39Code]) {
         codeGen = [[RSExtendedCode39Generator alloc] init];
+        
     } else if ([type isEqualToString:AVMetadataObjectTypeEAN13Code]) {
         codeGen = [[RSEAN13Generator alloc] init];
+        
     } else if ([type isEqualToString:AVMetadataObjectTypeEAN8Code]) {
         codeGen = [[RSEAN8Generator alloc] init];
+        
     } else if ([type isEqualToString:AVMetadataObjectTypeUPCECode]) {
         codeGen = [[RSUPCEGenerator alloc] init];
+        
     } else if ([type isEqualToString:AVMetadataObjectTypeCode93Code]) {
         codeGen = [[RSCode93Generator alloc] init];
+        
     } else if ([type isEqualToString:AVMetadataObjectTypeCode128Code]) {
         codeGen = [[RSCode128Generator alloc] init];
     }

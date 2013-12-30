@@ -8,6 +8,9 @@
 
 #import "RSCodeGenerator.h"
 
+/**
+ *  http://www.barcodeisland.com/code128.phtml
+ */
 @interface RSCode128Generator : RSAbstractCodeGenerator
 
 @end
