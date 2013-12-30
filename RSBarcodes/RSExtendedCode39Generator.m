@@ -8,7 +8,7 @@
 
 #import "RSExtendedCode39Generator.h"
 
-NSString * const RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.barcodes.code39.ext";
+NSString * const RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.rsbarcodes.code39.ext";
 
 @implementation RSExtendedCode39Generator
 
