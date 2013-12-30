@@ -31,7 +31,7 @@
             if (codeObjects.count > 0) {
                 NSMutableString *text = [[NSMutableString alloc] init];
                 [codeObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    [text appendString:[NSString stringWithFormat:@"%@:%@", [(AVMetadataObject *)obj type], [obj stringValue]]];
+                    [text appendString:[NSString stringWithFormat:@"%@: %@", [(AVMetadataObject *)obj type], [obj stringValue]]];
                     if (idx != (codeObjects.count - 1)) {
                         [text appendString:@"\n"];
                     }
@@ -55,7 +55,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.codeView.code = [CodeGen encode:@"TEST93" codeObjectType:AVMetadataObjectTypeCode93Code];
+    self.codeView.code = [CodeGen encode:@"TEST 93" codeObjectType:AVMetadataObjectTypeCode93Code];
     [self.view bringSubviewToFront:self.codeView];
     
     [self.view bringSubviewToFront:self.codeLabel];

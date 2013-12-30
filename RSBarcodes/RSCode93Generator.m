@@ -108,6 +108,9 @@ static NSString * const CODE93_CHARACTER_ENCODINGS[44] = {
 
 - (NSString *)checkDigit:(NSString *)contents
 {
+    // Weighted sum += value * weight
+    
+    // The first character
     int sum = 0;
     for (int i = 0; i < contents.length; i++) {
         NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
@@ -117,6 +120,7 @@ static NSString * const CODE93_CHARACTER_ENCODINGS[44] = {
     NSMutableString *checkDigits = [[NSMutableString alloc] init];
     [checkDigits appendString:[CODE93_ALPHABET_STRING substringWithRange:NSMakeRange(sum % 47, 1)]];
     
+    // The second character
     sum = 0;
     NSString *newContents = [NSString stringWithFormat:@"%@%@", contents, checkDigits];
     for (int i = 0; i < newContents.length; i++) {
