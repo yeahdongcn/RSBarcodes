@@ -39,7 +39,8 @@
         NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
         sum += [CODE39_ALPHABET_STRING rangeOfString:character].location;
     }
-    return [CODE39_ALPHABET_STRING substringWithRange:NSMakeRange(sum % 43, 1)];
+    // 43 = CODE39_ALPHABET_STRING's length - 1 -- excludes asterisk
+    return [CODE39_ALPHABET_STRING substringWithRange:NSMakeRange(sum % (CODE39_ALPHABET_STRING.length - 1), 1)];
 }
 
 

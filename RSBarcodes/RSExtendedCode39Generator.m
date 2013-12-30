@@ -201,11 +201,7 @@ NSString * const RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.barcodes.cod
 
 - (BOOL)isContentsValid:(NSString *)contents
 {
-    if (contents.length > 0) {
-        return YES;
-    } else {
-        return NO;
-    }
+    return contents.length > 0 ? YES : NO;
 }
 
 - (NSString *)barcode:(NSString *)contents
