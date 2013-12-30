@@ -87,7 +87,6 @@ static NSString *const UPCE_SEQUENCES[10] = {
 
 - (BOOL)isContentsValid:(NSString *)contents
 {
-    
     if ([super isContentsValid:contents] && [self respondsToSelector:@selector(checkDigit:)]) {
         if (contents.length == 8
             && [[contents substringWithRange:NSMakeRange(0, 1)] intValue] == 0
@@ -136,17 +135,17 @@ static NSString *const UPCE_SEQUENCES[10] = {
 //    Sum the results of step 3 and step 4.
 //    divide the result of step 4 by 10. The check digit is the number which adds the remainder to 10.
     NSString *upc_a = [self convert2UPC_A:contents];
-    int odds = 0;
-    int evens = 0;
+    int sum_odd = 0;
+    int sum_even = 0;
     for (int i = 0; i < upc_a.length; i++) {
         int digit = [[upc_a substringWithRange:NSMakeRange(i, 1)] intValue];
         if (i % 2 == 0) {
-            evens += digit;
+            sum_even += digit;
         } else {
-            odds += digit;
+            sum_odd += digit;
         }
     }
-    return [NSString stringWithFormat:@"%d", 10 - (evens + odds * 3) % 10];
+    return [NSString stringWithFormat:@"%d", 10 - (sum_even + sum_odd * 3) % 10];
 }
 
 @end

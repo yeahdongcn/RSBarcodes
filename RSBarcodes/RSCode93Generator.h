@@ -8,6 +8,6 @@
 
 #import "RSCodeGenerator.h"
 
-@interface RSCode93Generator : RSAbstractCodeGenerator
+@interface RSCode93Generator : RSAbstractCodeGenerator <RSCheckDigitGenerator>
 
 @end

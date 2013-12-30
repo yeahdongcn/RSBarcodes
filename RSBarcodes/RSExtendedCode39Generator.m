@@ -12,43 +12,6 @@ NSString * const RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.barcodes.cod
 
 @implementation RSExtendedCode39Generator
 
-/*
- 
- ASCII	ENCODING	ASCII	ENCODING	ASCII	ENCODING	ASCII	ENCODING
- NUL	%U	SP	Space	@	%V	`	%W
- SOH	$A	!	/A	A	A	a	+A
- STX	$B	"	/B	B	B	b	+B
- ETX	$C	#	/C	C	C	c	+C
- EOT	$D	$	/D	D	D	d	+D
- ENQ	$E	%	/E	E	E	e	+E
- ACK	$F	&	/F	F	F	f	+F
- BEL	$G	'	/G	G	G	g	+G
- BS	$H	(	/H	H	H	H	H
- HT	$I	)	/I	I	I	i	+I
- LF	$J	*	/J	J	J	j	+J
- VT	$K	+	/K	K	K	k	+K
- FF	$L	,	/L	L	L	l	+L
- CR	$M	-	-	M	M	m	+M
- SO	$N	.	.	N	N	n	+N
- SI	$O	/	/O	O	O	o	+O
- DLE	$P	0	0	P	P	p	+P
- DC1	$Q	1	1	Q	Q	q	+Q
- DC2	$R	2	2	R	R	r	+R
- DC3	$S	3	3	S	S	s	+S
- DC4	$T	4	4	T	T	t	+T
- NAK	$U	5	5	U	U	u	+U
- SYN	$V	6	6	V	V	v	+V
- ETB	$W	7	7	W	W	w	+W
- CAN	$X	8	8	X	X	x	+X
- EM	$Y	9	9	Y	Y	y	+Y
- SUB	$Z	:	/Z	Z	Z	z	+Z
- ESC	%A	;	%F	[	%K	{	%P
- FS	%B	<<	%G	\	%L	|	%Q
- GS	%C	=	%H	]	%M	}	%R
- RS	%D	>	%I	^	%N	~	%S
- YS	%E	?	%J	_	%O	DEL	%T, %X, %Y, %Z
- */
-
 - (NSString *)__encodeContents:(NSString *)contents
 {
     NSMutableString *encoded = [[NSMutableString alloc] initWithString:@""];
@@ -234,6 +197,15 @@ NSString * const RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.barcodes.cod
     }
     
     return [NSString stringWithString:encoded];
+}
+
+- (BOOL)isContentsValid:(NSString *)contents
+{
+    if (contents.length > 0) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (NSString *)barcode:(NSString *)contents

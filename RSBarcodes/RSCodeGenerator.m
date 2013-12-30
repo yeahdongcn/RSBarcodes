@@ -47,7 +47,7 @@ NSString * const DIGITS_STRING = @"0123456789";
 
 - (UIImage *)drawCompleteBarcode:(NSString *)code
 {
-    CGSize size = CGSizeMake(code.length + 10, roundf(code.length / 4.0));
+    CGSize size = CGSizeMake(code.length + 10, roundf(code.length / 3.0));
     UIGraphicsBeginImageContextWithOptions(size, YES, 0.0f);
     CGContextRef context = UIGraphicsGetCurrentContext();
     

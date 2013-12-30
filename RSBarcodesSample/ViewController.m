@@ -55,7 +55,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.codeView.code = [CodeGen encode:@"01240136" codeObjectType:AVMetadataObjectTypeUPCECode];
+    self.codeView.code = [CodeGen encode:@"TEST93" codeObjectType:AVMetadataObjectTypeCode93Code];
     [self.view bringSubviewToFront:self.codeView];
     
     [self.view bringSubviewToFront:self.codeLabel];
