@@ -69,7 +69,7 @@
         codeGen = [[RSCode93Generator alloc] init];
         
     } else if ([type isEqualToString:AVMetadataObjectTypeCode128Code]) {
-        codeGen = [[RSCode128Generator alloc] init];
+        codeGen = [[RSCode128Generator alloc] initWithContents:contents];
     }
     
     if (codeGen) {

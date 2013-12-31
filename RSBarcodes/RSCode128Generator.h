@@ -8,9 +8,20 @@
 
 #import "RSCodeGenerator.h"
 
+typedef NS_ENUM(NSUInteger, RSCode128GeneratorCodeTable) {
+    RSCode128GeneratorCodeTableAuto = 0,
+    RSCode128GeneratorCodeTableA    = 1,
+    RSCode128GeneratorCodeTableB    = 2,
+    RSCode128GeneratorCodeTableC    = 3
+};
+
 /**
  *  http://www.barcodeisland.com/code128.phtml
  */
 @interface RSCode128Generator : RSAbstractCodeGenerator <RSCheckDigitGenerator>
+
+- (id)initWithContents:(NSString *)contents;
+
+@property (nonatomic) RSCode128GeneratorCodeTable codeTable;
 
 @end

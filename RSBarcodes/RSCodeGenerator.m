@@ -51,7 +51,7 @@ NSString * const DIGITS_STRING = @"0123456789";
         return nil;
     }
     
-    CGSize size = CGSizeMake(code.length + 10, roundf(code.length / 3.0));
+    CGSize size = CGSizeMake(code.length + 20, roundf(code.length / 3.0));
     UIGraphicsBeginImageContextWithOptions(size, YES, 0.0f);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -64,8 +64,8 @@ NSString * const DIGITS_STRING = @"0123456789";
     for (int i = 0; i < code.length; i++) {
         NSString *character = [code substringWithRange:NSMakeRange(i, 1)];
         if ([character isEqualToString:@"1"]) {
-            CGContextMoveToPoint(context, i + 5, 5);
-            CGContextAddLineToPoint(context, i + 5, size.height - 5);
+            CGContextMoveToPoint(context, i + 10, 5);
+            CGContextAddLineToPoint(context, i + 10, size.height - 5);
         }
     }
     CGContextDrawPath(context, kCGPathFillStroke);
