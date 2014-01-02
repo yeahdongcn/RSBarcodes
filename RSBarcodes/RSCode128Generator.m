@@ -139,7 +139,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 {
     self = [super init];
     if (self) {
-        self.codeTable = RSCode128GeneratorCodeTableB;
+        self.codeTable = RSCode128GeneratorCodeTableC;
         self.codeTableSize = (NSUInteger)(sizeof(CODE128_CHARACTER_ENCODINGS) / sizeof(NSString *));
     }
     return self;
@@ -150,6 +150,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     if (contents.length > 0) {
         switch (self.codeTable) {
             case RSCode128GeneratorCodeTableAuto:
+                NSLog(@"Note!");
                 return YES;
             case RSCode128GeneratorCodeTableA: {
                 NSString *CODE128_ALPHABET_STRING_A = [CODE128_ALPHABET_STRING substringToIndex:64];
@@ -168,7 +169,12 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
                 }
                 return YES;
             case RSCode128GeneratorCodeTableC:
-                break;
+                // http://stackoverflow.com/questions/6644004/how-to-check-if-nsstring-is-contains-a-numeric-value
+                if (contents.length % 2 == 0
+                    && [contents rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]].location == NSNotFound) {
+                    return YES;
+                }
+                return NO;
             default:
                 return NO;
         }
@@ -206,14 +212,32 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 - (NSString *)barcode:(NSString *)contents
 {
     NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
-    for (int i = 0; i < contents.length; i++) {
-        [barcode appendString:[self __encodeCharacter:[contents substringWithRange:NSMakeRange(i, 1)]]];
+
+    switch (self.codeTable) {
+        case RSCode128GeneratorCodeTableAuto:
+            NSLog(@"Note!");
+            break;
+        case RSCode128GeneratorCodeTableA:
+        case RSCode128GeneratorCodeTableB:
+            for (int i = 0; i < contents.length; i++) {
+                [barcode appendString:[self __encodeCharacter:[contents substringWithRange:NSMakeRange(i, 1)]]];
+            }
+            break;
+        case RSCode128GeneratorCodeTableC:
+            for (int i = 0; i < contents.length; i++) {
+                if (i % 2 == 1) {
+                    continue;
+                } else {
+                    int value = [[contents substringWithRange:NSMakeRange(i, 2)] intValue];
+                    [barcode appendString:CODE128_CHARACTER_ENCODINGS[value]];
+                }
+            }
+            break;
     }
     if ([self respondsToSelector:@selector(checkDigit:)]) {
-        return [NSString stringWithFormat:@"%@%@", barcode, [self checkDigit:contents]];
-    } else {
-        return [NSString stringWithString:barcode];
+        [barcode appendString:[self checkDigit:contents]];
     }
+    return [NSString stringWithString:barcode];
 }
 
 #pragma mark - RSCheckDigitGenerator
@@ -237,6 +261,14 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
             break;
         case RSCode128GeneratorCodeTableC:
             sum += self.codeTableSize - 2; // START C
+            for (int i = 0; i < contents.length; i++) {
+                if (i % 2 == 1) {
+                    continue;
+                } else {
+                    int value = [[contents substringWithRange:NSMakeRange(i, 2)] intValue];
+                    sum += value * (i / 2 + 1);
+                }
+            }
             break;
         default:
             break;
