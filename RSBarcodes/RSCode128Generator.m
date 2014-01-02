@@ -112,9 +112,9 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     @"10111100010",
     @"11110101000",
     @"11110100010",
-    @"10111011110",
-    @"10111101110",
-    @"11101011110",
+    @"10111011110", // to C from A, B (size - 8)
+    @"10111101110", // to B from A, C (size - 7)
+    @"11101011110", // to A from B, C (size - 6)
     @"11110101110",
     @"11010000100", // START A (size - 4)
     @"11010010000", // START B (size - 3)
@@ -122,9 +122,31 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     @"11000111010"  // STOP    (size - 1)
 };
 
+@interface RSAutoCodeTable : NSObject
+
+@property (nonatomic) RSCode128GeneratorCodeTable startCodeTable;
+
+@property (nonatomic) NSMutableArray *sequence;
+
+@end
+
+@implementation RSAutoCodeTable
+
+- (NSMutableArray *)sequence
+{
+    if (!_sequence) {
+        _sequence = [[NSMutableArray alloc] init];
+    }
+    return _sequence;
+}
+
+@end
+
 @interface RSCode128Generator ()
 
 @property (nonatomic) NSUInteger codeTableSize;
+
+@property (nonatomic, strong) RSAutoCodeTable *autoCodeTable;
 
 @end
 
@@ -135,11 +157,110 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     return CODE128_CHARACTER_ENCODINGS[[CODE128_ALPHABET_STRING rangeOfString:character].location];
 }
 
+- (int)__valueForStart:(RSCode128GeneratorCodeTable)start
+{
+    int valueForStart = 0;
+    switch (self.autoCodeTable.startCodeTable) {
+        case RSCode128GeneratorCodeTableA:
+            valueForStart = self.codeTableSize - 4;
+            break;
+        case RSCode128GeneratorCodeTableB:
+            valueForStart = self.codeTableSize - 3;
+            break;
+        case RSCode128GeneratorCodeTableC:
+            valueForStart = self.codeTableSize - 2;
+            break;
+        default:
+            break;
+    }
+    return valueForStart;
+}
+
+- (int)__switchToCodeTable:(RSCode128GeneratorCodeTable)toCodeTable
+{
+    int codeTableValue = 0;
+    switch (toCodeTable) {
+        case RSCode128GeneratorCodeTableA:
+            codeTableValue = self.codeTableSize - 6;
+            break;
+        case RSCode128GeneratorCodeTableB:
+            codeTableValue = self.codeTableSize - 7;
+            break;
+        case RSCode128GeneratorCodeTableC:
+            codeTableValue = self.codeTableSize - 8;
+            break;
+        default:
+            break;
+    }
+    return codeTableValue;
+}
+
+- (void)__calculateAutoCodeTable:(NSString *)contents
+{
+    if (self.codeTable == RSCode128GeneratorCodeTableAuto) {
+        // Init auto code table when the other code table is selected
+        self.autoCodeTable = [[RSAutoCodeTable alloc] init];
+        // Default select short code table A as start code table
+        RSCode128GeneratorCodeTable defaultCodeTable = RSCode128GeneratorCodeTableA;
+        int index = NSNotFound;
+        NSString *CODE128_ALPHABET_STRING_A = [CODE128_ALPHABET_STRING substringToIndex:64];
+        for (int i = 0; i < contents.length; i++) {
+            NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
+            if ([CODE128_ALPHABET_STRING_A rangeOfString:character].location == NSNotFound) {
+                defaultCodeTable = RSCode128GeneratorCodeTableB;
+            }
+            if ([DIGITS_STRING rangeOfString:character].location == NSNotFound) {
+                if (index != NSNotFound) {
+                    if ((index == 0 && (i - index) >= 4)
+                        || ((index > 0 && (i - index) >= 6))) {
+                        // NSMakeRange(index, i - index)
+                        // START C when found continous digits from index == 0
+                        if (index == 0) {
+                            self.autoCodeTable.startCodeTable = RSCode128GeneratorCodeTableC;
+                        } else {
+                            [self.autoCodeTable.sequence addObject:[NSNumber numberWithInt:[self __switchToCodeTable:RSCode128GeneratorCodeTableC]]];
+                        }
+                        
+                        for (int j = 0; j < (i - index) / 2; j++) {
+                            int digitValue = [[contents substringWithRange:NSMakeRange(index + j * 2, 2)] intValue];
+                            [self.autoCodeTable.sequence addObject:[NSNumber numberWithInt:digitValue]];
+                        }
+                        [self.autoCodeTable.sequence addObject:[NSNumber numberWithInt:[self __switchToCodeTable:defaultCodeTable]]];
+                        if ((i - index) % 2 == 1) {
+                            int digitValue = [CODE128_ALPHABET_STRING rangeOfString:[contents substringWithRange:NSMakeRange(i - 1, 1)]].location;
+                            [self.autoCodeTable.sequence addObject:[NSNumber numberWithInt:digitValue]];
+                        }
+                        int characterValue = [CODE128_ALPHABET_STRING rangeOfString:character].location;
+                        [self.autoCodeTable.sequence addObject:[NSNumber numberWithInt:characterValue]];
+                        
+                        // Reset index
+                        index = NSNotFound;
+                    } else {
+                        
+                    }
+                } else {
+                    int characterValue = [CODE128_ALPHABET_STRING rangeOfString:character].location;
+                    [self.autoCodeTable.sequence addObject:[NSNumber numberWithInt:characterValue]];
+                }
+            } else {
+                if (index == NSNotFound) {
+                    index = i;
+                } else {
+                    // todo:
+                }
+            }
+        }
+        if (self.autoCodeTable.startCodeTable == RSCode128GeneratorCodeTableAuto) {
+            self.autoCodeTable.startCodeTable = defaultCodeTable;
+        }
+    }
+}
+
 - (id)initWithContents:(NSString *)contents
 {
     self = [super init];
     if (self) {
-        self.codeTable = RSCode128GeneratorCodeTableC;
+        self.codeTable = RSCode128GeneratorCodeTableAuto;
         self.codeTableSize = (NSUInteger)(sizeof(CODE128_CHARACTER_ENCODINGS) / sizeof(NSString *));
     }
     return self;
@@ -150,7 +271,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     if (contents.length > 0) {
         switch (self.codeTable) {
             case RSCode128GeneratorCodeTableAuto:
-                NSLog(@"Note!");
+                [self __calculateAutoCodeTable:contents];
                 return YES;
             case RSCode128GeneratorCodeTableA: {
                 NSString *CODE128_ALPHABET_STRING_A = [CODE128_ALPHABET_STRING substringToIndex:64];
@@ -187,18 +308,13 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     NSString *initiator = [super initiator];
     switch (self.codeTable) {
         case RSCode128GeneratorCodeTableAuto:
-            NSLog(@"Note!");
+            initiator = CODE128_CHARACTER_ENCODINGS[[self __valueForStart:self.autoCodeTable.startCodeTable]];
             break;
         case RSCode128GeneratorCodeTableA:
-            initiator = CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 4];
-            break;
         case RSCode128GeneratorCodeTableB:
-            initiator = CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 3];
-            break;
         case RSCode128GeneratorCodeTableC:
-            initiator = CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 2];
-            break;
         default:
+            initiator = CODE128_CHARACTER_ENCODINGS[[self __valueForStart:self.codeTable]];
             break;
     }
     return initiator;
@@ -215,7 +331,9 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 
     switch (self.codeTable) {
         case RSCode128GeneratorCodeTableAuto:
-            NSLog(@"Note!");
+            for (int i = 0; i < self.autoCodeTable.sequence.count; i++) {
+                [barcode appendString:CODE128_CHARACTER_ENCODINGS[[self.autoCodeTable.sequence[i] intValue]]];
+            }
             break;
         case RSCode128GeneratorCodeTableA:
         case RSCode128GeneratorCodeTableB:
@@ -247,15 +365,17 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     int sum = 0;
     switch (self.codeTable) {
         case RSCode128GeneratorCodeTableAuto:
-            NSLog(@"Note!");
+            sum += [self __valueForStart:self.autoCodeTable.startCodeTable];
+            for (int i = 0; i < self.autoCodeTable.sequence.count; i++) {
+                sum += [self.autoCodeTable.sequence[i] intValue] * (i + 1);
+            }
             break;
         case RSCode128GeneratorCodeTableA:
             sum = -1; // START A = self.codeTableSize - 4 = START B - 1
         case RSCode128GeneratorCodeTableB:
             sum += self.codeTableSize - 3; // START B
             for (int i = 0; i < contents.length; i++) {
-                NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
-                int characterValue = [CODE128_ALPHABET_STRING rangeOfString:character].location;
+                int characterValue = [CODE128_ALPHABET_STRING rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]].location;
                 sum += characterValue * (i + 1);
             }
             break;
