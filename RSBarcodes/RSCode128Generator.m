@@ -134,7 +134,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 {
     self = [super init];
     if (self) {
-        self.codeTable = RSCode128GeneratorCodeTableAuto;
+        self.codeTable = RSCode128GeneratorCodeTableA;
         self.codeTableSize = (NSUInteger)(sizeof(CODE128_CHARACTER_ENCODINGS) / sizeof(NSString *));
     }
     return self;
@@ -172,11 +172,50 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     return [NSString stringWithFormat:@"%@%@", CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 1], @"11"];
 }
 
+- (NSString *)__encodeCharacter:(NSString *)character
+{
+    return CODE128_CHARACTER_ENCODINGS[[CODE128_ALPHABET_STRING rangeOfString:character].location];
+}
+
+- (NSString *)barcode:(NSString *)contents
+{
+    NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
+    for (int i = 0; i < contents.length; i++) {
+        [barcode appendString:[self __encodeCharacter:[contents substringWithRange:NSMakeRange(i, 1)]]];
+    }
+    if ([self respondsToSelector:@selector(checkDigit:)]) {
+        return [NSString stringWithFormat:@"%@%@", barcode, [self checkDigit:contents]];
+    } else {
+        return [NSString stringWithString:barcode];
+    }
+}
+
 #pragma mark - RSCheckDigitGenerator
 
 - (NSString *)checkDigit:(NSString *)contents
 {
-    return @"";
+    int sum = 0;
+    switch (self.codeTable) {
+        case RSCode128GeneratorCodeTableAuto:
+            NSLog(@"Note!");
+            break;
+        case RSCode128GeneratorCodeTableA:
+            sum = -1; // START A = self.codeTableSize - 4
+        case RSCode128GeneratorCodeTableB:
+            sum += self.codeTableSize - 3; // START B
+            for (int i = 0; i < contents.length; i++) {
+                NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
+                int characterValue = [CODE128_ALPHABET_STRING rangeOfString:character].location;
+                sum += characterValue * (i + 1);
+            }
+            break;
+        case RSCode128GeneratorCodeTableC:
+            sum += self.codeTableSize - 2; // START C
+            break;
+        default:
+            break;
+    }
+    return CODE128_CHARACTER_ENCODINGS[sum % 103];
 }
 
 @end
