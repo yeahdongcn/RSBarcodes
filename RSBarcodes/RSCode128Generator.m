@@ -75,6 +75,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     @"11001000010",
     @"11110001010",
     @"10100110000",
+    // Visible character encoding for code table A ended.
     @"10100001100",
     @"10010110000",
     @"10010000110",
@@ -106,7 +107,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     @"10101111000",
     @"10100011110",
     @"10001011110",
-    
+    // Visible character encoding for code table B ended.
     @"10111101000",
     @"10111100010",
     @"11110101000",
@@ -123,6 +124,8 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 
 @interface RSCode128Generator ()
 
+@property (nonatomic) NSUInteger codeTableSize;
+
 @end
 
 @implementation RSCode128Generator
@@ -132,6 +135,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     self = [super init];
     if (self) {
         self.codeTable = RSCode128GeneratorCodeTableAuto;
+        self.codeTableSize = (NSUInteger)(sizeof(CODE128_CHARACTER_ENCODINGS) / sizeof(NSString *));
     }
     return self;
 }
@@ -141,9 +145,31 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     return contents.length > 0 ? YES : NO;
 }
 
+- (NSString *)initiator
+{
+    NSString *initiator = [super initiator];
+    switch (self.codeTable) {
+        case RSCode128GeneratorCodeTableAuto:
+            NSLog(@"Note!");
+            break;
+        case RSCode128GeneratorCodeTableA:
+            initiator = CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 4];
+            break;
+        case RSCode128GeneratorCodeTableB:
+            initiator = CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 3];
+            break;
+        case RSCode128GeneratorCodeTableC:
+            initiator = CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 2];
+            break;
+        default:
+            break;
+    }
+    return initiator;
+}
+
 - (NSString *)terminator
 {
-    return [NSString stringWithFormat:@"%@%@", CODE128_CHARACTER_ENCODINGS[106], @"11"];
+    return [NSString stringWithFormat:@"%@%@", CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 1], @"11"];
 }
 
 #pragma mark - RSCheckDigitGenerator
