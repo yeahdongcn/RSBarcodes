@@ -17,6 +17,7 @@ typedef NS_ENUM(NSUInteger, RSCode128GeneratorCodeTable) {
 
 /**
  *  http://www.barcodeisland.com/code128.phtml
+ *  http://courses.cs.washington.edu/courses/cse370/01au/minirproject/BarcodeBattlers/barcodes.html
  */
 @interface RSCode128Generator : RSAbstractCodeGenerator <RSCheckDigitGenerator>
 

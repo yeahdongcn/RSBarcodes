@@ -74,7 +74,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     @"11101111010",
     @"11001000010",
     @"11110001010",
-    @"10100110000",
+    @"10100110000", // 64
     // Visible character encoding for code table A ended.
     @"10100001100",
     @"10010110000",
@@ -116,10 +116,10 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     @"10111101110",
     @"11101011110",
     @"11110101110",
-    @"11010000100",
-    @"11010010000",
-    @"11010011100",
-    @"11000111010",
+    @"11010000100", // START A (size - 4)
+    @"11010010000", // START B (size - 3)
+    @"11010011100", // START C (size - 2)
+    @"11000111010"  // STOP    (size - 1)
 };
 
 @interface RSCode128Generator ()
@@ -130,11 +130,16 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 
 @implementation RSCode128Generator
 
+- (NSString *)__encodeCharacter:(NSString *)character
+{
+    return CODE128_CHARACTER_ENCODINGS[[CODE128_ALPHABET_STRING rangeOfString:character].location];
+}
+
 - (id)initWithContents:(NSString *)contents
 {
     self = [super init];
     if (self) {
-        self.codeTable = RSCode128GeneratorCodeTableA;
+        self.codeTable = RSCode128GeneratorCodeTableB;
         self.codeTableSize = (NSUInteger)(sizeof(CODE128_CHARACTER_ENCODINGS) / sizeof(NSString *));
     }
     return self;
@@ -142,7 +147,33 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 
 - (BOOL)isContentsValid:(NSString *)contents
 {
-    return contents.length > 0 ? YES : NO;
+    if (contents.length > 0) {
+        switch (self.codeTable) {
+            case RSCode128GeneratorCodeTableAuto:
+                return YES;
+            case RSCode128GeneratorCodeTableA: {
+                NSString *CODE128_ALPHABET_STRING_A = [CODE128_ALPHABET_STRING substringToIndex:64];
+                for (int i = 0; i < contents.length; i++) {
+                    if ([CODE128_ALPHABET_STRING_A rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]].location == NSNotFound) {
+                        return NO;
+                    }
+                }
+                return YES;
+            }
+            case RSCode128GeneratorCodeTableB:
+                for (int i = 0; i < contents.length; i++) {
+                    if ([CODE128_ALPHABET_STRING rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]].location == NSNotFound) {
+                        return NO;
+                    }
+                }
+                return YES;
+            case RSCode128GeneratorCodeTableC:
+                break;
+            default:
+                return NO;
+        }
+    }
+    return NO;
 }
 
 - (NSString *)initiator
@@ -172,11 +203,6 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     return [NSString stringWithFormat:@"%@%@", CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 1], @"11"];
 }
 
-- (NSString *)__encodeCharacter:(NSString *)character
-{
-    return CODE128_CHARACTER_ENCODINGS[[CODE128_ALPHABET_STRING rangeOfString:character].location];
-}
-
 - (NSString *)barcode:(NSString *)contents
 {
     NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
@@ -200,7 +226,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
             NSLog(@"Note!");
             break;
         case RSCode128GeneratorCodeTableA:
-            sum = -1; // START A = self.codeTableSize - 4
+            sum = -1; // START A = self.codeTableSize - 4 = START B - 1
         case RSCode128GeneratorCodeTableB:
             sum += self.codeTableSize - 3; // START B
             for (int i = 0; i < contents.length; i++) {
