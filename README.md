@@ -1,9 +1,13 @@
 RSBarcodes
 ==========
+
+Metadata scanning capabilities have been introduced with iOS7.
+
 Current status
 ------------
 
 ###Code scanner:
+    Multiple corners and border rectangles display view -- WIP
 
 ###Code generators:
     "org.gs1.UPC-E", -- Done
@@ -16,11 +20,13 @@ Current status
     "org.iso.PDF417", -- Done
     "org.iso.QRCode", -- Done
     "org.iso.Aztec" -- Done
-    
     Full ASCII Code 39 -- Done
+    
+    Code display view -- Done
     
 Usage
 ------------
-    
+
+------------  
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yeahdongcn/rsbarcodes/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
