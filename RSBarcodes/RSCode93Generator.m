@@ -113,7 +113,7 @@ static NSString * const CODE93_CHARACTER_ENCODINGS[44] = {
     int sum = 0;
     for (int i = 0; i < contents.length; i++) {
         NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
-        int characterValue = [CODE93_ALPHABET_STRING rangeOfString:character].location;
+        NSUInteger characterValue = [CODE93_ALPHABET_STRING rangeOfString:character].location;
         sum += characterValue * (contents.length - i);
     }
     NSMutableString *checkDigits = [[NSMutableString alloc] init];
@@ -124,7 +124,7 @@ static NSString * const CODE93_CHARACTER_ENCODINGS[44] = {
     NSString *newContents = [NSString stringWithFormat:@"%@%@", contents, checkDigits];
     for (int i = 0; i < newContents.length; i++) {
         NSString *character = [newContents substringWithRange:NSMakeRange(i, 1)];
-        int characterValue = [CODE93_ALPHABET_STRING rangeOfString:character].location;
+        NSUInteger characterValue = [CODE93_ALPHABET_STRING rangeOfString:character].location;
         sum += characterValue * (newContents.length - i);
     }
     [checkDigits appendString:[CODE93_ALPHABET_STRING substringWithRange:NSMakeRange(sum % 47, 1)]];
