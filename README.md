@@ -3,6 +3,9 @@ RSBarcodes
 Current status
 ------------
 
+###Code scanner:
+
+###Code generators:
     "org.gs1.UPC-E", -- Done
     "org.iso.Code39", -- Done
     "org.iso.Code39Mod43", -- Done
@@ -15,6 +18,9 @@ Current status
     "org.iso.Aztec" -- Done
     
     Full ASCII Code 39 -- Done
+    
+Usage
+------------
     
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yeahdongcn/rsbarcodes/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
