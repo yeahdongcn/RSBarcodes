@@ -6,10 +6,10 @@ RSBarcodes
     "org.gs1.UPC-E", -- Done
     "org.iso.Code39", -- Done
     "org.iso.Code39Mod43", -- Done
-    "org.gs1.EAN-13", -- WIP
-    "org.gs1.EAN-8", -- WIP
+    "org.gs1.EAN-13", -- WIP by ZhangXi
+    "org.gs1.EAN-8", -- WIP by ZhangXi
     "com.intermec.Code93", -- Done
-    "org.iso.Code128", -- WIP
+    "org.iso.Code128", -- Done
     "org.iso.PDF417", -- Done
     "org.iso.QRCode", -- Done
     "org.iso.Aztec" -- Done
