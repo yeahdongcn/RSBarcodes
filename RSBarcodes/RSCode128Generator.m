@@ -200,30 +200,52 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
                           continousDigitsRange:(NSRange)range
 {
     NSUInteger currentIndex = range.location + range.length;
-    NSString *character = [contents substringWithRange:NSMakeRange(currentIndex, 1)];
+    BOOL isFinished = NO;
+    if (currentIndex == contents.length) {
+        isFinished = YES;
+    }
     
     if ((range.location == 0 && range.length >= 4)
         || ((range.location > 0 && range.length >= 6))) {
-        // START C when found continous digits from range.location == 0
+        BOOL isOrphanDigitUsed = NO;
+        // Use START C when continous digits are found from range.location == 0
         if (range.location == 0) {
             self.autoCodeTable.startCodeTable = RSCode128GeneratorCodeTableC;
         } else {
+            if (range.length % 2 == 1) {
+                NSUInteger digitValue = [CODE128_ALPHABET_STRING rangeOfString:[contents substringWithRange:NSMakeRange(range.location, 1)]].location;
+                [self.autoCodeTable.sequence addObject:[NSNumber numberWithInteger:digitValue]];
+                isOrphanDigitUsed = YES;
+            }
             [self.autoCodeTable.sequence addObject:[NSNumber numberWithInteger:[self __middleCodeTableValue:RSCode128GeneratorCodeTableC]]];
         }
         
-        for (int j = 0; j < range.length / 2; j++) {
-            int digitValue = [[contents substringWithRange:NSMakeRange(range.location + j * 2, 2)] intValue];
+        // Insert all xx combinations
+        for (int i = 0; i < range.length / 2; i++) {
+            NSUInteger startIndex = range.location + i * 2;
+            int digitValue = [[contents substringWithRange:NSMakeRange(isOrphanDigitUsed ? startIndex + 1 : startIndex, 2)] intValue];
             [self.autoCodeTable.sequence addObject:[NSNumber numberWithInt:digitValue]];
         }
-        [self.autoCodeTable.sequence addObject:[NSNumber numberWithInteger:[self __middleCodeTableValue:defaultCodeTable]]];
-        if (range.length % 2 == 1) {
+        
+        if ((range.length % 2 == 1 && !isOrphanDigitUsed)
+            || !isFinished) {
+            [self.autoCodeTable.sequence addObject:[NSNumber numberWithInteger:[self __middleCodeTableValue:defaultCodeTable]]];
+        }
+        
+        if (range.length % 2 == 1 && !isOrphanDigitUsed) {
             NSUInteger digitValue = [CODE128_ALPHABET_STRING rangeOfString:[contents substringWithRange:NSMakeRange(currentIndex - 1, 1)]].location;
             [self.autoCodeTable.sequence addObject:[NSNumber numberWithInteger:digitValue]];
         }
-        NSUInteger characterValue = [CODE128_ALPHABET_STRING rangeOfString:character].location;
-        [self.autoCodeTable.sequence addObject:[NSNumber numberWithInteger:characterValue]];
+        
+        if (!isFinished) {
+            NSString *character = [contents substringWithRange:NSMakeRange(currentIndex, 1)];
+            NSUInteger characterValue = [CODE128_ALPHABET_STRING rangeOfString:character].location;
+            [self.autoCodeTable.sequence addObject:[NSNumber numberWithInteger:characterValue]];
+        }
     } else {
-        for (NSUInteger j = range.location; j <= currentIndex; j++) {
+        for (NSUInteger j = range.location;
+             j <= (isFinished ? currentIndex - 1 : currentIndex);
+             j++) {
             NSUInteger characterValue = [CODE128_ALPHABET_STRING rangeOfString:[contents substringWithRange:NSMakeRange(j, 1)]].location;
             [self.autoCodeTable.sequence addObject:[NSNumber numberWithInteger:characterValue]];
         }
@@ -252,11 +274,11 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
         NSUInteger continousDigitsStartIndex = NSNotFound;
         for (int i = 0; i < contents.length; i++) {
             NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
-            BOOL isContinousDigitsFound = NO;
+            NSRange continousDigitsRange = NSMakeRange(0, 0);
             if ([DIGITS_STRING rangeOfString:character].location == NSNotFound) {
                 // Non digit found
                 if (continousDigitsStartIndex != NSNotFound) {
-                    isContinousDigitsFound = YES;
+                    continousDigitsRange = NSMakeRange(continousDigitsStartIndex, i - continousDigitsStartIndex);
                 } else {
                     NSUInteger characterValue = [CODE128_ALPHABET_STRING rangeOfString:character].location;
                     [self.autoCodeTable.sequence addObject:[NSNumber numberWithInteger:characterValue]];
@@ -266,14 +288,14 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
                 if (continousDigitsStartIndex == NSNotFound) {
                     continousDigitsStartIndex = i;
                 } else if (i == (contents.length - 1)) {
-                    isContinousDigitsFound = YES;
+                    continousDigitsRange = NSMakeRange(continousDigitsStartIndex, i - continousDigitsStartIndex + 1);
                 }
             }
             
-            if (isContinousDigitsFound) {
+            if (continousDigitsRange.length != 0) {
                 [self __calculateContinousDigitsWithContents:contents
                                             defaultCodeTable:defaultCodeTable
-                                        continousDigitsRange:NSMakeRange(continousDigitsStartIndex, i - continousDigitsStartIndex)];
+                                        continousDigitsRange:continousDigitsRange];
                 continousDigitsStartIndex = NSNotFound;
             }
         }
@@ -359,6 +381,8 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 
     switch (self.codeTable) {
         case RSCode128GeneratorCodeTableAuto:
+            NSLog(@"%d", self.autoCodeTable.startCodeTable);
+            NSLog(@"%@", self.autoCodeTable.sequence);
             for (int i = 0; i < self.autoCodeTable.sequence.count; i++) {
                 [barcode appendString:CODE128_CHARACTER_ENCODINGS[[self.autoCodeTable.sequence[i] intValue]]];
             }
