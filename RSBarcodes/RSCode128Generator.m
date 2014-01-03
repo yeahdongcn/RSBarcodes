@@ -240,15 +240,18 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
         RSCode128GeneratorCodeTable defaultCodeTable = RSCode128GeneratorCodeTableA;
         NSString *CODE128_ALPHABET_STRING_A = [CODE128_ALPHABET_STRING substringToIndex:64];
         
+        // Determine whether to use code table B
+        for (int i = 0; i < contents.length; i++) {
+            if ([CODE128_ALPHABET_STRING_A rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]].location == NSNotFound
+                && defaultCodeTable == RSCode128GeneratorCodeTableA) {
+                defaultCodeTable = RSCode128GeneratorCodeTableB;
+                break;
+            }
+        }
+        
         NSUInteger continousDigitsStartIndex = NSNotFound;
         for (int i = 0; i < contents.length; i++) {
             NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
-            
-            if ([CODE128_ALPHABET_STRING_A rangeOfString:character].location == NSNotFound
-                && defaultCodeTable == RSCode128GeneratorCodeTableA) {
-                defaultCodeTable = RSCode128GeneratorCodeTableB;
-            }
-            
             BOOL isContinousDigitsFound = NO;
             if ([DIGITS_STRING rangeOfString:character].location == NSNotFound) {
                 // Non digit found
