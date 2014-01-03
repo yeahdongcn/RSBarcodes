@@ -208,6 +208,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
     if ((range.location == 0 && range.length >= 4)
         || ((range.location > 0 && range.length >= 6))) {
         BOOL isOrphanDigitUsed = NO;
+        
         // Use START C when continous digits are found from range.location == 0
         if (range.location == 0) {
             self.autoCodeTable.startCodeTable = RSCode128GeneratorCodeTableC;
@@ -378,11 +379,9 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 - (NSString *)barcode:(NSString *)contents
 {
     NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
-
+    
     switch (self.codeTable) {
         case RSCode128GeneratorCodeTableAuto:
-            NSLog(@"%d", self.autoCodeTable.startCodeTable);
-            NSLog(@"%@", self.autoCodeTable.sequence);
             for (int i = 0; i < self.autoCodeTable.sequence.count; i++) {
                 [barcode appendString:CODE128_CHARACTER_ENCODINGS[[self.autoCodeTable.sequence[i] intValue]]];
             }
