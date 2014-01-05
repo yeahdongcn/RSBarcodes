@@ -22,7 +22,6 @@ Current status
     "org.iso.QRCode", -- Done
     "org.iso.Aztec" -- Done
     
-    
     Code display view -- Done
     
 Usage
