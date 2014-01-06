@@ -23,17 +23,14 @@
 - (NSString *)barcode:(NSString *)contents
 {
     NSString *code = @"";
-    
     NSString *firstChar = [contents substringToIndex:1];
     NSString *codeType = codeTypes[[firstChar intValue]];
     
     for (int i = 0; i < (length - 1); i++) {
         int value = [[contents substringWithRange:NSMakeRange(i + 1, 1)] intValue];
-        NSString *type;
+        NSString *type = @"C";
         if (i <= (length / 2 - 1)) {
             type = [codeType substringWithRange:NSMakeRange(i, 1)];
-        } else {
-            type = @"C";
         }
         
         code = [code stringByAppendingFormat:@"%@",codeMap[value][type]];

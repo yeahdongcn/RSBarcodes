@@ -29,6 +29,8 @@
         
         if (i <= (length / 2 - 1)) {
             code = [code stringByAppendingFormat:@"%@",codeMap[value][@"A"]];
+            
+            //中线
             if (i == (length / 2 - 1)) {
                 code = [code stringByAppendingString:@"01010"];
             }
