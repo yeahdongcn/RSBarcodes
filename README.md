@@ -6,8 +6,8 @@ RSBarcodes
     "org.gs1.UPC-E", -- Done
     "org.iso.Code39", -- Done
     "org.iso.Code39Mod43", -- Done
-    "org.gs1.EAN-13", -- WIP
-    "org.gs1.EAN-8", -- WIP
+    "org.gs1.EAN-13", -- Done by 张玺
+    "org.gs1.EAN-8", -- Done by 张玺
     "com.intermec.Code93", -- Done
     "org.iso.Code128", -- WIP
     "org.iso.PDF417", -- Done
