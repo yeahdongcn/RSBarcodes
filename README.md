@@ -46,8 +46,10 @@ In `RSScannerViewController` based class implements your own handler.
         self = [super initWithCoder:aDecoder];
         if (self) {
             __weak typeof(self) weakSelf = self;
-            self.handler = ^(NSArray *codeObjects) {
+            self.barcodesHandler = ^(NSArray *codeObjects) {
             };
+            self.tapHandler = ^(CGPoint touchPoint) {
+            });
         }
         return self;
     }
