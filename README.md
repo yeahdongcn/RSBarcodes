@@ -5,7 +5,6 @@ RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabil
 
 Current Status
 ------------
-
 ###Barcode Scanner:
     Multiple corners and border rectangles display view -- WIP
     Manually changing focus point -- Done
@@ -27,12 +26,11 @@ Current Status
     
 Installation
 ------------
-
 <a href="http://cocoapods.org/" target="_blank">CocoaPods</a> is the recommended method of installing RSBarcodes.
 
 Simply add the following line to your `Podfile`:
 
-	pod 'RSBarcodes'
+    pod 'RSBarcodes'
 
 Usage
 ------------
@@ -76,7 +74,6 @@ or
 
 License
 ------------
-
     The MIT License (MIT)
 
     Copyright (c) 2012-2014 P.D.Q.
