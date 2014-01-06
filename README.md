@@ -8,7 +8,7 @@ Current status
 
 ###Barcode scanner:
     Multiple corners and border rectangles display view -- WIP
-    Manually changing focus point -- WIP
+    Manually changing focus point -- Done
 
 ###Barcode generators:
     "org.gs1.UPC-E", -- Done
