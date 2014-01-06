@@ -33,9 +33,9 @@ Usage
 
 ###Barcode scanner:
 
-Place a UIViewController in storyboard and select RSScannerViewController based class as its custom class. If you want to use the corners view (for barcode corners and borders displaying), you can put a UIView onto the view controller’s view and select RSCornersView as its custom class then link the highlightView to it and make sure the view’s size is as large as the view controller’s view.
+Place a ‘UIViewController’ in storyboard and set ‘RSScannerViewController’ based class as its custom class. If you want to use the corners view (for barcode corners and borders displaying), you can put a ‘UIView’ onto the view controller’s view and set ‘RSCornersView’ as its custom class then link the ‘highlightView’ to it, make sure the view’s size is as large as the view controller’s view.
 
-In RSScannerViewController based class implements your own handler.
+In ‘RSScannerViewController’ based class implements your own handler.
 
     - (id)initWithCoder:(NSCoder *)aDecoder
     {
@@ -50,7 +50,7 @@ In RSScannerViewController based class implements your own handler.
 
 ###Barcode generators:
 
-Import RSCodeGen.h into your source file and using CodeGen to generate barcode image. RSBarcodes provides 2 ways.
+Import ‘RSCodeGen.h’ into your source file and using ‘CodeGen’ to generate barcode image. RSBarcodes provides 2 ways.
 
     @protocol RSCodeGenerator <NSObject>
 
@@ -60,7 +60,7 @@ Import RSCodeGen.h into your source file and using CodeGen to generate barcode i
 
     @end
 
-Here are examples, the generated image could be used along with RSCodeView or UIImageView.
+Here are examples, the generated image could be used along with ‘RSCodeView’ or ‘UIImageView’.
 
     [CodeGen genCodeWithContents:<#(NSString *)#> machineReadableCodeObjectType:<#(NSString *)#>] // Types are coming from AVMetadataObject.h and RSCodeGen.h
 
@@ -70,6 +70,10 @@ or
 
 License
 ------------
+
+    The MIT License (MIT)
+
+    Copyright (c) 2012-2014 P.D.Q.
 
 ------------  
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yeahdongcn/rsbarcodes/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
