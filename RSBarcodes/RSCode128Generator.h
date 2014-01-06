@@ -9,7 +9,7 @@
 #import "RSCodeGenerator.h"
 
 typedef NS_ENUM(NSUInteger, RSCode128GeneratorCodeTable) {
-    RSCode128Gener atorCodeTableAuto = 0,
+    RSCode128GeneratorCodeTableAuto = 0,
     RSCode128GeneratorCodeTableA    = 1,
     RSCode128GeneratorCodeTableB    = 2,
     RSCode128GeneratorCodeTableC    = 3
