@@ -1,4 +1,4 @@
-RSBarcodes
+RSBarcodes ![travis-ci status](https://travis-ci.org/yeahdongcn/RSBarcodes.png)
 ==========
 
 RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabilities introduced with iOS7 and generate the same set of barcode images for displaying and sharing.
