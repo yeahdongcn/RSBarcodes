@@ -68,7 +68,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.codeView.code = [CodeGen genCodeWithContents:@"HelloWorld2014010306" machineReadableCodeObjectType:AVMetadataObjectTypeCode128Code];
+    self.codeView.code = [CodeGen genCodeWithContents:@"HelloWorld2014010606" machineReadableCodeObjectType:AVMetadataObjectTypeCode128Code];
     [self.view bringSubviewToFront:self.codeView];
     
     [self.view bringSubviewToFront:self.codeLabel];
