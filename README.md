@@ -34,10 +34,6 @@ Simply add the following line to your `Podfile`:
 
 	pod 'RSBarcodes'
 
-<center>
-	<img src="https://raw.github.com/Jawbone/JBChartView/master/Screenshots/installation.png">
-</center>
-
 Usage
 ------------
 
