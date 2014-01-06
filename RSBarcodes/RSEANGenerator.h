@@ -1,6 +1,6 @@
 //
 //  RSEANGenerator.h
-//  RSBarcodesSample
+//  RSBarcodes
 //
 //  Created by zhangxi on 14-1-6.
 //  http://zhangxi.me
@@ -13,5 +13,7 @@
 {
     NSArray *codeTypes;
     NSArray *codeMap;
+    int length;
 }
+
 @end
