@@ -24,6 +24,9 @@ Current status
     
     Code display view -- Done
     
+Setup
+------------
+
 Usage
 ------------
 
