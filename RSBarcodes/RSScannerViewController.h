@@ -10,7 +10,9 @@
 
 @class RSCornersView;
 
-typedef void (^RSCodeObjectsHandler)(NSArray *codeObjects);
+typedef void (^RSBarcodesHandler)(NSArray *codeObjects);
+
+typedef void (^RSTapHandler)(CGPoint touchPoint);
 
 @interface RSScannerViewController : UIViewController
 
@@ -18,6 +20,8 @@ typedef void (^RSCodeObjectsHandler)(NSArray *codeObjects);
 
 @property (nonatomic, weak) IBOutlet RSCornersView *highlightView;
 
-@property (nonatomic, copy) RSCodeObjectsHandler handler;
+@property (nonatomic, copy) RSBarcodesHandler barcodesHandler;
+
+@property (nonatomic, copy) RSTapHandler tapHandler;
 
 @end

@@ -36,6 +36,26 @@
     [self __stopRunning];
 }
 
+- (void)__tap:(UITapGestureRecognizer *)tapGestureRecognizer
+{
+    CGPoint touchPoint = [tapGestureRecognizer locationInView:self.view];
+    CGPoint focusPoint= CGPointMake(touchPoint.x / self.view.bounds.size.width, touchPoint.y / self.view.bounds.size.height);
+    
+    if (!self.device
+        && ![self.device isFocusPointOfInterestSupported]
+        && ![self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+        return;
+    } else if ([self.device lockForConfiguration:nil]) {
+        [self.device setFocusPointOfInterest:focusPoint];
+        [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
+        [self.device unlockForConfiguration];
+        
+        if (self.tapHandler) {
+            self.tapHandler(touchPoint);
+        }
+    }
+}
+
 - (void)__setup
 {
     if (self.session) {
@@ -79,6 +99,9 @@
     }
     
     [self.view bringSubviewToFront:self.highlightView];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(__tap:)];
+    [self.view addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (void)__startRunning
@@ -103,10 +126,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
     [self __setup];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -139,6 +160,11 @@
     [self __stopRunning];
 }
 
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
@@ -165,8 +191,8 @@
         });
     }
     
-    if (self.handler) {
-        self.handler([NSArray arrayWithArray:codeObjects]);
+    if (self.barcodesHandler) {
+        self.barcodesHandler([NSArray arrayWithArray:codeObjects]);
     }
 }
 

@@ -36,6 +36,11 @@
                                     <constraint firstAttribute="height" constant="40" id="ene-yv-gy6"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m8e-y2-MbE">
+                                <rect key="frame" x="110" y="234" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -54,6 +59,7 @@
                     <connections>
                         <outlet property="codeLabel" destination="C8k-Zl-W9c" id="4h1-uM-lWg"/>
                         <outlet property="codeView" destination="06M-Vl-NSH" id="E0B-IK-JuR"/>
+                        <outlet property="focusView" destination="m8e-y2-MbE" id="htK-CP-EPo"/>
                         <outlet property="highlightView" destination="7q4-9a-Zg6" id="NmZ-fK-gGI"/>
                     </connections>
                 </viewController>

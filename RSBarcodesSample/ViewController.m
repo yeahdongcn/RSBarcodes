@@ -18,6 +18,8 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *codeLabel;
 
+@property (nonatomic, weak) IBOutlet UIView *focusView;
+
 @end
 
 @implementation ViewController
@@ -27,7 +29,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         __weak typeof(self) weakSelf = self;
-        self.handler = ^(NSArray *codeObjects) {
+        self.barcodesHandler = ^(NSArray *codeObjects) {
             if (codeObjects.count > 0) {
                 NSMutableString *text = [[NSMutableString alloc] init];
                 [codeObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -46,6 +48,17 @@
                 });
             }
         };
+        
+        self.tapHandler = ^(CGPoint touchPoint) {
+            weakSelf.focusView.hidden = NO;
+            weakSelf.focusView.center = touchPoint;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                sleep(1);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.focusView.hidden = YES;
+                });
+            });
+        };
     }
     return self;
 }
@@ -59,6 +72,12 @@
     [self.view bringSubviewToFront:self.codeView];
     
     [self.view bringSubviewToFront:self.codeLabel];
+    
+    self.focusView.layer.borderColor = [[UIColor greenColor] CGColor];
+    self.focusView.layer.borderWidth = 1;
+    self.focusView.backgroundColor = [UIColor clearColor];
+    self.focusView.hidden = YES;
+    [self.view bringSubviewToFront:self.focusView];
 }
 
 - (void)didReceiveMemoryWarning
