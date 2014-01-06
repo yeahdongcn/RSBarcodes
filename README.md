@@ -1,16 +1,16 @@
 RSBarcodes
 ==========
 
-RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabilities introduced with iOS7 and generate the same set of barcode images for app displaying or sharing.
+RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabilities introduced with iOS7 and generate the same set of barcode images for displaying and sharing.
 
 Current status
 ------------
 
-###Code scanner:
+###Barcode scanner:
     Multiple corners and border rectangles display view -- WIP
     Manually changing focus point -- WIP
 
-###Code generators:
+###Barcode generators:
     "org.gs1.UPC-E", -- Done
     "org.iso.Code39", -- Done
     "org.iso.Code39Mod43", -- Done
@@ -30,6 +30,43 @@ Installation
 
 Usage
 ------------
+
+###Barcode scanner:
+
+Place a UIViewController in storyboard and select RSScannerViewController based class as its custom class. If you want to use the corners view (for barcode corners and borders displaying), you can put a UIView onto the view controller’s view and select RSCornersView as its custom class then link the highlightView to it and make sure the view’s size is as large as the view controller’s view.
+
+In RSScannerViewController based class implements your own handler.
+
+    - (id)initWithCoder:(NSCoder *)aDecoder
+    {
+        self = [super initWithCoder:aDecoder];
+        if (self) {
+            __weak typeof(self) weakSelf = self;
+            self.handler = ^(NSArray *codeObjects) {
+            };
+        }
+        return self;
+    }
+
+###Barcode generators:
+
+Import RSCodeGen.h into your source file and using CodeGen to generate barcode image. RSBarcodes provides 2 ways.
+
+    @protocol RSCodeGenerator <NSObject>
+
+    - (UIImage *)genCodeWithMachineReadableCodeObject:(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject;
+
+    - (UIImage *)genCodeWithContents:(NSString *)contents machineReadableCodeObjectType:(NSString *)type;
+
+    @end
+
+Here are examples, the generated image could be used along with RSCodeView or UIImageView.
+
+    [CodeGen genCodeWithContents:<#(NSString *)#> machineReadableCodeObjectType:<#(NSString *)#>] // Types are coming from AVMetadataObject.h and RSCodeGen.h
+
+or
+
+    [CodeGen genCodeWithMachineReadableCodeObject:<#(AVMetadataMachineReadableCodeObject *)#>]
 
 License
 ------------
