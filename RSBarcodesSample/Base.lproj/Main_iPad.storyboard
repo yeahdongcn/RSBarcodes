@@ -27,6 +27,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqc-0k-vvi" customClass="RSCornersView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NTg-qt-Qti">
+                                        <rect key="frame" x="284" y="412" width="200" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Toh-Rf-Gak">
@@ -55,6 +62,7 @@
                     <connections>
                         <outlet property="codeLabel" destination="Toh-Rf-Gak" id="Xav-48-hLq"/>
                         <outlet property="codeView" destination="H8K-a5-07o" id="mm8-ZU-Q6G"/>
+                        <outlet property="focusView" destination="NTg-qt-Qti" id="Hvv-hy-A4n"/>
                         <outlet property="highlightView" destination="Aqc-0k-vvi" id="eUt-LE-yKX"/>
                     </connections>
                 </viewController>
