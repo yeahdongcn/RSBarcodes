@@ -3,14 +3,14 @@ RSBarcodes
 
 RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabilities introduced with iOS7 and generate the same set of barcode images for displaying and sharing.
 
-Current status
+Current Status
 ------------
 
-###Barcode scanner:
+###Barcode Scanner:
     Multiple corners and border rectangles display view -- WIP
     Manually changing focus point -- Done
 
-###Barcode generators:
+###Barcode Generators:
     "org.gs1.UPC-E", -- Done
     "org.iso.Code39", -- Done
     "org.iso.Code39Mod43", -- Done
@@ -28,10 +28,20 @@ Current status
 Installation
 ------------
 
+<a href="http://cocoapods.org/" target="_blank">CocoaPods</a> is the recommended method of installing RSBarcodes.
+
+Simply add the following line to your `Podfile`:
+
+	pod 'RSBarcodes'
+
+<center>
+	<img src="https://raw.github.com/Jawbone/JBChartView/master/Screenshots/installation.png">
+</center>
+
 Usage
 ------------
 
-###Barcode scanner:
+###Barcode Scanner:
 
 Place a `UIViewController` in storyboard and set `RSScannerViewController` based class as its custom class. If you want to use the corners view (for barcode corners and borders displaying), you can put a `UIView` onto the view controller’s view and set `RSCornersView` as its custom class then link the `highlightView` to it, make sure the view’s size is as large as the view controller’s view.
 
@@ -48,7 +58,7 @@ In `RSScannerViewController` based class implements your own handler.
         return self;
     }
 
-###Barcode generators:
+###Barcode Generators:
 
 Import `RSCodeGen.h` into your source file and using `CodeGen` to generate barcode image. RSBarcodes provides 2 ways.
 
