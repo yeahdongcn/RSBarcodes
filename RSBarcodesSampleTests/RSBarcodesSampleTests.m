@@ -26,4 +26,8 @@
     [super tearDown];
 }
 
+- (void)testExample
+{
+}
+
 @end
