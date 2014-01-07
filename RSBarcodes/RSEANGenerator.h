@@ -9,6 +9,9 @@
 
 #import "RSCodeGenerator.h"
 
+/**
+ *  Base class for EAN8 and EAN13
+ */
 @interface RSEANGenerator : RSAbstractCodeGenerator
 {
     NSArray *codeTypes;
