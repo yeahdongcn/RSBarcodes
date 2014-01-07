@@ -34,8 +34,7 @@
 - (BOOL)isContentsValid:(NSString *)contents
 {
     //机选是否是纯数字
-    BOOL isNumber = [super isContentsValid:contents];
-    if (!isNumber) return NO;
+    if (![super isContentsValid:contents]) return NO;
     
     //计算长度 == length
     if (contents.length != length) return NO;
