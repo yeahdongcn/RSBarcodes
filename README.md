@@ -12,14 +12,15 @@ Current Status
     "org.gs1.UPC-E", -- Done
     "org.iso.Code39", -- Done
     "org.iso.Code39Mod43", -- Done
-    Full ASCII Code 39, -- Done
     "org.gs1.EAN-13", -- Done by 张玺 (http://zhangxi.me)
     "org.gs1.EAN-8", -- Done by 张玺 (http://zhangxi.me)
     "com.intermec.Code93", -- Done
     "org.iso.Code128", -- Done
     "org.iso.PDF417", -- Done
     "org.iso.QRCode", -- Done
-    "org.iso.Aztec" -- Done
+    "org.iso.Aztec", -- Done
+    // --------------------
+    Extended Code 39, -- Done
     
     Code display view -- Done
     
