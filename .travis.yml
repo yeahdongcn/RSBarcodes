@@ -1,3 +1,4 @@
 language:      objective-c
 xcode_project: RSBarcodesSample.xcodeproj
 xcode_scheme:  RSBarcodesSample
+xcode_sdk:     iphonesimulator
