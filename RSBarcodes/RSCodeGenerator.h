@@ -10,7 +10,12 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+/**
+ *  Code generators are required to provide these two functions.
+ */
 @protocol RSCodeGenerator <NSObject>
+
+@required
 
 - (UIImage *)genCodeWithMachineReadableCodeObject:(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject;
 
@@ -18,6 +23,11 @@
 
 @end
 
+/**
+ *  Check digit are not required for all code generators.
+ *  UPC-E is using check digit to valid the contents to be encoded.
+ *  Code39Mod43, Code93 and Code128 is using check digit to encode barcode.
+ */
 @protocol RSCheckDigitGenerator <NSObject>
 
 @optional
@@ -28,23 +38,62 @@
 
 extern NSString * const DIGITS_STRING;
 
+/**
+ *  Abstract code generator, provides default functions for validations and generations.
+ */
 @interface RSAbstractCodeGenerator : NSObject <RSCodeGenerator>
 
+/**
+ *  Check whether the given contents are valid.
+ *
+ *  @param contents Contents to be encoded.
+ *
+ *  @return
+ */
 - (BOOL)isContentsValid:(NSString *)contents;
 
+/**
+ *  Barcode initiator, subclass should return its own value.
+ *
+ *  @return
+ */
 - (NSString *)initiator;
 
+/**
+ *  Barcode terminator, subclass should return its own value.
+ *
+ *  @return
+ */
 - (NSString *)terminator;
 
+/**
+ *  Barcode content, subclass should return its own value.
+ *
+ *  @return
+ */
 - (NSString *)barcode:(NSString *)contents;
 
+/**
+ *  Composer for combining barcode initiator, contents, terminator together.
+ *
+ *  @param barcode Encoded barcode contents
+ *
+ *  @return Completed barcode
+ */
 - (NSString *)completeBarcode:(NSString *)barcode;
 
+/**
+ *  Drawer for completed barcode
+ *
+ *  @param code Completed barcode
+ *
+ *  @return Encoded image.
+ */
 - (UIImage *)drawCompleteBarcode:(NSString *)code;
 
 @end
 
-static inline NSString* getfilterName(NSString *codeObjectType)
+static inline NSString* getFilterName(NSString *codeObjectType)
 {
     if ([codeObjectType isEqualToString:AVMetadataObjectTypeQRCode]) {
         return @"CIQRCodeGenerator";

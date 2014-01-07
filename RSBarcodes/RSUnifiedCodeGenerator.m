@@ -43,7 +43,7 @@
     if ([type isEqualToString:AVMetadataObjectTypeQRCode]
         || [type isEqualToString:AVMetadataObjectTypePDF417Code]
         || [type isEqualToString:AVMetadataObjectTypeAztecCode]) {
-        return genCode(contents, getfilterName(type));
+        return genCode(contents, getFilterName(type));
     }
     
     id<RSCodeGenerator> codeGen = nil;
