@@ -49,9 +49,9 @@
             }
         };
         
-        self.tapHandler = ^(CGPoint touchPoint) {
+        self.tapGestureHandler = ^(CGPoint tapPoint) {
             weakSelf.focusView.hidden = NO;
-            weakSelf.focusView.center = touchPoint;
+            weakSelf.focusView.center = tapPoint;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 sleep(1);
                 dispatch_async(dispatch_get_main_queue(), ^{

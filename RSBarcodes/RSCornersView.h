@@ -10,12 +10,12 @@
 
 @interface RSCornersView : UIView
 
-@property (nonatomic, copy) NSArray *corners;
+@property (nonatomic, strong) NSArray *cornersArray;
 
-@property (nonatomic) CGRect borderRect;
+@property (nonatomic, strong) NSArray *borderRectArray;
 
 @property (nonatomic, copy) UIColor *strokeColor; // Default is green.
 
-@property (nonatomic) float strokeWidth; // Default is 1.0.
+@property (nonatomic) float strokeWidth;          // Default is 2.0.
 
 @end

@@ -8,19 +8,13 @@
 
 #import "RSCornersView.h"
 
-@interface RSCornersView ()
-
-@property (nonatomic, copy) NSArray *borderCorners;
-
-@end
-
 @implementation RSCornersView
 
 - (void)__init
 {
     self.backgroundColor = [UIColor clearColor];
     self.strokeColor = [UIColor greenColor];
-    self.strokeWidth = 1.0;
+    self.strokeWidth = 2.0;
 }
 
 - (void)__drawCorners:(NSArray *)corners
@@ -88,49 +82,71 @@
     return self;
 }
 
-- (void)setCorners:(NSArray *)corners
+- (void)setCornersArray:(NSArray *)cornersArray
 {
-    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:corners.count];
-    for (NSDictionary *corner in corners) {
-        [array addObject:[NSValue valueWithCGPoint:CGPointMake([[corner objectForKey:@"X"] floatValue], [[corner objectForKey:@"Y"] floatValue])]];
+    if (cornersArray.count > 0) {
+        NSMutableArray *outerArray = [[NSMutableArray alloc] initWithCapacity:cornersArray.count];
+        for (NSArray *corners in cornersArray) {
+            NSMutableArray *innerArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *corner in corners) {
+                [innerArray addObject:[NSValue valueWithCGPoint:CGPointMake([[corner objectForKey:@"X"] floatValue], [[corner objectForKey:@"Y"] floatValue])]];
+            }
+            [outerArray addObject:[NSArray arrayWithArray:innerArray]];
+        }
+        
+        _cornersArray = [NSArray arrayWithArray:outerArray];
+    } else {
+        _cornersArray = nil;
     }
-    _corners = [NSArray arrayWithArray:array];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsDisplay];
     });
 }
 
-- (void)setBorderRect:(CGRect)borderRect
+- (void)setBorderRectArray:(NSArray *)borderRectArray
 {
-    if (CGRectEqualToRect(borderRect, CGRectZero)) {
-        self.borderCorners = nil;
-    } else {
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:4];
-        for (int i = 0; i < 4; i++) {
-            CGPoint corner = CGPointZero;
-            if (i == 0) {
-                corner = CGPointMake(borderRect.origin.x, borderRect.origin.y);
-            } else if (i == 1) {
-                corner = CGPointMake(borderRect.origin.x + borderRect.size.width, borderRect.origin.y);
-            } else if (i == 2) {
-                corner = CGPointMake(borderRect.origin.x + borderRect.size.width, borderRect.origin.y + borderRect.size.height);
-            } else if (i == 3) {
-                corner = CGPointMake(borderRect.origin.x, borderRect.origin.y + borderRect.size.height);
+    if (borderRectArray.count > 0) {
+        NSMutableArray *outerArray = [[NSMutableArray alloc] initWithCapacity:borderRectArray.count];
+        for (NSValue *borderRectValue in borderRectArray) {
+            CGRect borderRect = [borderRectValue CGRectValue];
+            if (!CGRectEqualToRect(borderRect, CGRectZero)) {
+                NSMutableArray *innerArray = [[NSMutableArray alloc] initWithCapacity:4];
+                for (int i = 0; i < 4; i++) {
+                    CGPoint corner = CGPointZero;
+                    if (i == 0) {
+                        corner = CGPointMake(borderRect.origin.x, borderRect.origin.y);
+                    } else if (i == 1) {
+                        corner = CGPointMake(borderRect.origin.x + borderRect.size.width, borderRect.origin.y);
+                    } else if (i == 2) {
+                        corner = CGPointMake(borderRect.origin.x + borderRect.size.width, borderRect.origin.y + borderRect.size.height);
+                    } else if (i == 3) {
+                        corner = CGPointMake(borderRect.origin.x, borderRect.origin.y + borderRect.size.height);
+                    }
+                    [innerArray addObject:[NSValue valueWithCGPoint:CGPointMake(corner.x, corner.y)]];
+                }
+                [outerArray addObject:innerArray];
             }
-            [array addObject:[NSValue valueWithCGPoint:CGPointMake(corner.x, corner.y)]];
         }
-        self.borderCorners = [NSArray arrayWithArray:array];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setNeedsDisplay];
-        });
+        _borderRectArray = [NSArray arrayWithArray:outerArray];
+    } else {
+        _borderRectArray = nil;
     }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)drawRect:(CGRect)rect
 {
-    [self __drawCorners:self.corners];
+    for (NSArray *corners in self.cornersArray) {
+        [self __drawCorners:corners];
+    }
     
-    [self __drawCorners:self.borderCorners];
+    for (NSArray *borders in self.borderRectArray) {
+        [self __drawCorners:borders];
+    }
 }
 
 @end

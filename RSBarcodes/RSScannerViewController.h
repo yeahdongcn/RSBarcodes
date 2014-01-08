@@ -10,18 +10,22 @@
 
 @class RSCornersView;
 
-typedef void (^RSBarcodesHandler)(NSArray *codeObjects);
+typedef void (^RSBarcodesHandler)(NSArray *barcodeObjects);
 
-typedef void (^RSTapHandler)(CGPoint touchPoint);
+typedef void (^RSTapGestureHandler)(CGPoint tapPoint);
 
 @interface RSScannerViewController : UIViewController
 
-@property (nonatomic, copy) NSArray *codeObjectTypes;
+@property (nonatomic, strong) NSArray *barcodeObjectTypes;
 
 @property (nonatomic, weak) IBOutlet RSCornersView *highlightView;
 
 @property (nonatomic, copy) RSBarcodesHandler barcodesHandler;
 
-@property (nonatomic, copy) RSTapHandler tapHandler;
+@property (nonatomic, copy) RSTapGestureHandler tapGestureHandler;
+
+@property (nonatomic) BOOL isCornersVisible;     // Default is YES.
+
+@property (nonatomic) BOOL isBorderRectsVisible; // Default is NO.
 
 @end

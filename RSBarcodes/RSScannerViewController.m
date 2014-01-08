@@ -36,10 +36,10 @@
     [self __stopRunning];
 }
 
-- (void)__tap:(UITapGestureRecognizer *)tapGestureRecognizer
+- (void)__handleTapGesture:(UITapGestureRecognizer *)tapGestureRecognizer
 {
-    CGPoint touchPoint = [tapGestureRecognizer locationInView:self.view];
-    CGPoint focusPoint= CGPointMake(touchPoint.x / self.view.bounds.size.width, touchPoint.y / self.view.bounds.size.height);
+    CGPoint tapPoint = [tapGestureRecognizer locationInView:self.view];
+    CGPoint focusPoint= CGPointMake(tapPoint.x / self.view.bounds.size.width, tapPoint.y / self.view.bounds.size.height);
     
     if (!self.device
         && ![self.device isFocusPointOfInterestSupported]
@@ -50,14 +50,16 @@
         [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
         [self.device unlockForConfiguration];
         
-        if (self.tapHandler) {
-            self.tapHandler(touchPoint);
+        if (self.tapGestureHandler) {
+            self.tapGestureHandler(tapPoint);
         }
     }
 }
 
 - (void)__setup
 {
+    self.isCornersVisible = YES;
+    
     if (self.session) {
         return;
     }
@@ -90,17 +92,17 @@
     [self.output setMetadataObjectsDelegate:self queue:queue];
     if ([self.session canAddOutput:self.output]) {
         [self.session addOutput:self.output];
-        if (!self.codeObjectTypes) {
+        if (!self.barcodeObjectTypes) {
             NSMutableArray *codeObjectTypes = [NSMutableArray arrayWithArray:self.output.availableMetadataObjectTypes];
             [codeObjectTypes removeObject:AVMetadataObjectTypeFace];
-            self.codeObjectTypes = [NSArray arrayWithArray:codeObjectTypes];
+            self.barcodeObjectTypes = [NSArray arrayWithArray:codeObjectTypes];
         }
-        self.output.metadataObjectTypes = self.codeObjectTypes;
+        self.output.metadataObjectTypes = self.barcodeObjectTypes;
     }
     
     [self.view bringSubviewToFront:self.highlightView];
     
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(__tap:)];
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(__handleTapGesture:)];
     [self.view addGestureRecognizer:tapGestureRecognizer];
 }
 
@@ -109,7 +111,7 @@
     if (self.session.isRunning) {
         return;
     }
-
+    
     [self.session startRunning];
 }
 
@@ -169,30 +171,49 @@
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
-    NSMutableArray *codeObjects = nil;
+    NSMutableArray *barcodeObjects  = nil;
+    NSMutableArray *cornersArray    = nil;
+    NSMutableArray *borderRectArray = nil;
+    
     for (AVMetadataObject *metadataObject in metadataObjects) {
         AVMetadataObject *transformedMetadataObject = [self.layer transformedMetadataObjectForMetadataObject:metadataObject];
         if ([transformedMetadataObject isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
-            AVMetadataMachineReadableCodeObject *codeObject = (AVMetadataMachineReadableCodeObject *)transformedMetadataObject;
-            if ([codeObject respondsToSelector:@selector(corners)]) {
-                self.highlightView.corners = codeObject.corners;
+            AVMetadataMachineReadableCodeObject *barcodeObject = (AVMetadataMachineReadableCodeObject *)transformedMetadataObject;
+            if (!barcodeObjects) {
+                barcodeObjects = [[NSMutableArray alloc] init];
+            }
+            [barcodeObjects addObject:barcodeObject];
+            
+            if (self.isCornersVisible) {
+                if ([barcodeObject respondsToSelector:@selector(corners)]) {
+                    if (!cornersArray) {
+                        cornersArray = [[NSMutableArray alloc] init];
+                    }
+                    [cornersArray addObject:barcodeObject.corners];
+                }
             }
             
-            if (!codeObjects) {
-                codeObjects = [[NSMutableArray alloc] init];
+            if (self.isBorderRectsVisible) {
+                if ([barcodeObject respondsToSelector:@selector(bounds)]) {
+                    if (!borderRectArray) {
+                        borderRectArray = [[NSMutableArray alloc] init];
+                    }
+                    [borderRectArray addObject:[NSValue valueWithCGRect:barcodeObject.bounds]];
+                }
             }
-            [codeObjects addObject:codeObject];
         }
     }
     
-    if (metadataObjects.count <= 0) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.highlightView.corners = nil;
-        });
+    if (self.isCornersVisible) {
+        self.highlightView.cornersArray = cornersArray ? [NSArray arrayWithArray:cornersArray] : nil;
+    }
+    
+    if (self.isBorderRectsVisible) {
+        self.highlightView.borderRectArray = borderRectArray ? [NSArray arrayWithArray:borderRectArray] : nil;
     }
     
     if (self.barcodesHandler) {
-        self.barcodesHandler([NSArray arrayWithArray:codeObjects]);
+        self.barcodesHandler([NSArray arrayWithArray:barcodeObjects]);
     }
 }
 
