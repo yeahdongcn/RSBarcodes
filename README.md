@@ -5,7 +5,7 @@ RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabil
 Current Status
 ------------
 ###Barcode Scanner:
-    Multiple corners and border rectangles display view -- WIP
+    Multiple corners and border rectangles display view -- Done
     Manually changing focus point -- Done
 
 ###Barcode Generators:
@@ -46,9 +46,9 @@ In `RSScannerViewController` based class implements your own handler.
         self = [super initWithCoder:aDecoder];
         if (self) {
             __weak typeof(self) weakSelf = self;
-            self.barcodesHandler = ^(NSArray *codeObjects) {
+            self.barcodesHandler = ^(NSArray *barcodeObjects) {
             };
-            self.tapHandler = ^(CGPoint touchPoint) {
+            self.tapGestureHandler = ^(CGPoint tapPoint) {
             });
         }
         return self;
