@@ -29,17 +29,17 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         __weak typeof(self) weakSelf = self;
-        self.barcodesHandler = ^(NSArray *codeObjects) {
-            if (codeObjects.count > 0) {
+        self.barcodesHandler = ^(NSArray *barcodeObjects) {
+            if (barcodeObjects.count > 0) {
                 NSMutableString *text = [[NSMutableString alloc] init];
-                [codeObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [barcodeObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     [text appendString:[NSString stringWithFormat:@"%@: %@", [(AVMetadataObject *)obj type], [obj stringValue]]];
-                    if (idx != (codeObjects.count - 1)) {
+                    if (idx != (barcodeObjects.count - 1)) {
                         [text appendString:@"\n"];
                     }
                 }];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.codeLabel.numberOfLines = [codeObjects count];
+                    weakSelf.codeLabel.numberOfLines = [barcodeObjects count];
                     weakSelf.codeLabel.text = text;
                 });
             } else {
