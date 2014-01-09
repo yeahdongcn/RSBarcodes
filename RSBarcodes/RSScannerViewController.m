@@ -50,7 +50,9 @@
         [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
         [self.device unlockForConfiguration];
         
-        self.highlightView.focusPoint = tapPoint;
+        if (self.isFocusMarkVisible) {
+            self.highlightView.focusPoint = tapPoint;
+        }
         
         if (self.tapGestureHandler) {
             self.tapGestureHandler(tapPoint);
@@ -61,6 +63,8 @@
 - (void)__setup
 {
     self.isCornersVisible = YES;
+    self.isBorderRectsVisible = NO;
+    self.isFocusMarkVisible = YES;
     
     if (self.session) {
         return;

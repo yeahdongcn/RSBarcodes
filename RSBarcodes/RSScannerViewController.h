@@ -24,8 +24,10 @@ typedef void (^RSTapGestureHandler)(CGPoint tapPoint);
 
 @property (nonatomic, copy) RSTapGestureHandler tapGestureHandler;
 
-@property (nonatomic) BOOL isCornersVisible;     // Default is YES.
+@property (nonatomic) BOOL isCornersVisible;     // Default is YES
 
-@property (nonatomic) BOOL isBorderRectsVisible; // Default is NO.
+@property (nonatomic) BOOL isBorderRectsVisible; // Default is NO
+
+@property (nonatomic) BOOL isFocusMarkVisible;   // Default is YES
 
 @end

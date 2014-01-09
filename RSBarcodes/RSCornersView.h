@@ -20,12 +20,12 @@
 
 @property (nonatomic) CGPoint focusPoint;
 
-@property (nonatomic) CGSize focusSize;                // Default is CGSizeMake(100.f, 100.f)
+@property (nonatomic) CGSize focusSize;                   // Default is CGSizeMake(100.f, 100.f)
 
-@property (nonatomic, copy) UIColor *focusStrokeColor; // Default is orange
+@property (nonatomic, copy) UIColor *focusStrokeColor;    // Default is orange
 
-@property (nonatomic) float focusStrokeWidth;          // Default is 1.f
+@property (nonatomic) float focusStrokeWidth;             // Default is 1.f
 
-@property (nonatomic) double focusMarkDisplayingDuration;
+@property (nonatomic) double focusMarkDisplayingDuration; // Default is 1
 
 @end
