@@ -52,14 +52,14 @@ NSString * const DIGITS_STRING = @"0123456789";
     }
     
     CGSize size = CGSizeMake(code.length + 20, roundf(code.length / 3.0));
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0.0f);
+    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     [[UIColor whiteColor] setFill];
     [[UIColor blackColor] setStroke];
     
     CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
-    CGContextSetLineWidth(context, 1.0);
+    CGContextSetLineWidth(context, 1);
     
     for (int i = 0; i < code.length; i++) {
         NSString *character = [code substringWithRange:NSMakeRange(i, 1)];

@@ -117,7 +117,7 @@ static inline UIImage* genCode(NSString *contents, NSString *filterName)
     CGImageRef cgImage = [context createCGImage:outputImage
                                        fromRect:[outputImage extent]];
     UIImage *image = [UIImage imageWithCGImage:cgImage
-                                         scale:1.0
+                                         scale:1
                                    orientation:UIImageOrientationUp];
     CGImageRelease(cgImage);
     return image;

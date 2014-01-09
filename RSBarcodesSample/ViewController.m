@@ -18,8 +18,6 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *codeLabel;
 
-@property (nonatomic, weak) IBOutlet UIView *focusView;
-
 @end
 
 @implementation ViewController
@@ -50,14 +48,6 @@
         };
         
         self.tapGestureHandler = ^(CGPoint tapPoint) {
-            weakSelf.focusView.hidden = NO;
-            weakSelf.focusView.center = tapPoint;
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                sleep(1);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.focusView.hidden = YES;
-                });
-            });
         };
     }
     return self;
@@ -68,16 +58,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.codeView.code = [CodeGen genCodeWithContents:@"HelloWorld2014010606" machineReadableCodeObjectType:AVMetadataObjectTypeCode128Code];
+    self.codeView.code = [CodeGen genCodeWithContents:@"HelloWorld2014010906" machineReadableCodeObjectType:AVMetadataObjectTypeCode128Code];
     [self.view bringSubviewToFront:self.codeView];
     
     [self.view bringSubviewToFront:self.codeLabel];
-    
-    self.focusView.layer.borderColor = [[UIColor greenColor] CGColor];
-    self.focusView.layer.borderWidth = 1;
-    self.focusView.backgroundColor = [UIColor clearColor];
-    self.focusView.hidden = YES;
-    [self.view bringSubviewToFront:self.focusView];
 }
 
 - (void)didReceiveMemoryWarning

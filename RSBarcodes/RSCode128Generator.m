@@ -356,7 +356,7 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 
 - (NSString *)initiator
 {
-    NSString *initiator = [super initiator];
+    NSString *initiator = nil;
     switch (self.codeTable) {
         case RSCode128GeneratorCodeTableAuto:
             initiator = CODE128_CHARACTER_ENCODINGS[[self __startCodeTableValue:self.autoCodeTable.startCodeTable]];

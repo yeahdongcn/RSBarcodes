@@ -8,13 +8,75 @@
 
 #import "RSCornersView.h"
 
+@interface RSCornersView ()
+
+@property (nonatomic) BOOL shouldDrawFocusMark;
+
+@end
+
 @implementation RSCornersView
 
 - (void)__init
 {
     self.backgroundColor = [UIColor clearColor];
+    
+    self.focusPoint = self.center;
+    self.focusSize = CGSizeMake(100.f, 100.f);
+    self.focusStrokeColor = [UIColor orangeColor];
+    self.focusStrokeWidth = 1.f;
+    self.focusMarkDisplayingDuration = 1;
+    
     self.strokeColor = [UIColor greenColor];
-    self.strokeWidth = 2.0;
+    self.strokeWidth = 2.f;
+}
+
+- (void)__drawFocusMark
+{
+    if (!self.shouldDrawFocusMark) {
+        return;
+    }
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSaveGState(context);
+    
+    [[UIColor clearColor] setFill];
+    [self.focusStrokeColor setStroke];
+    
+    CGContextSetLineWidth(context, self.focusStrokeWidth);
+    
+    // Draw rect
+    CGContextStrokeRect(context, CGRectMake(self.focusPoint.x - roundf(self.focusSize.width / 2.f),
+                                            self.focusPoint.y - roundf(self.focusSize.height / 2.f),
+                                            self.focusSize.width,
+                                            self.focusSize.height));
+    
+    for (int i = 0; i < 4; i++) {
+        CGPoint endPoint;
+        switch (i) {
+            case 0:
+                CGContextMoveToPoint(context, self.focusPoint.x, self.focusPoint.y - roundf(self.focusSize.height / 2.f));
+                endPoint = CGPointMake(self.focusPoint.x, self.focusPoint.y - roundf(self.focusSize.height / 2.f) + 10);
+                break;
+            case 1:
+                CGContextMoveToPoint(context, self.focusPoint.x, self.focusPoint.y + roundf(self.focusSize.height / 2.f));
+                endPoint = CGPointMake(self.focusPoint.x, self.focusPoint.y + roundf(self.focusSize.height / 2.f) - 10);
+                break;
+            case 2:
+                CGContextMoveToPoint(context, self.focusPoint.x - roundf(self.focusSize.width / 2.f), self.focusPoint.y);
+                endPoint = CGPointMake(self.focusPoint.x - roundf(self.focusSize.width / 2.f) + 10, self.focusPoint.y);
+                break;
+            case 3:
+                CGContextMoveToPoint(context, self.focusPoint.x + roundf(self.focusSize.width / 2.f), self.focusPoint.y);
+                endPoint = CGPointMake(self.focusPoint.x + roundf(self.focusSize.width / 2.f) - 10, self.focusPoint.y);
+                break;
+        }
+        CGContextAddLineToPoint(context, endPoint.x, endPoint.y);
+    }
+    
+    CGContextDrawPath(context, kCGPathFillStroke);
+    
+    CGContextRestoreGState(context);
 }
 
 - (void)__drawCorners:(NSArray *)corners
@@ -47,7 +109,7 @@
         }
         NSValue *pointValue = corners[index];
         CGPoint  point      = [pointValue CGPointValue];
-        CGContextAddLineToPoint(context, point.x,point.y);
+        CGContextAddLineToPoint(context, point.x, point.y);
     }
     
     CGContextDrawPath(context, kCGPathFillStroke);
@@ -80,6 +142,22 @@
         [self __init];
     }
     return self;
+}
+
+- (void)setFocusPoint:(CGPoint)focusPoint
+{
+    _focusPoint = focusPoint;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _shouldDrawFocusMark = YES;
+        [self setNeedsDisplay];
+    });
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.focusMarkDisplayingDuration * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        _shouldDrawFocusMark = NO;
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)setCornersArray:(NSArray *)cornersArray
@@ -147,6 +225,8 @@
     for (NSArray *borders in self.borderRectArray) {
         [self __drawCorners:borders];
     }
+    
+    [self __drawFocusMark];
 }
 
 @end

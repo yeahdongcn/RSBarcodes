@@ -14,8 +14,18 @@
 
 @property (nonatomic, strong) NSArray *borderRectArray;
 
-@property (nonatomic, copy) UIColor *strokeColor; // Default is green.
+@property (nonatomic, copy) UIColor *strokeColor; // Default is green
 
-@property (nonatomic) float strokeWidth;          // Default is 2.0.
+@property (nonatomic) float strokeWidth;          // Default is 2.f
+
+@property (nonatomic) CGPoint focusPoint;
+
+@property (nonatomic) CGSize focusSize;                // Default is CGSizeMake(100.f, 100.f)
+
+@property (nonatomic, copy) UIColor *focusStrokeColor; // Default is orange
+
+@property (nonatomic) float focusStrokeWidth;          // Default is 1.f
+
+@property (nonatomic) double focusMarkDisplayingDuration;
 
 @end
