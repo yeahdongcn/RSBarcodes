@@ -21,7 +21,7 @@ Current Status
     "org.iso.QRCode", -- Done
     "org.iso.Aztec", -- Done
     // --------------------
-    Extended Code 39, -- Done
+    Extended Code 39 -- Done
     
     Code display view -- Done
     
