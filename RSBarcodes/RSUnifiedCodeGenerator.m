@@ -26,6 +26,8 @@
 
 #import "RSISBN13Generator.h"
 
+#import "RSISSN13Generator.h"
+
 @implementation RSUnifiedCodeGenerator
 
 + (instancetype)codeGen
@@ -75,6 +77,9 @@
         
     } else if ([type isEqualToString:RSMetadataObjectTypeISBN13Code]) {
         codeGen = [[RSISBN13Generator alloc] init];
+        
+    } else if ([type isEqualToString:RSMetadataObjectTypeISSN13Code]) {
+        codeGen = [[RSISSN13Generator alloc] init];
     }
     
     if (codeGen) {

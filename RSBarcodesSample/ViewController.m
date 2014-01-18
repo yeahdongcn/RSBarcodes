@@ -58,9 +58,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-//    self.codeView.code = [CodeGen genCodeWithContents:@"87217582" machineReadableCodeObjectType:AVMetadataObjectTypeEAN8Code];
-    
-    self.codeView.code = [CodeGen genCodeWithContents:@"9780321917010" machineReadableCodeObjectType:RSMetadataObjectTypeISBN13Code];
+    self.codeView.code = [CodeGen genCodeWithContents:@"7501031311309" machineReadableCodeObjectType:AVMetadataObjectTypeEAN13Code];
     
     [self.view bringSubviewToFront:self.codeView];
     
