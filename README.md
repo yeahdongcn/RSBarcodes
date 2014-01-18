@@ -22,8 +22,8 @@ Current Status
     "org.iso.Aztec", -- Done
     // --------------------
     Extended Code 39, -- Done
-    ISBN, -- WIP
-    ISSN -- WIP
+    ISBN13, -- Done
+    ISSN13 -- Done
     
     Code display view -- Done
     
