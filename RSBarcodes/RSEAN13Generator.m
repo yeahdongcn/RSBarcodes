@@ -23,16 +23,16 @@
 - (NSString *)barcode:(NSString *)contents
 {
     NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
-    NSString *parityEncodingTable = self.types[[[contents substringToIndex:1] intValue]];
+    NSString *lefthandParity = self.lefthandParities[[[contents substringToIndex:1] intValue]];
     for (int i = 1; i < self.length; i++) {
         int digit = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
-        if (i <= parityEncodingTable.length) {
-            [barcode appendString:[NSString stringWithFormat:@"%@", self.map[digit][[parityEncodingTable substringWithRange:NSMakeRange(i - 1, 1)]]]];
-            if (i == parityEncodingTable.length) {
+        if (i <= lefthandParity.length) {
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][[lefthandParity substringWithRange:NSMakeRange(i - 1, 1)]]]];
+            if (i == lefthandParity.length) {
                 [barcode appendString:[self centerGuardPattern]];
             }
         } else {
-            [barcode appendString:[NSString stringWithFormat:@"%@", self.map[digit][@"R"]]];
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][@"R"]]];
         }
     }
     return [NSString stringWithString:barcode];

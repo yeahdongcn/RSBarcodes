@@ -26,13 +26,13 @@
     for (int i = 0; i < self.length; i++) {
         int digit = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
         if (i <= self.length / 2 - 1) {
-            [barcode appendString:[NSString stringWithFormat:@"%@", self.map[digit][@"O"]]];
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][@"O"]]];
             
             if (i == self.length / 2 - 1) {
                 [barcode appendString:[self centerGuardPattern]];
             }
         } else {
-            [barcode appendString:[NSString stringWithFormat:@"%@", self.map[digit][@"R"]]];
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][@"R"]]];
         }
     }
     return [NSString stringWithString:barcode];

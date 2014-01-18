@@ -16,9 +16,9 @@
 
 @property (nonatomic) int length;
 
-@property (nonatomic, readonly) NSArray *types;
+@property (nonatomic, readonly) NSArray *lefthandParities;
 
-@property (nonatomic, readonly) NSArray *map;
+@property (nonatomic, readonly) NSArray *parityEncodingTable;
 
 - (NSString *)centerGuardPattern;
 
