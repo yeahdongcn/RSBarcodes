@@ -25,9 +25,9 @@
     if (self) {
         // 'O' for odd and 'E' for even
         self.lefthandParities = @[@"OOOOOO",
-                                  @"OOOOOO",
                                   @"OOEOEE",
                                   @"OOEEOE",
+                                  @"OOEEEO",
                                   @"OEOOEE",
                                   @"OEEOOE",
                                   @"OEEEOO",
@@ -64,8 +64,8 @@
                 sum_odd += digit;
             }
         }
-        int a = (10 - (sum_even + sum_odd * 3) % 10);
-        return [[contents substringFromIndex:contents.length - 1] intValue] == a;
+        int checkDigit = (10 - (sum_even + sum_odd * 3) % 10) % 10;
+        return [[contents substringFromIndex:contents.length - 1] intValue] == checkDigit;
     }
     return NO;
 }
