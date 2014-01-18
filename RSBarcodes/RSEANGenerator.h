@@ -13,10 +13,13 @@
  *  Base class for EAN8 and EAN13
  */
 @interface RSEANGenerator : RSAbstractCodeGenerator
-{
-    NSArray *codeTypes;
-    NSArray *codeMap;
-    int length;
-}
+
+@property (nonatomic) int length;
+
+@property (nonatomic, readonly) NSArray *types;
+
+@property (nonatomic, readonly) NSArray *map;
+
+- (NSString *)centerGuardPattern;
 
 @end

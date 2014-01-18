@@ -15,33 +15,27 @@
 {
     self = [super init];
     if (self) {
-        length = 13;
+        self.length = 13;
     }
     return self;
 }
 
 - (NSString *)barcode:(NSString *)contents
 {
-    NSString *code = @"";
-    NSString *firstChar = [contents substringToIndex:1];
-    NSString *codeType = codeTypes[[firstChar intValue]];
-    
-    for (int i = 0; i < (length - 1); i++) {
-        int value = [[contents substringWithRange:NSMakeRange(i + 1, 1)] intValue];
-        NSString *type = @"C";
-        if (i <= (length / 2 - 1)) {
-            type = [codeType substringWithRange:NSMakeRange(i, 1)];
-        }
-        
-        code = [code stringByAppendingFormat:@"%@",codeMap[value][type]];
-        
-        //中线
-        if (i == (length / 2 - 1)) {
-            code = [code stringByAppendingString:@"01010"];
+    NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
+    NSString *parityEncodingTable = self.types[[[contents substringToIndex:1] intValue]];
+    for (int i = 1; i < self.length; i++) {
+        int digit = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
+        if (i <= parityEncodingTable.length) {
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.map[digit][[parityEncodingTable substringWithRange:NSMakeRange(i - 1, 1)]]]];
+            if (i == parityEncodingTable.length) {
+                [barcode appendString:[self centerGuardPattern]];
+            }
+        } else {
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.map[digit][@"R"]]];
         }
     }
-    
-    return code;
+    return [NSString stringWithString:barcode];
 }
 
 @end
