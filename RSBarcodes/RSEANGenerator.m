@@ -23,6 +23,7 @@
 {
     self = [super init];
     if (self) {
+        // 'O' for odd and 'E' for even
         self.lefthandParities = @[@"OOOOOO",
                                   @"OOOOOO",
                                   @"OOEOEE",
@@ -34,6 +35,7 @@
                                   @"OEOEEO",
                                   @"OEEOEO"];
         
+        // 'R' for right-hand
         self.parityEncodingTable = @[@{@"O" : @"0001101", @"E" : @"0100111", @"R" : @"1110010"},
                                      @{@"O" : @"0011001", @"E" : @"0110011", @"R" : @"1100110"},
                                      @{@"O" : @"0010011", @"E" : @"0011011", @"R" : @"1101100"},
