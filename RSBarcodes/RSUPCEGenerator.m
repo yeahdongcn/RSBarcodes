@@ -120,7 +120,7 @@ static NSString *const UPCE_SEQUENCES[10] = {
             [barcode appendString:UPCE_ODD_ENCODINGS[digit]];
         }
     }
-    return barcode;
+    return [NSString stringWithString:barcode];
 }
 
 #pragma mark - RSCheckDigitGenerator

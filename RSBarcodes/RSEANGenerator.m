@@ -1,6 +1,6 @@
 //
 //  RSEANGenerator.m
-//  RSBarcodes
+//  RSEarcodes
 //
 //  Created by zhangxi on 14-1-6.
 //  http://zhangxi.me
@@ -9,63 +9,80 @@
 
 #import "RSEANGenerator.h"
 
+@interface RSEANGenerator ()
+
+@property (nonatomic, strong) NSArray *lefthandParities;
+
+@property (nonatomic, strong) NSArray *parityEncodingTable;
+
+@end
+
 @implementation RSEANGenerator
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        codeTypes = @[@"AAAAAA",@"AAAAAA",@"AABABB",@"AABBAB",@"ABAABB",@"ABBAAB",@"ABBBAA",@"ABABAB",@"ABABBA",@"ABBABA"];
+        // 'O' for odd and 'E' for even
+        self.lefthandParities = @[@"OOOOOO",
+                                  @"OOEOEE",
+                                  @"OOEEOE",
+                                  @"OOEEEO",
+                                  @"OEOOEE",
+                                  @"OEEOOE",
+                                  @"OEEEOO",
+                                  @"OEOEOE",
+                                  @"OEOEEO",
+                                  @"OEEOEO"];
         
-        codeMap = @[@{@"A":@"0001101",@"B":@"0100111",@"C":@"1110010"},
-                    @{@"A":@"0011001",@"B":@"0110011",@"C":@"1100110"},
-                    @{@"A":@"0010011",@"B":@"0011011",@"C":@"1101100"},
-                    @{@"A":@"0111101",@"B":@"0100001",@"C":@"1000010"},
-                    @{@"A":@"0100011",@"B":@"0011101",@"C":@"1011100"},
-                    @{@"A":@"0110001",@"B":@"0111001",@"C":@"1001110"},
-                    @{@"A":@"0101111",@"B":@"0000101",@"C":@"1010000"},
-                    @{@"A":@"0111011",@"B":@"0010001",@"C":@"1000100"},
-                    @{@"A":@"0110111",@"B":@"0001001",@"C":@"1001000"},
-                    @{@"A":@"0001011",@"B":@"0010111",@"C":@"1110100"}];
+        // 'R' for right-hand
+        self.parityEncodingTable = @[@{@"O" : @"0001101", @"E" : @"0100111", @"R" : @"1110010"},
+                                     @{@"O" : @"0011001", @"E" : @"0110011", @"R" : @"1100110"},
+                                     @{@"O" : @"0010011", @"E" : @"0011011", @"R" : @"1101100"},
+                                     @{@"O" : @"0111101", @"E" : @"0100001", @"R" : @"1000010"},
+                                     @{@"O" : @"0100011", @"E" : @"0011101", @"R" : @"1011100"},
+                                     @{@"O" : @"0110001", @"E" : @"0111001", @"R" : @"1001110"},
+                                     @{@"O" : @"0101111", @"E" : @"0000101", @"R" : @"1010000"},
+                                     @{@"O" : @"0111011", @"E" : @"0010001", @"R" : @"1000100"},
+                                     @{@"O" : @"0110111", @"E" : @"0001001", @"R" : @"1001000"},
+                                     @{@"O" : @"0001011", @"E" : @"0010111", @"R" : @"1110100"}];
     }
     return self;
 }
 
 - (BOOL)isContentsValid:(NSString *)contents
 {
-    //机选是否是纯数字
-    if (![super isContentsValid:contents]) return NO;
-    
-    //计算长度 == length
-    if (contents.length != length) return NO;
-    
-    //计算较验位
-    int oddCount  = 0;
-    int evenCount = 0;
-    
-    for (int i = 0; i < (length - 1); i++) {
-        int value = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
-        if ((i + 1) % 2 == 1) {
-            oddCount += value;
-        } else {
-            evenCount += value;
+    if ([super isContentsValid:contents] && contents.length == self.length) {
+        int sum_odd = 0;
+        int sum_even = 0;
+        
+        for (int i = 0; i < (self.length - 1); i++) {
+            int digit = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
+            if (i % 2 == (self.length == 8 ? 1 : 0)) {
+                sum_even += digit;
+            } else {
+                sum_odd += digit;
+            }
         }
+        int checkDigit = (10 - (sum_even + sum_odd * 3) % 10) % 10;
+        return [[contents substringFromIndex:contents.length - 1] intValue] == checkDigit;
     }
-    int checkCode = 10 - ((oddCount + evenCount * 3) % 10);
-    checkCode %= 10;
-    
-    //是否与最后一位相等
-    return [[contents substringFromIndex:contents.length - 1] intValue] == checkCode;
+    return NO;
 }
 
 - (NSString *)initiator
 {
-    return @"0000000101";
+    return @"101";
 }
 
 - (NSString *)terminator
 {
-    return @"1010000000";
+    return @"101";
+}
+
+- (NSString *)centerGuardPattern
+{
+    return @"01010";
 }
 
 @end

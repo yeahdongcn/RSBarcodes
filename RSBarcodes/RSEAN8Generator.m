@@ -15,30 +15,27 @@
 {
     self = [super init];
     if (self) {
-        length = 8;
+        self.length = 8;
     }
     return self;
 }
 
 - (NSString *)barcode:(NSString *)contents
 {
-    NSString *code = @"";
-    
-    for (int i = 0; i < length; i++) {
-        int value = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
-        
-        if (i <= (length / 2 - 1)) {
-            code = [code stringByAppendingFormat:@"%@",codeMap[value][@"A"]];
+    NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
+    for (int i = 0; i < self.length; i++) {
+        int digit = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
+        if (i <= self.length / 2 - 1) {
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][@"O"]]];
             
-            //中线
-            if (i == (length / 2 - 1)) {
-                code = [code stringByAppendingString:@"01010"];
+            if (i == self.length / 2 - 1) {
+                [barcode appendString:[self centerGuardPattern]];
             }
         } else {
-            code = [code stringByAppendingFormat:@"%@",codeMap[value][@"C"]];
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][@"R"]]];
         }
     }
-    return code;
+    return [NSString stringWithString:barcode];
 }
 
 @end

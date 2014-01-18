@@ -24,6 +24,10 @@
 
 #import "RSCode128Generator.h"
 
+#import "RSISBN13Generator.h"
+
+#import "RSISSN13Generator.h"
+
 @implementation RSUnifiedCodeGenerator
 
 + (instancetype)codeGen
@@ -70,6 +74,12 @@
         
     } else if ([type isEqualToString:AVMetadataObjectTypeCode128Code]) {
         codeGen = [[RSCode128Generator alloc] initWithContents:contents];
+        
+    } else if ([type isEqualToString:RSMetadataObjectTypeISBN13Code]) {
+        codeGen = [[RSISBN13Generator alloc] init];
+        
+    } else if ([type isEqualToString:RSMetadataObjectTypeISSN13Code]) {
+        codeGen = [[RSISSN13Generator alloc] init];
     }
     
     if (codeGen) {
