@@ -33,7 +33,7 @@ Installation
 
 Simply add the following line to your `Podfile`:
 
-    pod 'RSBarcodes'
+    pod 'RSBarcodes', '~> 0.0.3'
 
 Usage
 ------------
