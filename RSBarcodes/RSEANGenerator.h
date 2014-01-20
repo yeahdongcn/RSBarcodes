@@ -20,6 +20,4 @@
 
 @property (nonatomic, readonly) NSArray *parityEncodingTable;
 
-- (NSString *)centerGuardPattern;
-
 @end

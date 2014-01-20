@@ -19,6 +19,11 @@
 
 @implementation RSEANGenerator
 
+- (NSString *)__centerGuardPattern
+{
+    return @"01010";
+}
+
 - (id)init
 {
     self = [super init];
@@ -58,7 +63,7 @@
         
         for (int i = 0; i < (self.length - 1); i++) {
             int digit = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
-            if (i % 2 == (self.length == 8 ? 1 : 0)) {
+            if (i % 2 == (self.length == 13 ? 0 : 1)) {
                 sum_even += digit;
             } else {
                 sum_odd += digit;
@@ -80,9 +85,27 @@
     return @"101";
 }
 
-- (NSString *)centerGuardPattern
+- (NSString *)barcode:(NSString *)contents
 {
-    return @"01010";
+    NSString *lefthandParity = @"OOOO";
+    if (self.length == 13) {
+        lefthandParity = self.lefthandParities[[[contents substringToIndex:1] intValue]];
+        contents = [contents substringFromIndex:1];
+    }
+    
+    NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
+    for (int i = 0; i < contents.length; i++) {
+        int digit = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
+        if (i < lefthandParity.length) {
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][[lefthandParity substringWithRange:NSMakeRange(i, 1)]]]];
+            if (i == lefthandParity.length - 1) {
+                [barcode appendString:[self __centerGuardPattern]];
+            }
+        } else {
+            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][@"R"]]];
+        }
+    }
+    return [NSString stringWithString:barcode];
 }
 
 @end

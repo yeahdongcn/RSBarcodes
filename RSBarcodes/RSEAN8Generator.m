@@ -20,22 +20,4 @@
     return self;
 }
 
-- (NSString *)barcode:(NSString *)contents
-{
-    NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
-    for (int i = 0; i < self.length; i++) {
-        int digit = [[contents substringWithRange:NSMakeRange(i, 1)] intValue];
-        if (i <= self.length / 2 - 1) {
-            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][@"O"]]];
-            
-            if (i == self.length / 2 - 1) {
-                [barcode appendString:[self centerGuardPattern]];
-            }
-        } else {
-            [barcode appendString:[NSString stringWithFormat:@"%@", self.parityEncodingTable[digit][@"R"]]];
-        }
-    }
-    return [NSString stringWithString:barcode];
-}
-
 @end

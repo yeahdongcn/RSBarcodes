@@ -1,6 +1,6 @@
 //
 //  RSCode128Generator.m
-//  RSBarcodesSample
+//  RSBarcodes
 //
 //  Created by R0CKSTAR on 12/30/13.
 //  Copyright (c) 2013 P.D.Q. All rights reserved.

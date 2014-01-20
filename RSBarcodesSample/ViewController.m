@@ -60,6 +60,8 @@
     
     self.codeView.code = [CodeGen genCodeWithContents:@"7501031311309" machineReadableCodeObjectType:AVMetadataObjectTypeEAN13Code];
     
+//    self.codeView.code = [CodeGen genCodeWithContents:@"65833254" machineReadableCodeObjectType:AVMetadataObjectTypeEAN8Code];
+    
     [self.view bringSubviewToFront:self.codeView];
     
     [self.view bringSubviewToFront:self.codeLabel];
