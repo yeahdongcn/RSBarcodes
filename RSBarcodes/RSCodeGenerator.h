@@ -124,15 +124,14 @@ static inline UIImage* genCode(NSString *contents, NSString *filterName)
 }
 
 static inline UIImage *resizeImage(UIImage *source,
-                                   float scale,
-                                   CGInterpolationQuality quality)
+                                   float scale)
 {
     CGFloat width = source.size.width * scale;
     CGFloat height = source.size.height * scale;
     
     UIGraphicsBeginImageContext(CGSizeMake(width, height));
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetInterpolationQuality(context, quality);
+    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
     [source drawInRect:CGRectMake(0, 0, width, height)];
     UIImage *target = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

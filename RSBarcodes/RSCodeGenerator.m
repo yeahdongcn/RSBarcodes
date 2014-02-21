@@ -51,7 +51,12 @@ NSString * const DIGITS_STRING = @"0123456789";
         return nil;
     }
     
-    CGSize size = CGSizeMake(code.length + 20, roundf(code.length / 3.0));
+    // Values taken from CIImage generated AVMetadataObjectTypePDF417Code type image
+    // Top spacing          = 1.5
+    // Bottom spacing       = 2
+    // Left & right spacing = 2
+    // Height               = 28
+    CGSize size = CGSizeMake(code.length + 4, 28);
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -64,8 +69,8 @@ NSString * const DIGITS_STRING = @"0123456789";
     for (int i = 0; i < code.length; i++) {
         NSString *character = [code substringWithRange:NSMakeRange(i, 1)];
         if ([character isEqualToString:@"1"]) {
-            CGContextMoveToPoint(context, i + 10, 5);
-            CGContextAddLineToPoint(context, i + 10, size.height - 5);
+            CGContextMoveToPoint(context, i + (2 + 1), (1.5 + 1));
+            CGContextAddLineToPoint(context, i + (2 + 1), size.height - 2);
         }
     }
     CGContextDrawPath(context, kCGPathFillStroke);
