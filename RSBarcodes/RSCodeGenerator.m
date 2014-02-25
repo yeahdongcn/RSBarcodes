@@ -69,7 +69,7 @@ NSString * const DIGITS_STRING = @"0123456789";
     for (int i = 0; i < code.length; i++) {
         NSString *character = [code substringWithRange:NSMakeRange(i, 1)];
         if ([character isEqualToString:@"1"]) {
-            CGContextMoveToPoint(context, i + (2 + 1), (1.5 + 1));
+            CGContextMoveToPoint(context, i + (2 + 1), 1.5);
             CGContextAddLineToPoint(context, i + (2 + 1), size.height - 2);
         }
     }
