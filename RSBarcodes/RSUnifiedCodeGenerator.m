@@ -38,8 +38,8 @@ NSString *const AVMetadataObjectTypeEAN13Code = @"org.gs1.EAN-13";
 NSString *const AVMetadataObjectTypeEAN8Code = @"org.gs1.EAN-8";
 NSString *const AVMetadataObjectTypeCode93Code = @"com.intermec.Code93";
 NSString *const AVMetadataObjectTypeCode128Code = @"org.iso.Code128";
-NSString *const AVMetadataObjectTypePDF417Code = @"";
-NSString *const AVMetadataObjectTypeQRCode = @"org.iso.PDF417";
+NSString *const AVMetadataObjectTypePDF417Code = @"org.iso.PDF417";
+NSString *const AVMetadataObjectTypeQRCode = @"org.iso.QRCode";
 NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
 
 #endif
