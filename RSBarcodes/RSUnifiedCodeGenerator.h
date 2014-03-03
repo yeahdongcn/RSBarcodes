@@ -10,6 +10,21 @@
 
 #import "RSCodeGenerator.h"
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
+
+extern NSString *const AVMetadataObjectTypeUPCECode;
+extern NSString *const AVMetadataObjectTypeCode39Code;
+extern NSString *const AVMetadataObjectTypeCode39Mod43Code;
+extern NSString *const AVMetadataObjectTypeEAN13Code;
+extern NSString *const AVMetadataObjectTypeEAN8Code;
+extern NSString *const AVMetadataObjectTypeCode93Code;
+extern NSString *const AVMetadataObjectTypeCode128Code;
+extern NSString *const AVMetadataObjectTypePDF417Code;
+extern NSString *const AVMetadataObjectTypeQRCode;
+extern NSString *const AVMetadataObjectTypeAztecCode;
+
+#endif
+
 @interface RSUnifiedCodeGenerator : NSObject <RSCodeGenerator>
 
 + (instancetype)codeGen;

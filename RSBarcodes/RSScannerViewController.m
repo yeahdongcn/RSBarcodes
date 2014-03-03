@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 P.D.Q. All rights reserved.
 //
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+
 #import "RSScannerViewController.h"
 
 #import "RSCornersView.h"
@@ -228,3 +230,5 @@
 }
 
 @end
+
+#endif

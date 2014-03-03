@@ -28,6 +28,22 @@
 
 #import "RSISSN13Generator.h"
 
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
+
+NSString *const AVMetadataObjectTypeUPCECode = @"org.gs1.UPC-E";
+NSString *const AVMetadataObjectTypeCode39Code = @"org.iso.Code39";
+NSString *const AVMetadataObjectTypeCode39Mod43Code = @"org.iso.Code39Mod43";
+NSString *const AVMetadataObjectTypeEAN13Code = @"org.gs1.EAN-13";
+NSString *const AVMetadataObjectTypeEAN8Code = @"org.gs1.EAN-8";
+NSString *const AVMetadataObjectTypeCode93Code = @"com.intermec.Code93";
+NSString *const AVMetadataObjectTypeCode128Code = @"org.iso.Code128";
+NSString *const AVMetadataObjectTypePDF417Code = @"";
+NSString *const AVMetadataObjectTypeQRCode = @"org.iso.PDF417";
+NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
+
+#endif
+
 @implementation RSUnifiedCodeGenerator
 
 + (instancetype)codeGen

@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 P.D.Q. All rights reserved.
 //
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+
 #import <UIKit/UIKit.h>
 
 @class RSCornersView;
@@ -31,3 +33,5 @@ typedef void (^RSTapGestureHandler)(CGPoint tapPoint);
 @property (nonatomic) BOOL isFocusMarkVisible;   // Default is YES
 
 @end
+
+#endif
