@@ -59,8 +59,11 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.codeView.code = [CodeGen genCodeWithContents:@"7501031311309" machineReadableCodeObjectType:AVMetadataObjectTypeEAN13Code];
-    
-//    self.codeView.code = [CodeGen genCodeWithContents:@"65833254" machineReadableCodeObjectType:AVMetadataObjectTypeEAN8Code];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     [self.view bringSubviewToFront:self.codeView];
     
