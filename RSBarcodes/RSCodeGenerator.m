@@ -60,6 +60,8 @@ NSString * const DIGITS_STRING = @"0123456789";
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
+    CGContextSetShouldAntialias(context, false);
+    
     [[UIColor whiteColor] setFill];
     [[UIColor blackColor] setStroke];
     
