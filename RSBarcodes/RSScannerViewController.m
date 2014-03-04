@@ -6,13 +6,17 @@
 //  Copyright (c) 2013 P.D.Q. All rights reserved.
 //
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-
 #import "RSScannerViewController.h"
 
 #import "RSCornersView.h"
 
 #import <AVFoundation/AVFoundation.h>
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
+
+NSString *const AVMetadataObjectTypeFace = @"face";
+
+#endif
 
 @interface RSScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 
@@ -230,5 +234,3 @@
 }
 
 @end
-
-#endif
