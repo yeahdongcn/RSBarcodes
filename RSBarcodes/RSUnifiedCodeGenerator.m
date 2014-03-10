@@ -63,7 +63,9 @@ NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
     if ([type isEqualToString:AVMetadataObjectTypeQRCode]
         || [type isEqualToString:AVMetadataObjectTypePDF417Code]
         || [type isEqualToString:AVMetadataObjectTypeAztecCode]) {
-        return genCode(contents, getFilterName(type));
+        if (([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] != NSOrderedAscending)) {
+            return genCode(contents, getFilterName(type));
+        }
     }
     
     id<RSCodeGenerator> codeGen = nil;
