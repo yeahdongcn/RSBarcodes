@@ -12,6 +12,12 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
+
+NSString *const AVMetadataObjectTypeFace = @"face";
+
+#endif
+
 @interface RSScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 
 @property (nonatomic, strong) AVCaptureSession           *session;

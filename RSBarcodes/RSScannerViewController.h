@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
+
+extern NSString *const AVMetadataObjectTypeFace;
+
+#endif
+
 @class RSCornersView;
 
 typedef void (^RSBarcodesHandler)(NSArray *barcodeObjects);
