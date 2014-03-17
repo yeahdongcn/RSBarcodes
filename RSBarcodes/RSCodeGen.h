@@ -16,4 +16,6 @@
 
 #import "RSISSN13Generator.h"
 
+#import "RSITF14Generator.h"
+
 #define CodeGen [RSUnifiedCodeGenerator codeGen]

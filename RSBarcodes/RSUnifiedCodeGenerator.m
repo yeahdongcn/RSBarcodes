@@ -28,6 +28,7 @@
 
 #import "RSISSN13Generator.h"
 
+#import "RSITF14Generator.h"
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
 
@@ -98,6 +99,9 @@ NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
         
     } else if ([type isEqualToString:RSMetadataObjectTypeISSN13Code]) {
         codeGen = [[RSISSN13Generator alloc] init];
+        
+    } else if ([type isEqualToString:RSMetadataObjectTypeITF14Code]) {
+        codeGen = [[RSITF14Generator alloc] init];
     }
     
     if (codeGen) {
