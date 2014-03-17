@@ -23,7 +23,8 @@ Current Status
     // --------------------
     Extended Code 39, -- Done
     ISBN13, -- Done
-    ISSN13 -- Done
+    ISSN13, -- Done
+    ITF14, -- Done
     
     Code display view -- Done
     
