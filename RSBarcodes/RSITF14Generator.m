@@ -53,7 +53,6 @@ static NSString * const ITF14_CHARACTER_ENCODINGS[10] = {
         for (int j = 0; j < 10; j++) {
             if (j % 2 == 0) {
                 int bar = [[bars substringWithRange:NSMakeRange(j / 2, 1)] intValue];
-            
                 if (bar == 1) {
                     [barcode appendString:@"11"];
                 } else {
