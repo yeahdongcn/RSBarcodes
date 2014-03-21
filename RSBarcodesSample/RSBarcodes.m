@@ -8,6 +8,6 @@
 
 #import "RSBarcodes.h"
 
-@implementation RSBarcodes
+@implementation RSBarcodes 
 
 @end
