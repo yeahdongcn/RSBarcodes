@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RSCodeView.h"
+#import "RSCodeView.h" 
 #import "RSCodeGen.h"
-
+ 
 @interface RSBarcodes : NSObject
 
 @end
