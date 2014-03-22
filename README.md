@@ -42,9 +42,9 @@ Usage
 Now you can use the **RSBarcodes framework** without import all headers files.
 Just imports these frameworks:
 
-RSBarcodes.framework (it's under the product folder of this project) :)
-AVFoundation.framework
-CoreImage.framework
+RSBarcodes.framework (it's under the product folder of this project) :)  
+AVFoundation.framework  
+CoreImage.framework  
 CoreGraphics.framework
 
 When you use the framework you must import the headers like below:
