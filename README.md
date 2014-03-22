@@ -38,6 +38,24 @@ Simply add the following line to your `Podfile`:
 
 Usage
 ------------
+###Framework
+Now you can use the **RSBarcodes framework** without import all headers files.
+Just imports these frameworks:
+
+RSBarcodes.framework (it's under the product folder of this project) :)  
+AVFoundation.framework  
+CoreImage.framework  
+CoreGraphics.framework
+
+When you use the framework you must import the headers like below:
+
+    #import <RSBarcodes/aHeader.h>
+
+
+`RSCodeView.h` and `RSCodeGen.h` are already imported into the `RSBarcodes.h` so you can use directly
+
+    #import <RSBarcodes/RSBarcodes.h>
+
 
 ###Barcode Scanner:
 
@@ -77,6 +95,12 @@ Here are examples, the generated image could be used along with `RSCodeView` or 
 or
 
     [CodeGen genCodeWithMachineReadableCodeObject:<#(AVMetadataMachineReadableCodeObject *)#>]
+
+
+Thanks
+------------
+...to g8production [www.g8production.com](http://www.g8production.com) [github](https://github.com/gali8)
+
 
 License
 ------------
