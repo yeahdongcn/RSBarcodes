@@ -1,6 +1,6 @@
 RSBarcodes [![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes.png)](https://travis-ci.org/yeahdongcn/RSBarcodes)
 ==========
-RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabilities introduced with iOS7 and generate the same set of barcode images for displaying and sharing.
+RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabilities introduced with iOS7 and generate the same set of barcode images for displaying and sharing. PR from MacMannes has been merged to make a part of code generators working in iOS5.1 above.
 
 Current Status
 ------------
