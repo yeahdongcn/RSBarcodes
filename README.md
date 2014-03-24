@@ -96,12 +96,6 @@ or
 
     [CodeGen genCodeWithMachineReadableCodeObject:<#(AVMetadataMachineReadableCodeObject *)#>]
 
-
-Thanks
-------------
-...to g8production [www.g8production.com](http://www.g8production.com) [github](https://github.com/gali8)
-
-
 License
 ------------
     The MIT License (MIT)
