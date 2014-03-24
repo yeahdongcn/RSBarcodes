@@ -36,10 +36,8 @@ Simply add the following line to your `Podfile`:
 
     pod 'RSBarcodes', '~> 0.0.5'
 
-Usage
-------------
-###Framework
-Now you can use the **RSBarcodes framework** without import all headers files.
+Or you can use the **RSBarcodes framework** without import all headers files.
+
 Just imports these frameworks:
 
 RSBarcodes.framework (it's under the product folder of this project) :)  
@@ -51,12 +49,14 @@ When you use the framework you must import the headers like below:
 
     #import <RSBarcodes/aHeader.h>
 
-
 `RSCodeView.h` and `RSCodeGen.h` are already imported into the `RSBarcodes.h` so you can use directly
 
     #import <RSBarcodes/RSBarcodes.h>
 
+Thanks to g8production [www.g8production.com](http://www.g8production.com) [github](https://github.com/gali8)
 
+Usage
+------------
 ###Barcode Scanner:
 
 Place a `UIViewController` in storyboard and set `RSScannerViewController` based class as its custom class. If you want to use the corners view (for barcode corners and borders displaying), you can put a `UIView` onto the view controller’s view and set `RSCornersView` as its custom class then link the `highlightView` to it, make sure the view’s size is as large as the view controller’s view.
