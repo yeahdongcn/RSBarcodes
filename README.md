@@ -1,6 +1,6 @@
 RSBarcodes [![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes.png)](https://travis-ci.org/yeahdongcn/RSBarcodes)
 ==========
-RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabilities introduced with iOS7 and generate the same set of barcode images for displaying and sharing. PR from <a href="https://github.com/MacMannes" target="_blank">MacMannes</a> has been merged to make a part of code generators working in iOS5.1 above.
+RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabilities introduced with iOS7 and generate the same set of barcode images for displaying and sharing. PR from <a href="https://github.com/MacMannes" target="_blank">MacMannes</a> has been merged to make a part of code generators working on iOS5.1 above.
 
 Current Status
 ------------
@@ -53,7 +53,7 @@ When you use the framework you must import the headers like below:
 
     #import <RSBarcodes/RSBarcodes.h>
 
-Thanks to g8production [www.g8production.com](http://www.g8production.com) [github](https://github.com/gali8)
+Thanks to g8production [www.g8production.com](http://www.g8production.com) [github](https://github.com/gali8) for providing this.
 
 Usage
 ------------
