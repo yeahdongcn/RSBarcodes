@@ -61,7 +61,6 @@
 		6463D31C18DCCB11006C6A78 /* RSISSN13Generator.h in Headers */ = {isa = PBXBuildFile; fileRef = D063DABC188AD54000F63946 /* RSISSN13Generator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6463D31D18DCCB11006C6A78 /* RSITF14Generator.h in Headers */ = {isa = PBXBuildFile; fileRef = D0D0730F18D6E1A800CDBD2C /* RSITF14Generator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6463D33018DCFA2B006C6A78 /* RSBarcodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 6463D32E18DCFA2B006C6A78 /* RSBarcodes.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6463D33118DCFA2B006C6A78 /* RSBarcodes.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463D32F18DCFA2B006C6A78 /* RSBarcodes.m */; };
 		D0049193186978F1005ED994 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0049192186978F1005ED994 /* Foundation.framework */; };
 		D0049195186978F1005ED994 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0049194186978F1005ED994 /* CoreGraphics.framework */; };
 		D0049197186978F1005ED994 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0049196186978F1005ED994 /* UIKit.framework */; };
@@ -104,7 +103,6 @@
 		6463D2E518DCC96D006C6A78 /* RSBarcodes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSBarcodes-Prefix.pch"; sourceTree = "<group>"; };
 		6463D32A18DCD219006C6A78 /* RSBarcodes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RSBarcodes.framework; sourceTree = "<group>"; };
 		6463D32E18DCFA2B006C6A78 /* RSBarcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSBarcodes.h; sourceTree = "<group>"; };
-		6463D32F18DCFA2B006C6A78 /* RSBarcodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSBarcodes.m; sourceTree = "<group>"; };
 		D004918F186978F1005ED994 /* RSBarcodesSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSBarcodesSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0049192186978F1005ED994 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0049194186978F1005ED994 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -268,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				6463D32E18DCFA2B006C6A78 /* RSBarcodes.h */,
-				6463D32F18DCFA2B006C6A78 /* RSBarcodes.m */,
 				D076CCB3187118F900CC3332 /* Scanner */,
 				D076CCB41871191F00CC3332 /* Generator */,
 			);
@@ -475,7 +472,6 @@
 				6463D30218DCCAF6006C6A78 /* RSEAN8Generator.m in Sources */,
 				6463D30318DCCAF6006C6A78 /* RSEAN13Generator.m in Sources */,
 				6463D30418DCCAF6006C6A78 /* RSUPCEGenerator.m in Sources */,
-				6463D33118DCFA2B006C6A78 /* RSBarcodes.m in Sources */,
 				6463D30518DCCAF6006C6A78 /* RSCode93Generator.m in Sources */,
 				6463D30618DCCAF6006C6A78 /* RSCode128Generator.m in Sources */,
 				6463D30718DCCAF6006C6A78 /* RSISBN13Generator.m in Sources */,
