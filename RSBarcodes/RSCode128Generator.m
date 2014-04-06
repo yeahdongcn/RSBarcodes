@@ -320,6 +320,11 @@ static NSString * const CODE128_CHARACTER_ENCODINGS[107] = {
 - (BOOL)isContentsValid:(NSString *)contents
 {
     if (contents.length > 0) {
+        for (int i = 0; i < contents.length; i++) {
+            if ([CODE128_ALPHABET_STRING rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]].location == NSNotFound) {
+                return NO;
+            }
+        }
         switch (self.codeTable) {
             case RSCode128GeneratorCodeTableAuto:
                 [self __calculateAutoCodeTableWithContents:contents];
