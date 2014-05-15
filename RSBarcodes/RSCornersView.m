@@ -218,12 +218,16 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    for (NSArray *corners in self.cornersArray) {
-        [self __drawCorners:corners];
+    @synchronized(self.cornersArray) {
+        for (NSArray *corners in self.cornersArray) {
+            [self __drawCorners:corners];
+        }
     }
     
-    for (NSArray *borders in self.borderRectArray) {
-        [self __drawCorners:borders];
+    @synchronized(self.borderRectArray) {
+        for (NSArray *borders in self.borderRectArray) {
+            [self __drawCorners:borders];
+        }
     }
     
     [self __drawFocusMark];
