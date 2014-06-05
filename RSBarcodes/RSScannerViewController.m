@@ -97,6 +97,7 @@ NSString *const AVMetadataObjectTypeFace = @"face";
     self.layer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
     self.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     self.layer.frame = self.view.bounds;
+    [self.view.layer addSublayer:self.layer];
     
     self.output = [[AVCaptureMetadataOutput alloc] init];
     dispatch_queue_t queue = dispatch_queue_create("com.pdq.RSBarcodes.metadata", 0);
@@ -122,10 +123,6 @@ NSString *const AVMetadataObjectTypeFace = @"face";
     if (self.session.isRunning) {
         return;
     }
-    
-    [self.view.layer addSublayer:self.layer];
-    [self.view bringSubviewToFront:self.highlightView];
-    
     [self.session startRunning];
 }
 
@@ -133,10 +130,11 @@ NSString *const AVMetadataObjectTypeFace = @"face";
     if (!self.session.isRunning) {
         return;
     }
-    
-    [self.layer removeFromSuperlayer];
-    
     [self.session stopRunning];
+    
+    self.highlightView.cornersArray = nil;
+    self.highlightView.borderRectArray = nil;
+    [self.highlightView setNeedsDisplay];
 }
 
 #pragma mark - View lifecycle

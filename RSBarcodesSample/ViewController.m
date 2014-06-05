@@ -22,6 +22,11 @@
 
 @implementation ViewController
 
+- (void)__applicationDidEnterBackground:(NSNotification *)notification
+{
+    self.codeLabel.text = @"";
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -53,12 +58,24 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidEnterBackgroundNotification
+                                                  object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.codeView.code = [CodeGen genCodeWithContents:@"Hello world." machineReadableCodeObjectType:AVMetadataObjectTypeCode128Code];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(__applicationDidEnterBackground:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -68,12 +85,6 @@
     [self.view bringSubviewToFront:self.codeView];
     
     [self.view bringSubviewToFront:self.codeLabel];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
