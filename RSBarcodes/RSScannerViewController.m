@@ -48,8 +48,8 @@ NSString *const AVMetadataObjectTypeFace = @"face";
     CGPoint focusPoint= CGPointMake(tapPoint.x / self.view.bounds.size.width, tapPoint.y / self.view.bounds.size.height);
     
     if (!self.device
-        && ![self.device isFocusPointOfInterestSupported]
-        && ![self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+        || ![self.device isFocusPointOfInterestSupported]
+        || ![self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
         return;
     } else if ([self.device lockForConfiguration:nil]) {
         [self.device setFocusPointOfInterest:focusPoint];
