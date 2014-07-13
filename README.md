@@ -74,9 +74,9 @@ Create `RSScannerViewController` from Code an present it. Use the callback Block
 possible Device Positions: 	AVCaptureDevicePositionBack
 							AVCaptureDevicePositionFront
 
-RSScannerViewController *scanner = [[RSScannerViewController alloc] initWithCornerView:YES
-                                                                           controlView:YES
-                                                                       barcodesHandler:^(NSArray *barcodeObjects) {
+	RSScannerViewController *scanner = [[RSScannerViewController alloc] initWithCornerView:YES
+                                                                           	   controlView:YES
+                                                                       	       barcodesHandler:^(NSArray *barcodeObjects) {
                                                                                [self dismissViewControllerAnimated:true
                                                                                                         completion:nil];
                                                                            }
