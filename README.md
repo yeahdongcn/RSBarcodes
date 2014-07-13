@@ -68,11 +68,10 @@ Option 1:
 
 Create `RSScannerViewController` from Code an present it. Use the callback Block to process the Barcode.
 
-(id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler;
-(id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler preferredCameraPosition:(AVCaptureDevicePosition)cameraDevicePosition;
+	(id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler;
+	(id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler preferredCameraPosition:(AVCaptureDevicePosition)cameraDevicePosition;
 
-possible Device Positions: 	AVCaptureDevicePositionBack
-							AVCaptureDevicePositionFront
+possible Device Positions: 	AVCaptureDevicePositionBack, AVCaptureDevicePositionFront
 
 	RSScannerViewController *scanner = [[RSScannerViewController alloc] initWithCornerView:YES
                                                                            	   controlView:YES
