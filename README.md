@@ -66,7 +66,7 @@ Usage
 
 ####Option 1:
 
-Create `RSScannerViewController` from code an present it. Use the callback Block to process the barcode.
+Create `RSScannerViewController` from code an present it. Use the callback block to process the barcode.
 
 	(id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler;
 	(id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler preferredCameraPosition:(AVCaptureDevicePosition)cameraDevicePosition;
@@ -76,8 +76,6 @@ possible Device Positions: 	AVCaptureDevicePositionBack, AVCaptureDevicePosition
 	RSScannerViewController *scanner = [[RSScannerViewController alloc] initWithCornerView:YES
                                                                            	   controlView:YES
                                                                        	       barcodesHandler:^(NSArray *barcodeObjects) {
-                                                                               [self dismissViewControllerAnimated:true
-                                                                                                        completion:nil];
                                                                            }
                                                                    preferredCameraPosition:AVCaptureDevicePositionBack];
     [self presentViewController:scanner animated:true completion:nil];
