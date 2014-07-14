@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-#import "RSBarcodes.h"
+
 
 @interface MainViewController ()
 
@@ -19,23 +19,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
+    scanner = [[RSScannerViewController alloc] initWithCornerView:YES
+                                                      controlView:YES
+                                                  barcodesHandler:^(NSArray *barcodeObjects) {
+                                                      [self dismissViewControllerAnimated:true completion:nil];
+                                                      [self.navigationController popViewControllerAnimated:YES];
+                                                  }
+               preferredCameraPosition:AVCaptureDevicePositionBack];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self performSelector:@selector(presentScanner) withObject:nil afterDelay:3];
+    
 }
 
-- (void)presentScanner {
-    RSScannerViewController *scanner = [[RSScannerViewController alloc] initWithCornerView:YES
-                                                                               controlView:YES
-                                                                           barcodesHandler:^(NSArray *barcodeObjects) {
-                                                                               [self dismissViewControllerAnimated:true
-                                                                                                        completion:nil];
-                                                                           }
-                                                                   preferredCameraPosition:AVCaptureDevicePositionFront];
-    [self presentViewController:scanner animated:true completion:nil];
+- (IBAction)presentModal:(id)sender {
+    [self presentViewController:scanner animated:YES completion:nil];
+}
+
+- (BOOL)shouldAutorotate {
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -23,8 +23,9 @@ typedef void (^RSTapGestureHandler)(CGPoint tapPoint);
 
 @interface RSScannerViewController : UIViewController
 
-
 @property (nonatomic) AVCaptureDevicePosition preferredCameraPosition;
+
+@property (nonatomic) BOOL torchState;
 
 
 @property (nonatomic, strong) NSArray *barcodeObjectTypes;
