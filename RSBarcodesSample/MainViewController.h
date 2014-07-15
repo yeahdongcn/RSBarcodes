@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RSBarcodes.h"
 
-@interface MainViewController : UIViewController {
+@interface MainViewController : UIViewController <UIAlertViewDelegate> {
     RSScannerViewController *scanner;
 }
 

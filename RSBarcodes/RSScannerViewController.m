@@ -170,14 +170,18 @@ NSString *const AVMetadataObjectTypeFace = @"face";
         self.controlsView = controlsView;
         self.isControlsVisible = showControlsView;
         
+        self.isButtonBordersVisible = false;
+        
         [self updateView];
     }
     
     if (self) {
+        
         self.barcodesHandler = barcodesHandler;
         
         self.tapGestureHandler = ^(CGPoint tapPoint) { };
     }
+    
     
     return self;
 }
@@ -232,6 +236,12 @@ NSString *const AVMetadataObjectTypeFace = @"face";
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
+    
+    if(self.stopOnFirst)
+    {
+        [self __stopRunning];
+    }
+    
     NSMutableArray *barcodeObjects  = nil;
     NSMutableArray *cornersArray    = nil;
     NSMutableArray *borderRectArray = nil;
@@ -275,6 +285,11 @@ NSString *const AVMetadataObjectTypeFace = @"face";
     
     if (self.barcodesHandler) {
         self.barcodesHandler([NSArray arrayWithArray:barcodeObjects]);
+    }
+    
+    if(self.stopOnFirst)
+    {
+        [self __startRunning];
     }
 }
 
@@ -338,6 +353,7 @@ NSString *const AVMetadataObjectTypeFace = @"face";
     dispatch_async(dispatch_get_main_queue(), ^{
         //self.torchButton.titleLabel.textColor = ;
         [self.torchButton setTitleColor:(torchState ? [UIColor colorWithRed:1.0f green:0.79f blue:0.28f alpha:1.0f] : [UIColor whiteColor]) forState:UIControlStateNormal]; //set button yellow when torch is on
+        [self.torchButton.layer setBorderColor:(torchState ? [UIColor colorWithRed:1.0f green:0.79f blue:0.28f alpha:1.0f].CGColor : [UIColor whiteColor].CGColor)];
     });
     
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -374,20 +390,20 @@ NSString *const AVMetadataObjectTypeFace = @"face";
         self.sidebarView = [[UIView alloc] init];
         [self.sidebarView setBackgroundColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.9f]];
         
-        [self.view addSubview:self.sidebarView];
-        [self.view bringSubviewToFront:self.sidebarView];
+        [self.controlsView addSubview:self.sidebarView];
+        [self.controlsView bringSubviewToFront:self.sidebarView];
     }
     
     if(!self.cancelButton && [self isModal])
     {
         self.cancelButton = [[UIButton alloc] init];
-        [self.cancelButton setTitle:@"cancel" forState:UIControlStateNormal];
+        [self.cancelButton setTitle:@" cancel " forState:UIControlStateNormal];
         [self.cancelButton setTitleColor:[UIColor colorWithRed:1.0f green:0.22f blue:0.22f alpha:1.0f] forState:UIControlStateNormal];
         [self.cancelButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [self.cancelButton addTarget:self action:@selector(exit) forControlEvents:UIControlEventTouchDown];
         
-        [self.view addSubview:self.cancelButton];
-        [self.view bringSubviewToFront:self.cancelButton];
+        [self.controlsView addSubview:self.cancelButton];
+        [self.controlsView bringSubviewToFront:self.cancelButton];
     }
     
     if(![self isModal])
@@ -400,33 +416,55 @@ NSString *const AVMetadataObjectTypeFace = @"face";
         self.flipButton = [[UIButton alloc] init];
         [self.flipButton setTitle:@" flip " forState:UIControlStateNormal];
         [self.flipButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
-        [self.flipButton.layer setCornerRadius:8.0f];
-        [self.flipButton.layer setBorderColor:[UIColor whiteColor].CGColor];
-        [self.flipButton.layer setBorderWidth:1.5f];
+        
         //[self.switchButton setImage:[UIImage imageNamed:@"CAMFlipButton"] forState:UIControlStateNormal];
         [self.flipButton addTarget:self action:@selector(switchCamera) forControlEvents:UIControlEventTouchDown];
         
-        [self.view addSubview:self.flipButton];
-        [self.view bringSubviewToFront:self.flipButton];
+        [self.controlsView addSubview:self.flipButton];
+        [self.controlsView bringSubviewToFront:self.flipButton];
     }
     
     if(!self.torchButton && [self.device hasTorch])
     {
         self.torchButton = [[UIButton alloc] init];
-        [self.torchButton setTitle:@"torch" forState:UIControlStateNormal];
+        [self.torchButton setTitle:@" torch " forState:UIControlStateNormal];
         [self.torchButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+        
         [self.torchButton addTarget:self action:@selector(toggleTorch) forControlEvents:UIControlEventTouchDown];
         
         
-        [self.view addSubview:self.torchButton];
-        [self.view bringSubviewToFront:self.torchButton];
+        [self.controlsView addSubview:self.torchButton];
+        [self.controlsView bringSubviewToFront:self.torchButton];
+    }
+    
+    if(self.isButtonBordersVisible)
+    {
+        [self.cancelButton.layer setCornerRadius:8.0f];
+        [self.cancelButton.layer setBorderColor:[UIColor redColor].CGColor];
+        [self.cancelButton.layer setBorderWidth:1.5f];
+        
+        [self.flipButton.layer setCornerRadius:8.0f];
+        [self.flipButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+        [self.flipButton.layer setBorderWidth:1.5f];
+        
+        [self.torchButton.layer setCornerRadius:8.0f];
+        [self.torchButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+        [self.torchButton.layer setBorderWidth:1.5f];
+    }
+    else
+    {
+        [self.cancelButton.layer setBorderWidth:0.f];
+        
+        [self.flipButton.layer setBorderWidth:0.f];
+        
+        [self.torchButton.layer setBorderWidth:0.f];
     }
     
     switch (UI_USER_INTERFACE_IDIOM()) {
         case UIUserInterfaceIdiomPad:
         {
             sidebarRect = CGRectMake(self.view.frame.size.width - 110, 0, 110, self.view.frame.size.height);
-            flipButtonRect = CGRectMake(viewSize.width - 70, 30, 56, 30);
+            flipButtonRect = CGRectMake(viewSize.width - 70, 30, 56, 20);
             cancelButtonRect = CGRectMake(self.view.frame.size.width - 80, viewSize.height - 40, 56, 30);
             
             if (orientation == 0) //Default orientation
@@ -441,6 +479,7 @@ NSString *const AVMetadataObjectTypeFace = @"face";
             }
             else if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
             {
+                flipButtonRect = CGRectMake(viewSize.width - 80, 30, 56, 20);
                 cancelButtonRect = CGRectMake(self.view.frame.size.width - 80, viewSize.height - 60, 56, 42);
             }
             
@@ -449,11 +488,11 @@ NSString *const AVMetadataObjectTypeFace = @"face";
             
         case UIUserInterfaceIdiomPhone:
         {
-            const int marginToTop = 20;
+            const int marginToTop = 22;
             
             sidebarRect = CGRectMake(0, 0, viewSize.width, marginToTop + 40);
             flipButtonRect = CGRectMake(viewSize.width - 40, marginToTop, 30, 20);
-            torchButtonRect = CGRectMake(viewSize.width/2 - 20, marginToTop, 30, 30);
+            torchButtonRect = CGRectMake(viewSize.width/2 - 24, marginToTop, 30, 20);
             cancelButtonRect = CGRectMake(5, marginToTop, 50, 30);
             
             if (orientation == 0) //Default orientation
@@ -468,11 +507,11 @@ NSString *const AVMetadataObjectTypeFace = @"face";
             }
             else if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
             {
-                sidebarRect = CGRectMake(0, 0, viewSize.width, marginToTop + 65);
+                sidebarRect = CGRectMake(0, 0, viewSize.width, marginToTop + 70);
                 
                 const int rotateMargin = 15;
-                flipButtonRect = CGRectMake(viewSize.width - 40, marginToTop + rotateMargin, 30, 30);
-                torchButtonRect = CGRectMake(viewSize.width/2 - 18, marginToTop + rotateMargin, 30, 30);
+                flipButtonRect = CGRectMake(viewSize.width - 40, marginToTop + rotateMargin, 30, 20);
+                torchButtonRect = CGRectMake(viewSize.width/2 - 16, marginToTop + rotateMargin, 30, 30);
                 cancelButtonRect = CGRectMake(5, marginToTop + rotateMargin, 30, 30);
             }
         }
