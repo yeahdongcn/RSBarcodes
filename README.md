@@ -73,7 +73,7 @@ Create `RSScannerViewController` from code an present it. Use the callback block
 	
 You can add borders to the button with: `[scanner setIsButtonBordersVisible:YES];`
 You can automatically stop the processing after the first vaild barcode with `[scanner setStopOnFirst:YES];`
-After that you can either dismiss it, or restart it with `[scanner __startRunning];
+After that you can either dismiss it, or restart it with `[scanner __startRunning]`;
 	
 possible Device Positions: 	AVCaptureDevicePositionBack, AVCaptureDevicePositionFront
 
