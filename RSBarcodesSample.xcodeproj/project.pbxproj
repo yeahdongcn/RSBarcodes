@@ -24,6 +24,7 @@
 		3300A1E5186D5FA8004F73EB /* RSEAN8Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3300A1E2186D5FA8004F73EB /* RSEAN8Generator.m */; };
 		3300A1E6186D5FA8004F73EB /* RSEAN13Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3300A1E4186D5FA8004F73EB /* RSEAN13Generator.m */; };
 		33749BFC187A52E2008C57E7 /* RSEANGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 33749BFB187A52E2008C57E7 /* RSEANGenerator.m */; };
+		50C7EA541972BCBE00A64830 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C7EA531972BCBE00A64830 /* MainViewController.m */; };
 		6463D2E418DCC96D006C6A78 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6463D2E218DCC96D006C6A78 /* InfoPlist.strings */; };
 		6463D2F918DCCAF6006C6A78 /* RSCornersView.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491CC18697908005ED994 /* RSCornersView.m */; };
 		6463D2FA18DCCAF6006C6A78 /* RSScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00491CE18697908005ED994 /* RSScannerViewController.m */; };
@@ -96,6 +97,8 @@
 		3300A1E4186D5FA8004F73EB /* RSEAN13Generator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSEAN13Generator.m; sourceTree = "<group>"; };
 		33749BFA187A52E2008C57E7 /* RSEANGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSEANGenerator.h; sourceTree = "<group>"; };
 		33749BFB187A52E2008C57E7 /* RSEANGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSEANGenerator.m; sourceTree = "<group>"; };
+		50C7EA521972BCBE00A64830 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		50C7EA531972BCBE00A64830 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		6463D2A818DCC747006C6A78 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		6463D2DD18DCC96D006C6A78 /* RSBarcodes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSBarcodes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6463D2E118DCC96D006C6A78 /* RSBarcodes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSBarcodes-Info.plist"; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				D00491A7186978F1005ED994 /* Main_iPad.storyboard */,
 				D00491AA186978F1005ED994 /* ViewController.h */,
 				D00491AB186978F1005ED994 /* ViewController.m */,
+				50C7EA521972BCBE00A64830 /* MainViewController.h */,
+				50C7EA531972BCBE00A64830 /* MainViewController.m */,
 				D00491AD186978F1005ED994 /* Images.xcassets */,
 				D0049199186978F1005ED994 /* Supporting Files */,
 			);
@@ -488,6 +493,7 @@
 				D076CCB2187117AB00CC3332 /* RSCode128Generator.m in Sources */,
 				3300A1E6186D5FA8004F73EB /* RSEAN13Generator.m in Sources */,
 				33749BFC187A52E2008C57E7 /* RSEANGenerator.m in Sources */,
+				50C7EA541972BCBE00A64830 /* MainViewController.m in Sources */,
 				D063DABB188ACFC600F63946 /* RSISBN13Generator.m in Sources */,
 				D0D0731118D6E1A800CDBD2C /* RSITF14Generator.m in Sources */,
 				D076CC9D186AD9FA00CC3332 /* RSCode39Generator.m in Sources */,

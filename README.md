@@ -64,6 +64,28 @@ Usage
 ------------
 ###Barcode Scanner:
 
+####Option 1:
+
+Create `RSScannerViewController` from code an present it. Use the callback block to process the barcode.
+
+	(id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler;
+	(id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler preferredCameraPosition:(AVCaptureDevicePosition)cameraDevicePosition;
+	
+You can add borders to the button with: `[scanner setIsButtonBordersVisible:YES];`
+You can automatically stop the processing after the first vaild barcode with `[scanner setStopOnFirst:YES];`
+After that you can either dismiss it, or restart it with `[scanner __startRunning]`;
+	
+possible Device Positions: 	AVCaptureDevicePositionBack, AVCaptureDevicePositionFront
+
+	RSScannerViewController *scanner = [[RSScannerViewController alloc] initWithCornerView:YES
+                                                                           	   controlView:YES
+                                                                       	       barcodesHandler:^(NSArray *barcodeObjects) {
+                                                                           }
+                                                                   preferredCameraPosition:AVCaptureDevicePositionBack];
+    [self presentViewController:scanner animated:true completion:nil];
+
+####Option 2:
+
 Place a `UIViewController` in storyboard and set `RSScannerViewController` based class as its custom class. If you want to use the corners view (for barcode corners and borders displaying), you can put a `UIView` onto the view controller’s view and set `RSCornersView` as its custom class then link the `highlightView` to it, make sure the view’s size is as large as the view controller’s view.
 
 In `RSScannerViewController` based class implements your own handler.
