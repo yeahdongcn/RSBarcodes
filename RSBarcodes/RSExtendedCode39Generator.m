@@ -8,12 +8,12 @@
 
 #import "RSExtendedCode39Generator.h"
 
-NSString * const RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.rsbarcodes.code39.ext";
+NSString *const RSMetadataObjectTypeExtendedCode39Code =
+@"com.pdq.rsbarcodes.code39.ext";
 
 @implementation RSExtendedCode39Generator
 
-- (NSString *)__encodeContents:(NSString *)contents
-{
+- (NSString *)__encodeContents:(NSString *)contents {
     NSMutableString *newContents = [[NSMutableString alloc] initWithString:@""];
     for (int i = 0; i < contents.length; i++) {
         NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
@@ -199,13 +199,11 @@ NSString * const RSMetadataObjectTypeExtendedCode39Code = @"com.pdq.rsbarcodes.c
     return [NSString stringWithString:newContents];
 }
 
-- (BOOL)isContentsValid:(NSString *)contents
-{
+- (BOOL)isContentsValid:(NSString *)contents {
     return contents.length > 0 ? YES : NO;
 }
 
-- (NSString *)barcode:(NSString *)contents
-{
+- (NSString *)barcode:(NSString *)contents {
     return [super barcode:[self __encodeContents:contents]];
 }
 

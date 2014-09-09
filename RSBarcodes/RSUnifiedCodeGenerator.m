@@ -47,24 +47,23 @@ NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
 
 @implementation RSUnifiedCodeGenerator
 
-+ (instancetype)codeGen
-{
++ (instancetype)codeGen {
     static RSUnifiedCodeGenerator *codeGen = nil;
     static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        codeGen = [[self alloc] init];
-    });
+    dispatch_once(&onceToken, ^{ codeGen = [[self alloc] init]; });
     return codeGen;
 }
 
 #pragma mark - RSCodeGenerator
 
-- (UIImage *)genCodeWithContents:(NSString *)contents machineReadableCodeObjectType:(NSString *)type
-{
-    if ([type isEqualToString:AVMetadataObjectTypeQRCode]
-        || [type isEqualToString:AVMetadataObjectTypePDF417Code]
-        || [type isEqualToString:AVMetadataObjectTypeAztecCode]) {
-        if (([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] != NSOrderedAscending)) {
+- (UIImage *)genCodeWithContents:(NSString *)contents
+   machineReadableCodeObjectType:(NSString *)type {
+    if ([type isEqualToString:AVMetadataObjectTypeQRCode] ||
+        [type isEqualToString:AVMetadataObjectTypePDF417Code] ||
+        [type isEqualToString:AVMetadataObjectTypeAztecCode]) {
+        if (([[[UIDevice currentDevice] systemVersion] compare:@"6.0"
+                                                       options:NSNumericSearch] !=
+             NSOrderedAscending)) {
             return genCode(contents, getFilterName(type));
         }
     }
@@ -105,14 +104,16 @@ NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
     }
     
     if (codeGen) {
-        return [codeGen genCodeWithContents:contents machineReadableCodeObjectType:type];
+        return [codeGen genCodeWithContents:contents
+              machineReadableCodeObjectType:type];
     } else {
         return nil;
     }
 }
 
-- (UIImage *)genCodeWithMachineReadableCodeObject:(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject
-{
+- (UIImage *)genCodeWithMachineReadableCodeObject:
+(AVMetadataMachineReadableCodeObject *)
+machineReadableCodeObject {
     return [self genCodeWithContents:[machineReadableCodeObject stringValue]
        machineReadableCodeObjectType:[machineReadableCodeObject type]];
 }

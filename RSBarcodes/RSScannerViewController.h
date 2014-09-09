@@ -24,47 +24,49 @@ typedef void (^RSTapGestureHandler)(CGPoint tapPoint);
 @interface RSScannerViewController : UIViewController {
 }
 
-@property (nonatomic) AVCaptureDevicePosition preferredCameraPosition;
+@property(nonatomic) AVCaptureDevicePosition preferredCameraPosition;
 
-@property (nonatomic) BOOL torchState;
+@property(nonatomic) BOOL torchState;
 
-@property (nonatomic) BOOL stopOnFirst;
+@property(nonatomic) BOOL stopOnFirst;
 
-@property (nonatomic, strong) NSArray *barcodeObjectTypes;
+@property(nonatomic, strong) NSArray *barcodeObjectTypes;
 
-@property (nonatomic, strong) IBOutlet RSCornersView *highlightView;
+@property(nonatomic, strong) IBOutlet RSCornersView *highlightView;
 
+@property(nonatomic, strong) IBOutlet UIView *controlsView;
 
-@property (nonatomic, strong) IBOutlet UIView *controlsView;
+@property(strong, nonatomic) IBOutlet UIButton *flipButton;
 
-@property (strong, nonatomic) IBOutlet UIButton *flipButton;
+@property(strong, nonatomic) IBOutlet UIButton *cancelButton;
 
-@property (strong, nonatomic) IBOutlet UIButton *cancelButton;
+@property(strong, nonatomic) IBOutlet UIButton *torchButton;
 
-@property (strong, nonatomic) IBOutlet UIButton *torchButton;
+@property(strong, nonatomic) IBOutlet UIView *sidebarView;
 
-@property (strong, nonatomic) IBOutlet UIView *sidebarView;
+@property(nonatomic, copy) RSBarcodesHandler barcodesHandler;
 
+@property(nonatomic, copy) RSTapGestureHandler tapGestureHandler;
 
-@property (nonatomic, copy) RSBarcodesHandler barcodesHandler;
+@property(nonatomic) BOOL isCornersVisible; // Default is YES
 
-@property (nonatomic, copy) RSTapGestureHandler tapGestureHandler;
+@property(nonatomic) BOOL isBorderRectsVisible; // Default is NO
 
-@property (nonatomic) BOOL isCornersVisible;     // Default is YES
+@property(nonatomic) BOOL isFocusMarkVisible; // Default is YES
 
-@property (nonatomic) BOOL isBorderRectsVisible; // Default is NO
+@property(nonatomic) BOOL isControlsVisible; // Default is YES
 
-@property (nonatomic) BOOL isFocusMarkVisible;   // Default is YES
+@property(nonatomic) BOOL isButtonBordersVisible; // Default is YES
 
-@property (nonatomic) BOOL isControlsVisible;   // Default is YES
-
-@property (nonatomic) BOOL isButtonBordersVisible;   // Default is YES
-
-
-- (id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler;
-- (id)initWithCornerView:(BOOL)showCornerView controlView:(BOOL)showControlsView barcodesHandler:(RSBarcodesHandler)barcodesHandler preferredCameraPosition:(AVCaptureDevicePosition)cameraDevicePosition;
+- (id)initWithCornerView:(BOOL)showCornerView
+             controlView:(BOOL)showControlsView
+         barcodesHandler:(RSBarcodesHandler)barcodesHandler;
+- (id)initWithCornerView:(BOOL)showCornerView
+             controlView:(BOOL)showControlsView
+         barcodesHandler:(RSBarcodesHandler)barcodesHandler
+ preferredCameraPosition:(AVCaptureDevicePosition)cameraDevicePosition;
 - (void)updateView;
-- (void)__stopRunning;
-- (void)__startRunning;
+- (void)startRunning;
+- (void)stopRunning;
 
 @end

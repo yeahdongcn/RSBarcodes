@@ -8,7 +8,7 @@
 
 #import "RSCode39Generator.h"
 
-extern NSString * const RSMetadataObjectTypeExtendedCode39Code;
+extern NSString *const RSMetadataObjectTypeExtendedCode39Code;
 
 /**
  *  http://www.barcodesymbols.com/code39.htm

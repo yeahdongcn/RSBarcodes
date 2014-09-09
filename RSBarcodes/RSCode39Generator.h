@@ -10,7 +10,7 @@
 
 #import "RSCodeGenerator.h"
 
-extern NSString * const CODE39_ALPHABET_STRING;
+extern NSString *const CODE39_ALPHABET_STRING;
 
 /**
  *  http://www.barcodesymbols.com/code39.htm

@@ -10,10 +10,12 @@
 
 @implementation RSCode39Mod43Generator
 
-- (NSString *)barcode:(NSString *)contents
-{
+- (NSString *)barcode:(NSString *)contents {
     if ([self respondsToSelector:@selector(checkDigit:)]) {
-        return [super barcode:[NSString stringWithFormat:@"%@%@", contents, [self checkDigit:[contents uppercaseString]]]];
+        return [super
+                barcode:[NSString stringWithFormat:
+                         @"%@%@", contents,
+                         [self checkDigit:[contents uppercaseString]]]];
     } else {
         return [super barcode:contents];
     }
@@ -21,8 +23,7 @@
 
 #pragma mark - RSCheckDigitGenerator
 
-- (NSString *)checkDigit:(NSString *)contents
-{
+- (NSString *)checkDigit:(NSString *)contents {
     /*
      Step 1: From the table below, find the values of each character.
      C    O    D    E        3    9    <--Message characters
@@ -40,8 +41,9 @@
         sum += [CODE39_ALPHABET_STRING rangeOfString:character].location;
     }
     // 43 = CODE39_ALPHABET_STRING's length - 1 -- excludes asterisk
-    return [CODE39_ALPHABET_STRING substringWithRange:NSMakeRange(sum % (CODE39_ALPHABET_STRING.length - 1), 1)];
+    return [CODE39_ALPHABET_STRING
+            substringWithRange:NSMakeRange(sum % (CODE39_ALPHABET_STRING.length - 1),
+                                           1)];
 }
-
 
 @end

@@ -10,14 +10,13 @@
 
 @interface RSCornersView ()
 
-@property (nonatomic) BOOL shouldDrawFocusMark;
+@property(nonatomic) BOOL shouldDrawFocusMark;
 
 @end
 
 @implementation RSCornersView
 
-- (void)__init
-{
+- (void)__init {
     self.backgroundColor = [UIColor clearColor];
     
     self.focusPoint = self.center;
@@ -30,8 +29,7 @@
     self.strokeWidth = 2.f;
 }
 
-- (void)__drawFocusMark
-{
+- (void)__drawFocusMark {
     if (!self.shouldDrawFocusMark) {
         return;
     }
@@ -46,29 +44,46 @@
     CGContextSetLineWidth(context, self.focusStrokeWidth);
     
     // Draw rect
-    CGContextStrokeRect(context, CGRectMake(self.focusPoint.x - roundf(self.focusSize.width / 2.f),
-                                            self.focusPoint.y - roundf(self.focusSize.height / 2.f),
-                                            self.focusSize.width,
-                                            self.focusSize.height));
+    CGContextStrokeRect(
+                        context,
+                        CGRectMake(self.focusPoint.x - roundf(self.focusSize.width / 2.f),
+                                   self.focusPoint.y - roundf(self.focusSize.height / 2.f),
+                                   self.focusSize.width, self.focusSize.height));
     
     for (int i = 0; i < 4; i++) {
         CGPoint endPoint;
         switch (i) {
             case 0:
-                CGContextMoveToPoint(context, self.focusPoint.x, self.focusPoint.y - roundf(self.focusSize.height / 2.f));
-                endPoint = CGPointMake(self.focusPoint.x, self.focusPoint.y - roundf(self.focusSize.height / 2.f) + 10);
+                CGContextMoveToPoint(
+                                     context, self.focusPoint.x,
+                                     self.focusPoint.y - roundf(self.focusSize.height / 2.f));
+                endPoint = CGPointMake(
+                                       self.focusPoint.x,
+                                       self.focusPoint.y - roundf(self.focusSize.height / 2.f) + 10);
                 break;
             case 1:
-                CGContextMoveToPoint(context, self.focusPoint.x, self.focusPoint.y + roundf(self.focusSize.height / 2.f));
-                endPoint = CGPointMake(self.focusPoint.x, self.focusPoint.y + roundf(self.focusSize.height / 2.f) - 10);
+                CGContextMoveToPoint(
+                                     context, self.focusPoint.x,
+                                     self.focusPoint.y + roundf(self.focusSize.height / 2.f));
+                endPoint = CGPointMake(
+                                       self.focusPoint.x,
+                                       self.focusPoint.y + roundf(self.focusSize.height / 2.f) - 10);
                 break;
             case 2:
-                CGContextMoveToPoint(context, self.focusPoint.x - roundf(self.focusSize.width / 2.f), self.focusPoint.y);
-                endPoint = CGPointMake(self.focusPoint.x - roundf(self.focusSize.width / 2.f) + 10, self.focusPoint.y);
+                CGContextMoveToPoint(
+                                     context, self.focusPoint.x - roundf(self.focusSize.width / 2.f),
+                                     self.focusPoint.y);
+                endPoint = CGPointMake(
+                                       self.focusPoint.x - roundf(self.focusSize.width / 2.f) + 10,
+                                       self.focusPoint.y);
                 break;
             case 3:
-                CGContextMoveToPoint(context, self.focusPoint.x + roundf(self.focusSize.width / 2.f), self.focusPoint.y);
-                endPoint = CGPointMake(self.focusPoint.x + roundf(self.focusSize.width / 2.f) - 10, self.focusPoint.y);
+                CGContextMoveToPoint(
+                                     context, self.focusPoint.x + roundf(self.focusSize.width / 2.f),
+                                     self.focusPoint.y);
+                endPoint = CGPointMake(
+                                       self.focusPoint.x + roundf(self.focusSize.width / 2.f) - 10,
+                                       self.focusPoint.y);
                 break;
         }
         CGContextAddLineToPoint(context, endPoint.x, endPoint.y);
@@ -79,8 +94,7 @@
     CGContextRestoreGState(context);
 }
 
-- (void)__drawCorners:(NSArray *)corners
-{
+- (void)__drawCorners:(NSArray *)corners {
     if (!corners) {
         return;
     }
@@ -99,16 +113,16 @@
     CGContextSetLineWidth(context, self.strokeWidth);
     
     NSValue *startPointValue = corners[0];
-    CGPoint  startPoint      = [startPointValue CGPointValue];
+    CGPoint startPoint = [startPointValue CGPointValue];
     CGContextMoveToPoint(context, startPoint.x, startPoint.y);
     
-    for(int i = 1; i <= corners.count; i++) {
+    for (int i = 1; i <= corners.count; i++) {
         int index = i;
         if (index == corners.count) {
             index = 0;
         }
         NSValue *pointValue = corners[index];
-        CGPoint  point      = [pointValue CGPointValue];
+        CGPoint point = [pointValue CGPointValue];
         CGContextAddLineToPoint(context, point.x, point.y);
     }
     
@@ -117,8 +131,7 @@
     CGContextRestoreGState(context);
 }
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (self) {
         [self __init];
@@ -126,8 +139,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self __init];
@@ -135,8 +147,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self __init];
@@ -144,8 +155,7 @@
     return self;
 }
 
-- (void)setFocusPoint:(CGPoint)focusPoint
-{
+- (void)setFocusPoint:(CGPoint)focusPoint {
     _focusPoint = focusPoint;
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -153,21 +163,28 @@
         [self setNeedsDisplay];
     });
     
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.focusMarkDisplayingDuration * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_time_t popTime =
+    dispatch_time(DISPATCH_TIME_NOW,
+                  (int64_t)(self.focusMarkDisplayingDuration * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         _shouldDrawFocusMark = NO;
         [self setNeedsDisplay];
     });
 }
 
-- (void)setCornersArray:(NSArray *)cornersArray
-{
+- (void)setCornersArray:(NSArray *)cornersArray {
     if (cornersArray.count > 0) {
-        NSMutableArray *outerArray = [[NSMutableArray alloc] initWithCapacity:cornersArray.count];
+        NSMutableArray *outerArray =
+        [[NSMutableArray alloc] initWithCapacity:cornersArray.count];
         for (NSArray *corners in cornersArray) {
             NSMutableArray *innerArray = [[NSMutableArray alloc] init];
             for (NSDictionary *corner in corners) {
-                [innerArray addObject:[NSValue valueWithCGPoint:CGPointMake([[corner objectForKey:@"X"] floatValue], [[corner objectForKey:@"Y"] floatValue])]];
+                [innerArray
+                 addObject:[NSValue
+                            valueWithCGPoint:
+                            CGPointMake(
+                                        [[corner objectForKey:@"X"] floatValue],
+                                        [[corner objectForKey:@"Y"] floatValue])]];
             }
             [outerArray addObject:[NSArray arrayWithArray:innerArray]];
         }
@@ -177,31 +194,35 @@
         _cornersArray = nil;
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNeedsDisplay];
-    });
+    dispatch_async(dispatch_get_main_queue(), ^{ [self setNeedsDisplay]; });
 }
 
-- (void)setBorderRectArray:(NSArray *)borderRectArray
-{
+- (void)setBorderRectArray:(NSArray *)borderRectArray {
     if (borderRectArray.count > 0) {
-        NSMutableArray *outerArray = [[NSMutableArray alloc] initWithCapacity:borderRectArray.count];
+        NSMutableArray *outerArray =
+        [[NSMutableArray alloc] initWithCapacity:borderRectArray.count];
         for (NSValue *borderRectValue in borderRectArray) {
             CGRect borderRect = [borderRectValue CGRectValue];
             if (!CGRectEqualToRect(borderRect, CGRectZero)) {
-                NSMutableArray *innerArray = [[NSMutableArray alloc] initWithCapacity:4];
+                NSMutableArray *innerArray =
+                [[NSMutableArray alloc] initWithCapacity:4];
                 for (int i = 0; i < 4; i++) {
                     CGPoint corner = CGPointZero;
                     if (i == 0) {
                         corner = CGPointMake(borderRect.origin.x, borderRect.origin.y);
                     } else if (i == 1) {
-                        corner = CGPointMake(borderRect.origin.x + borderRect.size.width, borderRect.origin.y);
+                        corner = CGPointMake(borderRect.origin.x + borderRect.size.width,
+                                             borderRect.origin.y);
                     } else if (i == 2) {
-                        corner = CGPointMake(borderRect.origin.x + borderRect.size.width, borderRect.origin.y + borderRect.size.height);
+                        corner = CGPointMake(borderRect.origin.x + borderRect.size.width,
+                                             borderRect.origin.y + borderRect.size.height);
                     } else if (i == 3) {
-                        corner = CGPointMake(borderRect.origin.x, borderRect.origin.y + borderRect.size.height);
+                        corner = CGPointMake(borderRect.origin.x,
+                                             borderRect.origin.y + borderRect.size.height);
                     }
-                    [innerArray addObject:[NSValue valueWithCGPoint:CGPointMake(corner.x, corner.y)]];
+                    [innerArray
+                     addObject:[NSValue
+                                valueWithCGPoint:CGPointMake(corner.x, corner.y)]];
                 }
                 [outerArray addObject:innerArray];
             }
@@ -211,13 +232,10 @@
         _borderRectArray = nil;
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNeedsDisplay];
-    });
+    dispatch_async(dispatch_get_main_queue(), ^{ [self setNeedsDisplay]; });
 }
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect {
     @synchronized(self.cornersArray) {
         for (NSArray *corners in self.cornersArray) {
             [self __drawCorners:corners];

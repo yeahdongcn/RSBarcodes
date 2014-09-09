@@ -17,9 +17,11 @@
 
 @required
 
-- (UIImage *)genCodeWithMachineReadableCodeObject:(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject;
+- (UIImage *)genCodeWithMachineReadableCodeObject:
+(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject;
 
-- (UIImage *)genCodeWithContents:(NSString *)contents machineReadableCodeObjectType:(NSString *)type;
+- (UIImage *)genCodeWithContents:(NSString *)contents
+   machineReadableCodeObjectType:(NSString *)type;
 
 @end
 
@@ -36,10 +38,11 @@
 
 @end
 
-extern NSString * const DIGITS_STRING;
+extern NSString *const DIGITS_STRING;
 
 /**
- *  Abstract code generator, provides default functions for validations and generations.
+ *  Abstract code generator, provides default functions for validations and
+ * generations.
  */
 @interface RSAbstractCodeGenerator : NSObject <RSCodeGenerator>
 
@@ -93,8 +96,7 @@ extern NSString * const DIGITS_STRING;
 
 @end
 
-static inline NSString* getFilterName(NSString *codeObjectType)
-{
+static inline NSString *getFilterName(NSString *codeObjectType) {
     if ([codeObjectType isEqualToString:AVMetadataObjectTypeQRCode]) {
         return @"CIQRCodeGenerator";
     } else if ([codeObjectType isEqualToString:AVMetadataObjectTypePDF417Code]) {
@@ -105,8 +107,7 @@ static inline NSString* getFilterName(NSString *codeObjectType)
     return nil;
 }
 
-static inline UIImage* genCode(NSString *contents, NSString *filterName)
-{
+static inline UIImage *genCode(NSString *contents, NSString *filterName) {
     CIFilter *filter = [CIFilter filterWithName:filterName];
     [filter setDefaults];
     NSData *data = [contents dataUsingEncoding:NSUTF8StringEncoding];
@@ -114,8 +115,8 @@ static inline UIImage* genCode(NSString *contents, NSString *filterName)
     
     CIImage *outputImage = [filter outputImage];
     CIContext *context = [CIContext contextWithOptions:nil];
-    CGImageRef cgImage = [context createCGImage:outputImage
-                                       fromRect:[outputImage extent]];
+    CGImageRef cgImage =
+    [context createCGImage:outputImage fromRect:[outputImage extent]];
     UIImage *image = [UIImage imageWithCGImage:cgImage
                                          scale:1
                                    orientation:UIImageOrientationUp];
@@ -123,9 +124,7 @@ static inline UIImage* genCode(NSString *contents, NSString *filterName)
     return image;
 }
 
-static inline UIImage *resizeImage(UIImage *source,
-                                   float scale)
-{
+static inline UIImage *resizeImage(UIImage *source, float scale) {
     CGFloat width = source.size.width * scale;
     CGFloat height = source.size.height * scale;
     

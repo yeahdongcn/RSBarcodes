@@ -8,7 +8,7 @@
 
 #import "RSCodeGenerator.h"
 
-extern NSString * const RSMetadataObjectTypeITF14Code;
+extern NSString *const RSMetadataObjectTypeITF14Code;
 
 /**
  *  http://www.gs1au.org/assets/documents/info/user_manuals/barcode_technical_details/ITF_14_Barcode_Structure.pdf

@@ -10,13 +10,14 @@
 
 @implementation RSAbstractCodeGenerator
 
-NSString * const DIGITS_STRING = @"0123456789";
+NSString *const DIGITS_STRING = @"0123456789";
 
-- (BOOL)isContentsValid:(NSString *)contents
-{
+- (BOOL)isContentsValid:(NSString *)contents {
     if (contents.length > 0) {
         for (int i = 0; i < contents.length; i++) {
-            if ([DIGITS_STRING rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]].location == NSNotFound) {
+            if ([DIGITS_STRING
+                 rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]]
+                .location == NSNotFound) {
                 return NO;
             }
         }
@@ -25,33 +26,30 @@ NSString * const DIGITS_STRING = @"0123456789";
     return NO;
 }
 
-- (NSString *)initiator
-{
+- (NSString *)initiator {
     return @"";
 }
 
-- (NSString *)terminator
-{
+- (NSString *)terminator {
     return @"";
 }
 
-- (NSString *)barcode:(NSString *)contents
-{
+- (NSString *)barcode:(NSString *)contents {
     return @"";
 }
 
-- (NSString *)completeBarcode:(NSString *)barcode
-{
-    return [NSString stringWithFormat:@"%@%@%@", [self initiator], barcode, [self terminator]];
+- (NSString *)completeBarcode:(NSString *)barcode {
+    return [NSString
+            stringWithFormat:@"%@%@%@", [self initiator], barcode, [self terminator]];
 }
 
-- (UIImage *)drawCompleteBarcode:(NSString *)code
-{
+- (UIImage *)drawCompleteBarcode:(NSString *)code {
     if (code.length <= 0) {
         return nil;
     }
     
-    // Values taken from CIImage generated AVMetadataObjectTypePDF417Code type image
+    // Values taken from CIImage generated AVMetadataObjectTypePDF417Code type
+    // image
     // Top spacing          = 1.5
     // Bottom spacing       = 2
     // Left & right spacing = 2
@@ -86,16 +84,18 @@ NSString * const DIGITS_STRING = @"0123456789";
 
 #pragma mark - RSCodeGenerator
 
-- (UIImage *)genCodeWithContents:(NSString *)contents machineReadableCodeObjectType:(NSString *)type
-{
+- (UIImage *)genCodeWithContents:(NSString *)contents
+   machineReadableCodeObjectType:(NSString *)type {
     if ([self isContentsValid:contents]) {
-        return [self drawCompleteBarcode:[self completeBarcode:[self barcode:contents]]];
+        return [self
+                drawCompleteBarcode:[self completeBarcode:[self barcode:contents]]];
     }
     return nil;
 }
 
-- (UIImage *)genCodeWithMachineReadableCodeObject:(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject
-{
+- (UIImage *)genCodeWithMachineReadableCodeObject:
+(AVMetadataMachineReadableCodeObject *)
+machineReadableCodeObject {
     return [self genCodeWithContents:[machineReadableCodeObject stringValue]
        machineReadableCodeObjectType:[machineReadableCodeObject type]];
 }
