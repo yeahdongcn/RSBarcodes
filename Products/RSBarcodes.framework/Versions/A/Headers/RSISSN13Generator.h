@@ -8,7 +8,7 @@
 
 #import "RSEAN13Generator.h"
 
-extern NSString * const RSMetadataObjectTypeISSN13Code;
+extern NSString *const RSMetadataObjectTypeISSN13Code;
 
 @interface RSISSN13Generator : RSEAN13Generator
 
