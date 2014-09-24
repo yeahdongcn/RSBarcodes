@@ -49,10 +49,6 @@
     [scanner setStopOnFirst:YES];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    
-}
-
 - (IBAction)presentModal:(id)sender {
     [self presentViewController:scanner animated:YES completion:nil];
 }
