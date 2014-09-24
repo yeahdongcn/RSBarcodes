@@ -152,31 +152,31 @@ NSString *const AVMetadataObjectTypeFace = @"face";
 - (id)initWithCornerView:(BOOL)showCornerView
              controlView:(BOOL)showControlsView
          barcodesHandler:(RSBarcodesHandler)barcodesHandler {
-    if (!self.highlightView && showCornerView) {
-        RSCornersView *cornerView =
-        [[RSCornersView alloc] initWithFrame:self.view.frame];
-        [self.view addSubview:cornerView];
-        [self.view bringSubviewToFront:cornerView];
+    if ((self = [super init])) {
+        if (!self.highlightView && showCornerView) {
+            RSCornersView *cornerView =
+            [[RSCornersView alloc] initWithFrame:self.view.frame];
+            [self.view addSubview:cornerView];
+            [self.view bringSubviewToFront:cornerView];
+            
+            self.highlightView = cornerView;
+            
+            self.isControlsVisible = showCornerView;
+        }
         
-        self.highlightView = cornerView;
+        if (!self.controlsView && showControlsView) {
+            UIView *controlsView = [[UIView alloc] initWithFrame:self.view.frame];
+            [self.view addSubview:controlsView];
+            [self.view bringSubviewToFront:controlsView];
+            
+            self.controlsView = controlsView;
+            self.isControlsVisible = showControlsView;
+            
+            self.isButtonBordersVisible = false;
+            
+            [self updateView];
+        }
         
-        self.isControlsVisible = showCornerView;
-    }
-    
-    if (!self.controlsView && showControlsView) {
-        UIView *controlsView = [[UIView alloc] initWithFrame:self.view.frame];
-        [self.view addSubview:controlsView];
-        [self.view bringSubviewToFront:controlsView];
-        
-        self.controlsView = controlsView;
-        self.isControlsVisible = showControlsView;
-        
-        self.isButtonBordersVisible = false;
-        
-        [self updateView];
-    }
-    
-    if (self) {
         self.barcodesHandler = barcodesHandler;
         
         self.tapGestureHandler = ^(CGPoint tapPoint) {};
