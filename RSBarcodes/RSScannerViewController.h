@@ -68,5 +68,8 @@ typedef void (^RSTapGestureHandler)(CGPoint tapPoint);
 - (void)updateView;
 - (void)startRunning;
 - (void)stopRunning;
+- (void)toggleTorch;
+- (void)switchCamera;
+
 
 @end
