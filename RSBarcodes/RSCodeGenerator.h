@@ -23,6 +23,12 @@
 - (UIImage *)genCodeWithContents:(NSString *)contents
    machineReadableCodeObjectType:(NSString *)type;
 
+/** The fill (background) color of the generated barcode. */
+@property (nonatomic, strong) UIColor *fillColor;
+
+/** The stroke color of the generated barcode. */
+@property (nonatomic, strong) UIColor *strokeColor;
+
 @end
 
 /**

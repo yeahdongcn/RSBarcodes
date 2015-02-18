@@ -10,6 +10,8 @@
 
 @implementation RSAbstractCodeGenerator
 
+@synthesize strokeColor = _strokeColor, fillColor = _fillColor;
+
 NSString *const DIGITS_STRING = @"0123456789";
 
 - (BOOL)isContentsValid:(NSString *)contents {
@@ -55,13 +57,21 @@ NSString *const DIGITS_STRING = @"0123456789";
     // Left & right spacing = 2
     // Height               = 28
     CGSize size = CGSizeMake(code.length + 4, 28);
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CGContextSetShouldAntialias(context, false);
     
-    [[UIColor whiteColor] setFill];
-    [[UIColor blackColor] setStroke];
+    if (!self.fillColor) {
+        self.fillColor = [UIColor whiteColor];
+    }
+    
+    if (!self.strokeColor) {
+        self.strokeColor = [UIColor blackColor];
+    }
+    
+    [self.fillColor setFill];
+    [self.strokeColor setStroke];
     
     CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
     CGContextSetLineWidth(context, 1);
