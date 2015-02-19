@@ -47,6 +47,8 @@ NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
 
 @implementation RSUnifiedCodeGenerator
 
+@synthesize strokeColor = _strokeColor, fillColor = _fillColor;
+
 + (instancetype)codeGen {
     static RSUnifiedCodeGenerator *codeGen = nil;
     static dispatch_once_t onceToken;
@@ -104,6 +106,9 @@ NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
     }
     
     if (codeGen) {
+        codeGen.fillColor = self.fillColor;
+        codeGen.strokeColor = self.strokeColor;
+        
         return [codeGen genCodeWithContents:contents
               machineReadableCodeObjectType:type];
     } else {
