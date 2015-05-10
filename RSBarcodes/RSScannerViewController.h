@@ -48,28 +48,29 @@ typedef void (^RSTapGestureHandler)(CGPoint tapPoint);
 
 @property(nonatomic, copy) RSTapGestureHandler tapGestureHandler;
 
-@property(nonatomic) BOOL isCornersVisible; // Default is YES
+@property(nonatomic) BOOL isCornersVisible;       // Default is YES
 
-@property(nonatomic) BOOL isBorderRectsVisible; // Default is NO
+@property(nonatomic) BOOL isBorderRectsVisible;   // Default is NO
 
-@property(nonatomic) BOOL isFocusMarkVisible; // Default is YES
+@property(nonatomic) BOOL isFocusMarkVisible;     // Default is YES
 
-@property(nonatomic) BOOL isControlsVisible; // Default is YES
+@property(nonatomic) BOOL isControlsVisible;      // Default is YES
 
 @property(nonatomic) BOOL isButtonBordersVisible; // Default is YES
 
 - (id)initWithCornerView:(BOOL)showCornerView
              controlView:(BOOL)showControlsView
          barcodesHandler:(RSBarcodesHandler)barcodesHandler;
+
 - (id)initWithCornerView:(BOOL)showCornerView
              controlView:(BOOL)showControlsView
          barcodesHandler:(RSBarcodesHandler)barcodesHandler
  preferredCameraPosition:(AVCaptureDevicePosition)cameraDevicePosition;
+
 - (void)updateView;
 - (void)startRunning;
 - (void)stopRunning;
 - (void)toggleTorch;
 - (void)switchCamera;
-
 
 @end
