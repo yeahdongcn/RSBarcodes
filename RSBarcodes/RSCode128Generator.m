@@ -130,11 +130,11 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
     if (currentIndex == contents.length) {
         isFinished = YES;
     }
-    
+
     if ((range.location == 0 && range.length >= 4) ||
         ((range.location > 0 && range.length >= 6))) {
         BOOL isOrphanDigitUsed = NO;
-        
+
         // Use START C when continous digits are found from range.location == 0
         if (range.location == 0) {
             self.autoCodeTable.startCodeTable = RSCode128GeneratorCodeTableC;
@@ -154,7 +154,7 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
                         [self __middleCodeTableValue:
                          RSCode128GeneratorCodeTableC]]];
         }
-        
+
         // Insert all xx combinations
         for (int i = 0; i < range.length / 2; i++) {
             NSUInteger startIndex = range.location + i * 2;
@@ -165,13 +165,13 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
             [self.autoCodeTable.sequence
              addObject:[NSNumber numberWithInt:digitValue]];
         }
-        
+
         if ((range.length % 2 == 1 && !isOrphanDigitUsed) || !isFinished) {
             [self.autoCodeTable.sequence
              addObject:[NSNumber numberWithInteger:[self __middleCodeTableValue:
                                                     defaultCodeTable]]];
         }
-        
+
         if (range.length % 2 == 1 && !isOrphanDigitUsed) {
             NSUInteger digitValue =
             [CODE128_ALPHABET_STRING
@@ -181,7 +181,7 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
             [self.autoCodeTable.sequence
              addObject:[NSNumber numberWithInteger:digitValue]];
         }
-        
+
         if (!isFinished) {
             NSString *character =
             [contents substringWithRange:NSMakeRange(currentIndex, 1)];
@@ -207,10 +207,10 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
     if (self.codeTable == RSCode128GeneratorCodeTableAuto) {
         // Init auto code table when the other code table has not been selected
         self.autoCodeTable = [[RSAutoCodeTable alloc] init];
-        
+
         // Select the short code table A as default code table
         RSCode128GeneratorCodeTable defaultCodeTable = RSCode128GeneratorCodeTableA;
-        
+
         // Determine whether to use code table B
         NSString *CODE128_ALPHABET_STRING_A =
         [CODE128_ALPHABET_STRING substringToIndex:64];
@@ -223,7 +223,7 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
                 break;
             }
         }
-        
+
         NSUInteger continousDigitsStartIndex = NSNotFound;
         for (int i = 0; i < contents.length; i++) {
             NSString *character = [contents substringWithRange:NSMakeRange(i, 1)];
@@ -248,12 +248,17 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
                                                        i - continousDigitsStartIndex + 1);
                 }
             }
-            
+
             if (continousDigitsRange.length != 0) {
                 [self __calculateContinousDigitsWithContents:contents
                                             defaultCodeTable:defaultCodeTable
                                         continousDigitsRange:continousDigitsRange];
                 continousDigitsStartIndex = NSNotFound;
+            } else if (continousDigitsStartIndex == contents.length - 1 && continousDigitsRange.length == 0) {
+                NSUInteger characterValue =
+                [CODE128_ALPHABET_STRING rangeOfString:character].location;
+                [self.autoCodeTable.sequence
+                 addObject:[NSNumber numberWithInteger:characterValue]];
             }
         }
         
@@ -350,7 +355,7 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
 
 - (NSString *)barcode:(NSString *)contents {
     NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
-    
+
     switch (self.codeTable) {
         case RSCode128GeneratorCodeTableAuto:
             for (int i = 0; i < self.autoCodeTable.sequence.count; i++) {
