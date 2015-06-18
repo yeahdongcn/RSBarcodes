@@ -8,10 +8,11 @@
 
 #import "RSCode93Generator.h"
 
-static NSString *const CODE93_ALPHABET_STRING =
-@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*";
+static NSString *const CODE93_ALPHABET_STRING = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%abcd*";
 
-static NSString *const CODE93_CHARACTER_ENCODINGS[44] = {
+static NSString *const CODE93_PLACEHOLDER_STRING = @"abcd";
+
+static NSString *const CODE93_CHARACTER_ENCODINGS[48] = {
     @"100010100", @"101001000", @"101000100", @"101000010", @"100101000",
     @"100100100", @"100100010", @"101010000", @"100010010", @"100001010",
     @"110101000", @"110100100", @"110100010", @"110010100", @"110010010",
@@ -20,7 +21,8 @@ static NSString *const CODE93_CHARACTER_ENCODINGS[44] = {
     @"100010110", @"110110100", @"110110010", @"110101100", @"110100110",
     @"110010110", @"110011010", @"101101100", @"101100110", @"100110110",
     @"100111010", @"100101110", @"111010100", @"111010010", @"111001010",
-    @"101101110", @"101110110", @"110101110", @"101011110"};
+    @"101101110", @"101110110", @"110101110", @"100100110", @"111011010",
+    @"111010110", @"100110010", @"101011110"};
 
 @implementation RSCode93Generator
 
@@ -36,6 +38,11 @@ static NSString *const CODE93_CHARACTER_ENCODINGS[44] = {
             if ([CODE93_ALPHABET_STRING
                  rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]]
                 .location == NSNotFound) {
+                return NO;
+            }
+            if ([CODE93_PLACEHOLDER_STRING
+                 rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]]
+                .location != NSNotFound) {
                 return NO;
             }
         }
