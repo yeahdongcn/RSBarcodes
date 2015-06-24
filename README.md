@@ -39,7 +39,7 @@ Installation
 
 Simply add the following line to your `Podfile`:
 
-    pod 'RSBarcodes', '~> 0.1.1'
+    pod 'RSBarcodes', '~> 0.1.2'
 
 Or you can use the **RSBarcodes framework** without import all headers files.
 
