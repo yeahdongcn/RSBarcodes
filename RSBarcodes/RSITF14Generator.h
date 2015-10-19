@@ -6,14 +6,12 @@
 //  Copyright (c) 2014 P.D.Q. All rights reserved.
 //
 
-#import "RSCodeGenerator.h"
-
-extern NSString *const RSMetadataObjectTypeITF14Code;
+#import "RSITFGenerator.h"
 
 /**
  *  http://www.gs1au.org/assets/documents/info/user_manuals/barcode_technical_details/ITF_14_Barcode_Structure.pdf
  *  http://www.barcodeisland.com/int2of5.phtml
  */
-@interface RSITF14Generator : RSAbstractCodeGenerator
+@interface RSITF14Generator : RSITFGenerator
 
 @end

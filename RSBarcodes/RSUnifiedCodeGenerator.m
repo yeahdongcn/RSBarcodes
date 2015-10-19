@@ -28,20 +28,28 @@
 
 #import "RSISSN13Generator.h"
 
+#import "RSITFGenerator.h"
 #import "RSITF14Generator.h"
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
 
-NSString *const AVMetadataObjectTypeUPCECode = @"org.gs1.UPC-E";
-NSString *const AVMetadataObjectTypeCode39Code = @"org.iso.Code39";
-NSString *const AVMetadataObjectTypeCode39Mod43Code = @"org.iso.Code39Mod43";
-NSString *const AVMetadataObjectTypeEAN13Code = @"org.gs1.EAN-13";
-NSString *const AVMetadataObjectTypeEAN8Code = @"org.gs1.EAN-8";
-NSString *const AVMetadataObjectTypeCode93Code = @"com.intermec.Code93";
-NSString *const AVMetadataObjectTypeCode128Code = @"org.iso.Code128";
-NSString *const AVMetadataObjectTypePDF417Code = @"org.iso.PDF417";
-NSString *const AVMetadataObjectTypeQRCode = @"org.iso.QRCode";
-NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
+NSString *const AVMetadataObjectTypeUPCECode            = @"org.gs1.UPC-E";
+NSString *const AVMetadataObjectTypeCode39Code          = @"org.iso.Code39";
+NSString *const AVMetadataObjectTypeCode39Mod43Code     = @"org.iso.Code39Mod43";
+NSString *const AVMetadataObjectTypeEAN13Code           = @"org.gs1.EAN-13";
+NSString *const AVMetadataObjectTypeEAN8Code            = @"org.gs1.EAN-8";
+NSString *const AVMetadataObjectTypeCode93Code          = @"com.intermec.Code93";
+NSString *const AVMetadataObjectTypeCode128Code         = @"org.iso.Code128";
+NSString *const AVMetadataObjectTypePDF417Code          = @"org.iso.PDF417";
+NSString *const AVMetadataObjectTypeQRCode              = @"org.iso.QRCode";
+NSString *const AVMetadataObjectTypeAztecCode           = @"org.iso.Aztec";
+NSString *const AVMetadataObjectTypeInterleaved2of5Code = @"org.ansi.Interleaved2of5";
+NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
+
+#elif __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
+
+NSString *const AVMetadataObjectTypeInterleaved2of5Code = @"org.ansi.Interleaved2of5";
+NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
 
 #endif
 
@@ -95,14 +103,18 @@ NSString *const AVMetadataObjectTypeAztecCode = @"org.iso.Aztec";
     } else if ([type isEqualToString:AVMetadataObjectTypeCode128Code]) {
         codeGen = [[RSCode128Generator alloc] initWithContents:contents];
         
+    } else if ([type isEqualToString:AVMetadataObjectTypeInterleaved2of5Code]) {
+        codeGen = [[RSITFGenerator alloc] init];
+        
+    } else if ([type isEqualToString:AVMetadataObjectTypeITF14Code]) {
+        codeGen = [[RSITF14Generator alloc] init];
+        
     } else if ([type isEqualToString:RSMetadataObjectTypeISBN13Code]) {
         codeGen = [[RSISBN13Generator alloc] init];
         
     } else if ([type isEqualToString:RSMetadataObjectTypeISSN13Code]) {
         codeGen = [[RSISSN13Generator alloc] init];
         
-    } else if ([type isEqualToString:RSMetadataObjectTypeITF14Code]) {
-        codeGen = [[RSITF14Generator alloc] init];
     }
     
     if (codeGen) {
