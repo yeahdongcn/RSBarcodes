@@ -31,6 +31,13 @@
 #import "RSITFGenerator.h"
 #import "RSITF14Generator.h"
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
+
+NSString *const AVMetadataObjectTypeInterleaved2of5Code = @"org.ansi.Interleaved2of5";
+NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
+
+#endif
+
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
 
 NSString *const AVMetadataObjectTypeUPCECode            = @"org.gs1.UPC-E";
@@ -43,13 +50,6 @@ NSString *const AVMetadataObjectTypeCode128Code         = @"org.iso.Code128";
 NSString *const AVMetadataObjectTypePDF417Code          = @"org.iso.PDF417";
 NSString *const AVMetadataObjectTypeQRCode              = @"org.iso.QRCode";
 NSString *const AVMetadataObjectTypeAztecCode           = @"org.iso.Aztec";
-NSString *const AVMetadataObjectTypeInterleaved2of5Code = @"org.ansi.Interleaved2of5";
-NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
-
-#elif __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
-
-NSString *const AVMetadataObjectTypeInterleaved2of5Code = @"org.ansi.Interleaved2of5";
-NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
 
 #endif
 
@@ -85,9 +85,6 @@ NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
     } else if ([type isEqualToString:AVMetadataObjectTypeCode39Mod43Code]) {
         codeGen = [[RSCode39Mod43Generator alloc] init];
         
-    } else if ([type isEqualToString:RSMetadataObjectTypeExtendedCode39Code]) {
-        codeGen = [[RSExtendedCode39Generator alloc] init];
-        
     } else if ([type isEqualToString:AVMetadataObjectTypeEAN13Code]) {
         codeGen = [[RSEAN13Generator alloc] init];
         
@@ -108,6 +105,9 @@ NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
         
     } else if ([type isEqualToString:AVMetadataObjectTypeITF14Code]) {
         codeGen = [[RSITF14Generator alloc] init];
+        
+    } else if ([type isEqualToString:RSMetadataObjectTypeExtendedCode39Code]) {
+        codeGen = [[RSExtendedCode39Generator alloc] init];
         
     } else if ([type isEqualToString:RSMetadataObjectTypeISBN13Code]) {
         codeGen = [[RSISBN13Generator alloc] init];
