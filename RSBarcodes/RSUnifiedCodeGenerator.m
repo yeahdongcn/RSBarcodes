@@ -33,13 +33,6 @@
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
 
-NSString *const AVMetadataObjectTypeInterleaved2of5Code = @"org.ansi.Interleaved2of5";
-NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
-
-#endif
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
-
 NSString *const AVMetadataObjectTypeUPCECode            = @"org.gs1.UPC-E";
 NSString *const AVMetadataObjectTypeCode39Code          = @"org.iso.Code39";
 NSString *const AVMetadataObjectTypeCode39Mod43Code     = @"org.iso.Code39Mod43";
@@ -50,6 +43,8 @@ NSString *const AVMetadataObjectTypeCode128Code         = @"org.iso.Code128";
 NSString *const AVMetadataObjectTypePDF417Code          = @"org.iso.PDF417";
 NSString *const AVMetadataObjectTypeQRCode              = @"org.iso.QRCode";
 NSString *const AVMetadataObjectTypeAztecCode           = @"org.iso.Aztec";
+NSString *const AVMetadataObjectTypeInterleaved2of5Code = @"org.ansi.Interleaved2of5";
+NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
 
 #endif
 
