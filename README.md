@@ -25,6 +25,8 @@ Current Status
     "org.iso.PDF417", -- Done
     "org.iso.QRCode", -- Done
     "org.iso.Aztec", -- Done
+    "org.ansi.Interleaved2of5", -- Done
+    "org.gs1.ITF14", -- Done
     // --------------------
     Extended Code 39, -- Done
     ISBN13, -- Done
@@ -39,7 +41,7 @@ Installation
 
 Simply add the following line to your `Podfile`:
 
-    pod 'RSBarcodes', '~> 0.1.2'
+    pod 'RSBarcodes', '~> 0.1.3'
 
 Or you can use the **RSBarcodes framework** without import all headers files.
 

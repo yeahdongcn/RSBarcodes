@@ -200,7 +200,7 @@ NSString *const RSMetadataObjectTypeExtendedCode39Code =
 }
 
 - (BOOL)isContentsValid:(NSString *)contents {
-    return contents.length > 0 ? YES : NO;
+    return contents.length > 0;
 }
 
 - (NSString *)barcode:(NSString *)contents {
