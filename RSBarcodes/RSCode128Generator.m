@@ -244,7 +244,7 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
                 if (continousDigitsStartIndex == NSNotFound) {
                     continousDigitsStartIndex = i;
                 }
-                if (i == (contents.length - 1)) {
+                if (continousDigitsStartIndex != NSNotFound && i == (contents.length - 1)) {
                     continousDigitsRange = NSMakeRange(continousDigitsStartIndex,
                                                        i - continousDigitsStartIndex + 1);
                 }
