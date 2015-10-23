@@ -243,7 +243,8 @@ static NSString *const CODE128_CHARACTER_ENCODINGS[107] = {
                 // Digit found
                 if (continousDigitsStartIndex == NSNotFound) {
                     continousDigitsStartIndex = i;
-                } else if (i == (contents.length - 1)) {
+                }
+                if (i == (contents.length - 1)) {
                     continousDigitsRange = NSMakeRange(continousDigitsStartIndex,
                                                        i - continousDigitsStartIndex + 1);
                 }

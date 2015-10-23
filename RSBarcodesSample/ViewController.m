@@ -70,8 +70,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.codeView.code = [CodeGen genCodeWithContents:@"12345670" machineReadableCodeObjectType:AVMetadataObjectTypeInterleaved2of5Code];
-    self.codeView.code = [CodeGen genCodeWithContents:@"13221910847880" machineReadableCodeObjectType:AVMetadataObjectTypeITF14Code];
+    self.codeView.code = [CodeGen genCodeWithContents:@"AAABBBCCCDDDEEE1" machineReadableCodeObjectType:AVMetadataObjectTypeCode128Code];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(__applicationDidEnterBackground:)
