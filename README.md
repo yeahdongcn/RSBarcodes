@@ -84,8 +84,11 @@ possible Device Positions: 	AVCaptureDevicePositionBack, AVCaptureDevicePosition
                                                                        	       barcodesHandler:^(NSArray *barcodeObjects) {
                                                                            }
                                                                    preferredCameraPosition:AVCaptureDevicePositionBack];
-    [self presentViewController:scanner animated:true completion:nil];
-
+    
+The ViewController can be presented modally:
+        `[self presentViewController:scanner animated:true completion:nil];`
+or pushed onto a NavigationController Stack:
+        `[self.navigationController pushViewController:scanner animated:YES];`
 ####Option 2:
 
 Place a `UIViewController` in storyboard and set `RSScannerViewController` based class as its custom class. If you want to use the corners view (for barcode corners and borders displaying), you can put a `UIView` onto the view controller’s view and set `RSCornersView` as its custom class then link the `highlightView` to it, make sure the view’s size is as large as the view controller’s view.

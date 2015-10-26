@@ -157,9 +157,19 @@ NSString *const AVMetadataObjectTypeFace = @"face";
     return NO;
 }
 
+- (void)exit {
+    [self __exit];
+}
+
 - (void)__exit {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self dismissViewControllerAnimated:true completion:nil];
+        if([self __isModal])
+        {
+            [self dismissViewControllerAnimated:true completion:nil];
+        }
+        else
+        {
+        }
     });
 }
 
@@ -409,160 +419,175 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
     
     CGSize viewSize = self.view.frame.size;
     
-    if (!self.sidebarView) {
-        self.sidebarView = [[UIView alloc] init];
-        [self.sidebarView
-         setBackgroundColor:
-         [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.9f]];
+    if([self __isModal])
+    {
+        if (!self.sidebarView) {
+            self.sidebarView = [[UIView alloc] init];
+            [self.sidebarView
+             setBackgroundColor:
+             [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.9f]];
+            
+            [self.controlsView addSubview:self.sidebarView];
+            [self.controlsView bringSubviewToFront:self.sidebarView];
+        }
         
-        [self.controlsView addSubview:self.sidebarView];
-        [self.controlsView bringSubviewToFront:self.sidebarView];
-    }
-    
-    if (!self.cancelButton && [self __isModal]) {
-        self.cancelButton = [[UIButton alloc] init];
-        [self.cancelButton setTitle:@" cancel " forState:UIControlStateNormal];
-        [self.cancelButton
-         setTitleColor:
-         [UIColor colorWithRed:1.0f green:0.22f blue:0.22f alpha:1.0f]
-         forState:UIControlStateNormal];
-        [self.cancelButton setContentHorizontalAlignment:
-         UIControlContentHorizontalAlignmentCenter];
-        [self.cancelButton addTarget:self
-                              action:@selector(__exit)
-                    forControlEvents:UIControlEventTouchDown];
         
-        [self.controlsView addSubview:self.cancelButton];
-        [self.controlsView bringSubviewToFront:self.cancelButton];
-    }
-    
-    if (![self __isModal]) {
-        [self.cancelButton removeFromSuperview];
-    }
-    
-    if (!self.flipButton &&
-        ([UIImagePickerController
-          isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront] &&
-         [UIImagePickerController
-          isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear])) {
-             self.flipButton = [[UIButton alloc] init];
-             [self.flipButton setTitle:@" flip " forState:UIControlStateNormal];
-             [self.flipButton setContentHorizontalAlignment:
-              UIControlContentHorizontalAlignmentCenter];
-             
-             [self.flipButton addTarget:self
-                                 action:@selector(switchCamera)
+        if (!self.cancelButton) {
+            self.cancelButton = [[UIButton alloc] init];
+            [self.cancelButton setTitle:@" cancel " forState:UIControlStateNormal];
+            [self.cancelButton
+             setTitleColor:
+             [UIColor colorWithRed:1.0f green:0.22f blue:0.22f alpha:1.0f]
+             forState:UIControlStateNormal];
+            [self.cancelButton setContentHorizontalAlignment:
+             UIControlContentHorizontalAlignmentCenter];
+            [self.cancelButton addTarget:self
+                                  action:@selector(__exit)
+                        forControlEvents:UIControlEventTouchDown];
+            
+            [self.controlsView addSubview:self.cancelButton];
+            [self.controlsView bringSubviewToFront:self.cancelButton];
+        }
+        
+        if (!self.flipButton &&
+            ([UIImagePickerController
+              isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront] &&
+             [UIImagePickerController
+              isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear])) {
+                 self.flipButton = [[UIButton alloc] init];
+                 [self.flipButton setTitle:@" flip " forState:UIControlStateNormal];
+                 [self.flipButton setContentHorizontalAlignment:
+                  UIControlContentHorizontalAlignmentCenter];
+                 
+                 [self.flipButton addTarget:self
+                                     action:@selector(switchCamera)
+                           forControlEvents:UIControlEventTouchDown];
+                 
+                 [self.controlsView addSubview:self.flipButton];
+                 [self.controlsView bringSubviewToFront:self.flipButton];
+             }
+        
+        if (!self.torchButton && [self.device hasTorch]) {
+            self.torchButton = [[UIButton alloc] init];
+            [self.torchButton setTitle:@" torch " forState:UIControlStateNormal];
+            [self.torchButton setContentHorizontalAlignment:
+             UIControlContentHorizontalAlignmentCenter];
+            
+            [self.torchButton addTarget:self
+                                 action:@selector(toggleTorch)
                        forControlEvents:UIControlEventTouchDown];
-             
-             [self.controlsView addSubview:self.flipButton];
-             [self.controlsView bringSubviewToFront:self.flipButton];
-         }
-    
-    if (!self.torchButton && [self.device hasTorch]) {
-        self.torchButton = [[UIButton alloc] init];
-        [self.torchButton setTitle:@" torch " forState:UIControlStateNormal];
-        [self.torchButton setContentHorizontalAlignment:
-         UIControlContentHorizontalAlignmentCenter];
-        
-        [self.torchButton addTarget:self
-                             action:@selector(toggleTorch)
-                   forControlEvents:UIControlEventTouchDown];
-        
-        [self.controlsView addSubview:self.torchButton];
-        [self.controlsView bringSubviewToFront:self.torchButton];
-    }
-    
-    if (self.isButtonBordersVisible) {
-        [self.cancelButton.layer setCornerRadius:8.0f];
-        [self.cancelButton.layer setBorderColor:[UIColor redColor].CGColor];
-        [self.cancelButton.layer setBorderWidth:1.5f];
-        
-        [self.flipButton.layer setCornerRadius:8.0f];
-        [self.flipButton.layer setBorderColor:[UIColor whiteColor].CGColor];
-        [self.flipButton.layer setBorderWidth:1.5f];
-        
-        [self.torchButton.layer setCornerRadius:8.0f];
-        [self.torchButton.layer setBorderColor:[UIColor whiteColor].CGColor];
-        [self.torchButton.layer setBorderWidth:1.5f];
-    } else {
-        [self.cancelButton.layer setBorderWidth:0.f];
-        
-        [self.flipButton.layer setBorderWidth:0.f];
-        
-        [self.torchButton.layer setBorderWidth:0.f];
-    }
-    
-    switch (UI_USER_INTERFACE_IDIOM()) {
-        case UIUserInterfaceIdiomPad: {
-            sidebarRect = CGRectMake(self.view.frame.size.width - 110, 0, 110,
-                                     self.view.frame.size.height);
-            flipButtonRect = CGRectMake(viewSize.width - 70, 30, 56, 20);
-            cancelButtonRect = CGRectMake(self.view.frame.size.width - 80,
-                                          viewSize.height - 40, 56, 30);
             
-            if (orientation == 0) { // Default orientation
-                // failsafe
-            } else if (orientation == UIInterfaceOrientationPortrait) {
-            } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
-            } else if (orientation == UIInterfaceOrientationLandscapeLeft ||
-                       orientation == UIInterfaceOrientationLandscapeRight) {
-                flipButtonRect = CGRectMake(viewSize.width - 80, 30, 56, 20);
+            [self.controlsView addSubview:self.torchButton];
+            [self.controlsView bringSubviewToFront:self.torchButton];
+        }
+        
+        if (self.isButtonBordersVisible) {
+            [self.cancelButton.layer setCornerRadius:8.0f];
+            [self.cancelButton.layer setBorderColor:[UIColor redColor].CGColor];
+            [self.cancelButton.layer setBorderWidth:1.5f];
+            
+            [self.flipButton.layer setCornerRadius:8.0f];
+            [self.flipButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+            [self.flipButton.layer setBorderWidth:1.5f];
+            
+            [self.torchButton.layer setCornerRadius:8.0f];
+            [self.torchButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+            [self.torchButton.layer setBorderWidth:1.5f];
+        } else {
+            [self.cancelButton.layer setBorderWidth:0.f];
+            
+            [self.flipButton.layer setBorderWidth:0.f];
+            
+            [self.torchButton.layer setBorderWidth:0.f];
+        }
+        
+        switch (UI_USER_INTERFACE_IDIOM()) {
+            case UIUserInterfaceIdiomPad: {
+                sidebarRect = CGRectMake(self.view.frame.size.width - 110, 0, 110,
+                                         self.view.frame.size.height);
+                flipButtonRect = CGRectMake(viewSize.width - 70, 30, 56, 20);
                 cancelButtonRect = CGRectMake(self.view.frame.size.width - 80,
-                                              viewSize.height - 60, 56, 42);
-            }
-        } break;
-            
-        case UIUserInterfaceIdiomPhone: {
-            const int marginToTop = 22;
-            
-            sidebarRect = CGRectMake(0, 0, viewSize.width, marginToTop + 40);
-            flipButtonRect = CGRectMake(viewSize.width - 40, marginToTop, 30, 20);
-            torchButtonRect = CGRectMake(viewSize.width / 2 - 24, marginToTop, 30, 20);
-            cancelButtonRect = CGRectMake(5, marginToTop, 50, 30);
-            
-            if (orientation == 0) { // Default orientation
-                // failsafe
-            } else if (orientation == UIInterfaceOrientationPortrait) {
-            } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
-            } else if (orientation == UIInterfaceOrientationLandscapeLeft ||
-                       orientation == UIInterfaceOrientationLandscapeRight) {
-                sidebarRect = CGRectMake(0, 0, viewSize.width, marginToTop + 70);
+                                              viewSize.height - 40, 56, 30);
                 
-                const int rotateMargin = 15;
-                flipButtonRect =
-                CGRectMake(viewSize.width - 40, marginToTop + rotateMargin, 30, 20);
-                torchButtonRect = CGRectMake(viewSize.width / 2 - 16,
-                                             marginToTop + rotateMargin, 30, 30);
-                cancelButtonRect = CGRectMake(5, marginToTop + rotateMargin, 30, 30);
-            }
-        } break;
-            
-        default:
-            break;
-    }
-    
-    if (orientation == UIDeviceOrientationPortraitUpsideDown)
-        rotationAngle = M_PI;
-    else if (orientation == UIDeviceOrientationLandscapeLeft)
-        rotationAngle = M_PI_2;
-    else if (orientation == UIDeviceOrientationLandscapeRight)
-        rotationAngle = -M_PI_2;
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         [self.sidebarView setFrame:sidebarRect];
-                         [self.flipButton setFrame:flipButtonRect];
-                         [self.cancelButton setFrame:cancelButtonRect];
-                         if ([self __isModal]) {
-                             [self.torchButton setFrame:torchButtonRect];
-                         } else {
-                             [self.torchButton setFrame:cancelButtonRect];
+                if (orientation == 0) { // Default orientation
+                    // failsafe
+                } else if (orientation == UIInterfaceOrientationPortrait) {
+                } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
+                } else if (orientation == UIInterfaceOrientationLandscapeLeft ||
+                           orientation == UIInterfaceOrientationLandscapeRight) {
+                    flipButtonRect = CGRectMake(viewSize.width - 80, 30, 56, 20);
+                    cancelButtonRect = CGRectMake(self.view.frame.size.width - 80,
+                                                  viewSize.height - 60, 56, 42);
+                }
+            } break;
+                
+            case UIUserInterfaceIdiomPhone: {
+                const int marginToTop = 22;
+                
+                sidebarRect = CGRectMake(0, 0, viewSize.width, marginToTop + 40);
+                flipButtonRect = CGRectMake(viewSize.width - 40, marginToTop, 30, 20);
+                torchButtonRect = CGRectMake(viewSize.width / 2 - 24, marginToTop, 30, 20);
+                cancelButtonRect = CGRectMake(5, marginToTop, 50, 30);
+                
+                if (orientation == 0) { // Default orientation
+                    // failsafe
+                } else if (orientation == UIInterfaceOrientationPortrait) {
+                } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
+                } else if (orientation == UIInterfaceOrientationLandscapeLeft ||
+                           orientation == UIInterfaceOrientationLandscapeRight) {
+                    sidebarRect = CGRectMake(0, 0, viewSize.width, marginToTop + 70);
+                    
+                    const int rotateMargin = 15;
+                    flipButtonRect =
+                    CGRectMake(viewSize.width - 40, marginToTop + rotateMargin, 30, 20);
+                    torchButtonRect = CGRectMake(viewSize.width / 2 - 16,
+                                                 marginToTop + rotateMargin, 30, 30);
+                    cancelButtonRect = CGRectMake(5, marginToTop + rotateMargin, 30, 30);
+                }
+            } break;
+                
+            default:
+                break;
+        }
+        
+        if (orientation == UIDeviceOrientationPortraitUpsideDown)
+            rotationAngle = M_PI;
+        else if (orientation == UIDeviceOrientationLandscapeLeft)
+            rotationAngle = M_PI_2;
+        else if (orientation == UIDeviceOrientationLandscapeRight)
+            rotationAngle = -M_PI_2;
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [self.sidebarView setFrame:sidebarRect];
+                             [self.flipButton setFrame:flipButtonRect];
+                             [self.cancelButton setFrame:cancelButtonRect];
+                             if ([self __isModal]) {
+                                 [self.torchButton setFrame:torchButtonRect];
+                             } else {
+                                 [self.torchButton setFrame:cancelButtonRect];
+                             }
                          }
-                     }
-                     completion:nil];
-    
-    [self.flipButton sizeToFit];
-    [self.cancelButton sizeToFit];
-    [self.torchButton sizeToFit];
+                         completion:nil];
+        
+        [self.flipButton sizeToFit];
+        [self.cancelButton sizeToFit];
+        [self.torchButton sizeToFit];
+    }
+    else
+    {
+        [self.cancelButton removeFromSuperview];
+        [self.sidebarView removeFromSuperview];
+        
+        if (( !self.flipButton || !self.navigationItem.rightBarButtonItem) &&
+            ([UIImagePickerController
+              isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront] &&
+             [UIImagePickerController
+              isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear])) {
+                 
+                 UIBarButtonItem *barButton=[[UIBarButtonItem alloc] initWithTitle:@"flip" style:UIBarButtonItemStyleDone target:self action:@selector(switchCamera)];
+                 self.navigationItem.rightBarButtonItem=barButton;
+             }
+    }
 }
 
 - (void)switchCamera {
