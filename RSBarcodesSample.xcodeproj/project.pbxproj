@@ -87,8 +87,9 @@
 		D076CCAC1871126600CC3332 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D076CCAB1871126600CC3332 /* AVFoundation.framework */; };
 		D076CCAF1871179400CC3332 /* RSCode93Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CCAE1871179400CC3332 /* RSCode93Generator.m */; };
 		D076CCB2187117AB00CC3332 /* RSCode128Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = D076CCB1187117AB00CC3332 /* RSCode128Generator.m */; };
-		D0CA1B011BD4EDE70088151D /* RSITFGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CA1B001BD4EDE70088151D /* RSITFGenerator.m */; settings = {ASSET_TAGS = (); }; };
+		D0CA1B011BD4EDE70088151D /* RSITFGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CA1B001BD4EDE70088151D /* RSITFGenerator.m */; };
 		D0D0731118D6E1A800CDBD2C /* RSITF14Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D0731018D6E1A800CDBD2C /* RSITF14Generator.m */; };
+		D0E8793F1BDE0B5C00D1A577 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0E8793E1BDE0B5C00D1A577 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +157,7 @@
 		D0CA1B001BD4EDE70088151D /* RSITFGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSITFGenerator.m; sourceTree = "<group>"; };
 		D0D0730F18D6E1A800CDBD2C /* RSITF14Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSITF14Generator.h; sourceTree = "<group>"; };
 		D0D0731018D6E1A800CDBD2C /* RSITF14Generator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSITF14Generator.m; sourceTree = "<group>"; };
+		D0E8793E1BDE0B5C00D1A577 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +249,7 @@
 				D00491CA18697908005ED994 /* RSBarcodes */,
 				D00491A1186978F1005ED994 /* AppDelegate.h */,
 				D00491A2186978F1005ED994 /* AppDelegate.m */,
+				D0E8793E1BDE0B5C00D1A577 /* Launch Screen.storyboard */,
 				D00491A4186978F1005ED994 /* Main_iPhone.storyboard */,
 				D00491A7186978F1005ED994 /* Main_iPad.storyboard */,
 				D00491AA186978F1005ED994 /* ViewController.h */,
@@ -443,6 +446,7 @@
 				D00491A9186978F1005ED994 /* Main_iPad.storyboard in Resources */,
 				D00491AE186978F1005ED994 /* Images.xcassets in Resources */,
 				D00491A6186978F1005ED994 /* Main_iPhone.storyboard in Resources */,
+				D0E8793F1BDE0B5C00D1A577 /* Launch Screen.storyboard in Resources */,
 				D004919D186978F1005ED994 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
