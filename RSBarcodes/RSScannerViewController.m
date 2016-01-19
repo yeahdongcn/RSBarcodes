@@ -378,9 +378,6 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
         self.barcodesHandler([NSArray arrayWithArray:barcodeObjects]);
     }
     
-    if (self.stopOnFirst) {
-        [self startRunning];
-    }
 }
 
 #pragma mark - Public
