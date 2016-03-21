@@ -265,6 +265,7 @@ NSString *const AVMetadataObjectTypeFace = @"face";
     if (self.layer.connection.supportsVideoOrientation && source != target) {
         self.layer.connection.videoOrientation = target;
     }
+    self.layer.frame = self.view.bounds;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
