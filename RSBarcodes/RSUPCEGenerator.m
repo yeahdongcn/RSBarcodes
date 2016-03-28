@@ -109,6 +109,7 @@ static NSString *const UPCE_SEQUENCES[10] = {
     //    Sum the results of step 3 and step 4.
     //    divide the result of step 4 by 10. The check digit is the number which
     // adds the remainder to 10.
+    //    If there is no remainder then the check digit equals zero.
     NSString *upc_a = [self convert2UPC_A:contents];
     int sum_odd = 0;
     int sum_even = 0;
@@ -120,7 +121,8 @@ static NSString *const UPCE_SEQUENCES[10] = {
             sum_odd += digit;
         }
     }
-    return [NSString stringWithFormat:@"%d", 10 - (sum_even + sum_odd * 3) % 10];
+    int remainder = (sum_even + sum_odd * 3) % 10;
+    return [NSString stringWithFormat:@"%d", (remainder == 0) ? remainder : (10 - remainder)];
 }
 
 @end
