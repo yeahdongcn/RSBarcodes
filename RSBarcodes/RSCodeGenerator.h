@@ -119,7 +119,8 @@ static inline UIImage *genCode(NSString *contents, NSString *filterName) {
     NSData *data = [contents dataUsingEncoding:NSUTF8StringEncoding];
     [filter setValue:data forKey:@"inputMessage"];
     
-    CIImage *outputImage = [filter outputImage];
+    CGAffineTransform scale = CGAffineTransformMakeScale(15.0f, 15.0f);
+    CIImage *outputImage = [[filter outputImage] imageByApplyingTransform:scale];
     CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef cgImage =
     [context createCGImage:outputImage fromRect:[outputImage extent]];
