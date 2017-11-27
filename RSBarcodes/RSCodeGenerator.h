@@ -18,10 +18,10 @@
 @required
 
 - (UIImage *)genCodeWithMachineReadableCodeObject:
-(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject;
+(AVMetadataMachineReadableCodeObject *)machineReadableCodeObject withWidth:(CGFloat)width withHeight:(CGFloat)height;
 
 - (UIImage *)genCodeWithContents:(NSString *)contents
-   machineReadableCodeObjectType:(NSString *)type;
+   machineReadableCodeObjectType:(NSString *)type withWidth:(CGFloat)width withHeight:(CGFloat)height;
 
 /** The fill (background) color of the generated barcode. */
 @property (nonatomic, strong) UIColor *fillColor;
@@ -98,7 +98,7 @@ extern NSString *const DIGITS_STRING;
  *
  *  @return Encoded image.
  */
-- (UIImage *)drawCompleteBarcode:(NSString *)code;
+- (UIImage *)drawCompleteBarcode:(NSString *)code withWidth:(CGFloat)width withHeight:(CGFloat)height;
 
 @end
 
