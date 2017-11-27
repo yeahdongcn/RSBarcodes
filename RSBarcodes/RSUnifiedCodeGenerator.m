@@ -123,7 +123,7 @@ NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
         codeGen.strokeColor = self.strokeColor;
         
         return [codeGen genCodeWithContents:contents
-              machineReadableCodeObjectType:withWidth:width withHeight:height];
+              machineReadableCodeObjectType:type withWidth:width withHeight:height];
     } else {
         return nil;
     }
