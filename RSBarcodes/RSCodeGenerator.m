@@ -14,6 +14,13 @@
 
 NSString *const DIGITS_STRING = @"0123456789";
 
+CGFloat const WIDTH_REF = 90.f; 
+CGFloat const HEIGHT_REF = 28.f; 
+ 
+CGFloat const TOP_SPACING_REF = 1.5f; 
+CGFloat const BOTTOM_SPACING_REF = 2.f; 
+CGFloat const SIDE_SPACING_REF = 2.f; 
+
 - (BOOL)isContentsValid:(NSString *)contents {
     if (contents.length > 0) {
         for (int i = 0; i < contents.length; i++) {
@@ -45,7 +52,7 @@ NSString *const DIGITS_STRING = @"0123456789";
             stringWithFormat:@"%@%@%@", [self initiator], barcode, [self terminator]];
 }
 
-- (UIImage *)drawCompleteBarcode:(NSString *)code {
+- (UIImage *)drawCompleteBarcode:(NSString *)code withWidth:(CGFloat)width withHeight:(CGFloat)height {
     if (code.length <= 0) {
         return nil;
     }
@@ -55,9 +62,14 @@ NSString *const DIGITS_STRING = @"0123456789";
     // Top spacing          = 1.5
     // Bottom spacing       = 2
     // Left & right spacing = 2
-    // Height               = 28
-    CGSize size = CGSizeMake(code.length + 4, 28);
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    // Height               = 28        = 112 
+    // Width = 90 ==> lineWith 1 
+     
+    CGFloat widthRatio = width / WIDTH_REF; 
+    CGFloat heightRatio = height / HEIGHT_REF; 
+ 
+    CGSize size = CGSizeMake(width, height); 
+    UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CGContextSetShouldAntialias(context, false);
@@ -74,13 +86,13 @@ NSString *const DIGITS_STRING = @"0123456789";
     [self.strokeColor setStroke];
     
     CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
-    CGContextSetLineWidth(context, 1);
+    CGContextSetLineWidth(context, widthRatio);
     
     for (int i = 0; i < code.length; i++) {
         NSString *character = [code substringWithRange:NSMakeRange(i, 1)];
         if ([character isEqualToString:@"1"]) {
-            CGContextMoveToPoint(context, i + (2 + 1), 1.5);
-            CGContextAddLineToPoint(context, i + (2 + 1), size.height - 2);
+            CGContextMoveToPoint(context, (i + (SIDE_SPACING_REF * heightRatio + 1)) * widthRatio, TOP_SPACING_REF * heightRatio); 
+            CGContextAddLineToPoint(context, (i + (SIDE_SPACING_REF * heightRatio + 1)) * widthRatio, size.height - BOTTOM_SPACING_REF * heightRatio); 
         }
     }
     CGContextDrawPath(context, kCGPathFillStroke);
@@ -95,19 +107,19 @@ NSString *const DIGITS_STRING = @"0123456789";
 #pragma mark - RSCodeGenerator
 
 - (UIImage *)genCodeWithContents:(NSString *)contents
-   machineReadableCodeObjectType:(NSString *)type {
+   machineReadableCodeObjectType:(NSString *)type withWidth:(CGFloat)width withHeight:(CGFloat)height {
     if ([self isContentsValid:contents]) {
         return [self
-                drawCompleteBarcode:[self completeBarcode:[self barcode:contents]]];
+                drawCompleteBarcode:[self completeBarcode:[self barcode:contents]] withWidth:width withHeight:height];
     }
     return nil;
 }
 
 - (UIImage *)genCodeWithMachineReadableCodeObject:
 (AVMetadataMachineReadableCodeObject *)
-machineReadableCodeObject {
+machineReadableCodeObject withWidth:(CGFloat)width withHeight:(CGFloat)height { 
     return [self genCodeWithContents:[machineReadableCodeObject stringValue]
-       machineReadableCodeObjectType:[machineReadableCodeObject type]];
+       machineReadableCodeObjectType:[machineReadableCodeObject type] withWidth:width withHeight:height];
 }
 
 @end
