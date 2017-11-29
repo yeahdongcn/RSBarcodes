@@ -20,6 +20,7 @@ CGFloat const HEIGHT_REF = 28.f;
 CGFloat const TOP_SPACING_REF = 1.5f; 
 CGFloat const BOTTOM_SPACING_REF = 2.f; 
 CGFloat const SIDE_SPACING_REF = 2.f; 
+CGFloat fixRatio = 0.8;
 
 - (BOOL)isContentsValid:(NSString *)contents {
     if (contents.length > 0) {
@@ -86,14 +87,13 @@ CGFloat const SIDE_SPACING_REF = 2.f;
     [self.strokeColor setStroke];
     
     CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
-    CGContextSetLineWidth(context, widthRatio);
+    CGContextSetLineWidth(context, widthRatio * fixRatio);
     
     for (int i = 0; i < code.length; i++) {
         NSString *character = [code substringWithRange:NSMakeRange(i, 1)];
         if ([character isEqualToString:@"1"]) {
-            CGContextMoveToPoint(context, (i + (SIDE_SPACING_REF * heightRatio + 1)) * widthRatio, TOP_SPACING_REF * heightRatio); 
-            CGContextAddLineToPoint(context, (i + (SIDE_SPACING_REF * heightRatio + 1)) * widthRatio, size.height - BOTTOM_SPACING_REF * heightRatio); 
-        }
+            CGContextMoveToPoint(context, ((i + (SIDE_SPACING_REF * heightRatio + widthRatio)) * widthRatio) * fixRatio, TOP_SPACING_REF * heightRatio);
+            CGContextAddLineToPoint(context, ((i + (SIDE_SPACING_REF * heightRatio + widthRatio)) * widthRatio) * fixRatio , size.height - BOTTOM_SPACING_REF * heightRatio);        }
     }
     CGContextDrawPath(context, kCGPathFillStroke);
     
