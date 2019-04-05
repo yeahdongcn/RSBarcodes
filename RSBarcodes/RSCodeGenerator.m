@@ -108,11 +108,7 @@ CGFloat fixRatio = 0.8;
 
 - (UIImage *)genCodeWithContents:(NSString *)contents
    machineReadableCodeObjectType:(NSString *)type withWidth:(CGFloat)width withHeight:(CGFloat)height {
-    if ([self isContentsValid:contents]) {
-        return [self
-                drawCompleteBarcode:[self completeBarcode:[self barcode:contents]] withWidth:width withHeight:height];
-    }
-    return nil;
+    return [self drawCompleteBarcode:[self completeBarcode:[self barcode:contents]] withWidth:width withHeight:height];
 }
 
 - (UIImage *)genCodeWithMachineReadableCodeObject:
