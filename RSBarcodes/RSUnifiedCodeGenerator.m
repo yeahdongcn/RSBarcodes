@@ -68,7 +68,7 @@ NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
 #pragma mark - RSCodeGenerator
 
 - (UIImage *)genCodeWithContents:(NSString *)contents
-   machineReadableCodeObjectType:(NSString *)type {
+   machineReadableCodeObjectType:(NSString *)type withWidth:(CGFloat)width withHeight:(CGFloat)height {
     if ([type isEqualToString:AVMetadataObjectTypeQRCode] ||
         [type isEqualToString:AVMetadataObjectTypePDF417Code] ||
         [type isEqualToString:AVMetadataObjectTypeAztecCode]) {
@@ -123,7 +123,7 @@ NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
         codeGen.strokeColor = self.strokeColor;
         
         return [codeGen genCodeWithContents:contents
-              machineReadableCodeObjectType:type];
+              machineReadableCodeObjectType:type withWidth:width withHeight:height];
     } else {
         return nil;
     }
@@ -131,9 +131,9 @@ NSString *const AVMetadataObjectTypeITF14Code           = @"org.gs1.ITF14";
 
 - (UIImage *)genCodeWithMachineReadableCodeObject:
 (AVMetadataMachineReadableCodeObject *)
-machineReadableCodeObject {
+machineReadableCodeObject withWidth:(CGFloat)width withHeight:(CGFloat)height {
     return [self genCodeWithContents:[machineReadableCodeObject stringValue]
-       machineReadableCodeObjectType:[machineReadableCodeObject type]];
+       machineReadableCodeObjectType:[machineReadableCodeObject type] withWidth:width withHeight:height]; 
 }
 
 @end
